@@ -1,0 +1,8 @@
+# Generated Sources
+app/metadata.json
+
+# Electron
+dist/
+
+# Node
+node_modules/

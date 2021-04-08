@@ -1,0 +1,80 @@
+{
+  "name": "chat-radar-desktop",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Desktop Jabber/XMPP client based on Converse.js and Electron",
+  "main": "main.js",
+  "scripts": {
+    "postinstall": "electron-builder install-app-deps && npm run build",
+    "start": "electron .",
+    "build": "npm run build:metadata",
+    "build:metadata": "node scripts/copy-version-metadata.js",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder --mac dmg",
+    "dist:win64": "electron-builder --win --x64",
+    "dist:linux64deb": "electron-builder --linux --x64"
+  },
+  "repository": "https://github.com/conversejs/converse-desktop",
+  "keywords": [
+    "Jabber",
+    "XMPP",
+    "Client",
+    "converse.js",
+    "Electron",
+    "OMEMO"
+  ],
+  "author": "Nick Denry <nick@denry.ru>",
+  "contributors": [
+    "Chance Snow <chance@snow.llc>"
+  ],
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "electron": "^12.0.2",
+    "electron-builder": "^22.10.5",
+    "electron-packager": "^15.2.0"
+  },
+  "dependencies": {
+    "angular": "^1.7.9",
+    "converse.js": "^7.0.0",
+    "electron-settings": "^4.0.2",
+    "github-buttons": "^2.8.0",
+    "keytar": "^7.6.0",
+    "open-iconic": "^1.1.1"
+  },
+  "build": {
+    "appId": "com.denry.converse-desktop",
+    "productName": "Converse Desktop",
+    "mac": {
+      "category": "public.app-category.social-networking",
+      "icon": "resources/images/logo.icns",
+      "target": "pkg"
+    },
+    "dmg": {
+      "title": "${productName}",
+      "contents": [
+        {
+          "x": 160,
+          "y": 220
+        },
+        {
+          "x": 375,
+          "y": 220,
+          "type": "link",
+          "path": "/Applications"
+        }
+      ]
+    },
+    "linux": {
+      "artifactName": "converse_desktop-${version}_${arch}.${ext}",
+      "icon": "resources/images/logo@2x.png",
+      "target": [
+        "deb",
+        "tar.gz"
+      ]
+    },
+    "win": {
+      "target": "nsis",
+      "icon": "resources/images/logo.ico"
+    }
+  }
+}
