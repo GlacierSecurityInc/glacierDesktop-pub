@@ -1,6 +1,6 @@
 let angApp = require(__dirname+'/../init')
 
-angApp.controller('LoginController', function($scope, DesktopService, CognitoService, CredentialsService) {
+angApp.controller('LoginController', function($scope, AppInfo, DesktopService, CognitoService, CredentialsService) {
 
     $scope.help = {}
     $scope.error = null
@@ -13,7 +13,7 @@ angApp.controller('LoginController', function($scope, DesktopService, CognitoSer
         $scope.error = null
         CognitoService.fetchCredentials($scope.credentials.login, $scope.credentials.password).then(credentials => {
             CredentialsService.addCredentials(
-                credentials.connectionManager,
+                AppInfo.GLACIER_BOSH,
                 credentials.login,
                 credentials.password
             )

@@ -3,7 +3,7 @@ const angApp = require(__dirname + '/../init')
 const { Auth } = require('aws-amplify')
 const { RestAPI } = require('@aws-amplify/api-rest')
 
-angApp.factory('CognitoService', ($window, $timeout) => {
+angApp.factory('CognitoService', ($window, $timeout, AppInfo) => {
     return {
         fetchCredentials: (username, password) => {
             return Auth.signIn(username.split('@')[0], password).then(response => {
@@ -11,9 +11,6 @@ angApp.factory('CognitoService', ($window, $timeout) => {
                 // TODO: Ask the user to reset their password?
                 ? response.challengeParam.userAttributes["custom:organization"]
                 : response.attributes['custom:organization']
-                
-                console.log('Username is:', response.username)
-                console.log('Organization is:', organization)
 
                 return RestAPI.get('userinfo', '/user', {
                     queryStringParameters: {
@@ -22,11 +19,9 @@ angApp.factory('CognitoService', ($window, $timeout) => {
                     },
                     headers: { Authorization: response.signInUserSession.idToken.jwtToken }
                 })
-            }).then(loginCredentials => {
-                const credentials = loginCredentials.data.Item
-                console.log(credentials)
+            }).then(user => {
+                const credentials = user.data.Item
                 return {
-                    connectionManager: null,
                     login: credentials.messenger_id,
                     password: credentials.glacierpwd
                 }

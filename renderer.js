@@ -16,8 +16,8 @@ Amplify.configure({
     },
     API: {
         endpoints: [{
-            name: "",
-            endpoint: ""
+            name: 'userinfo',
+            endpoint: 'https://u1uq9t8d2h.execute-api.us-east-2.amazonaws.com/production'
         }]
     }
 })
