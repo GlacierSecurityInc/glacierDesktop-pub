@@ -16,7 +16,7 @@
                 </div>
             </div>
             <div class="login-form__wrapper">
-                <button class="login-form__button" ng-click="addAccountAndLoginAction()" ng-disabled="accountForm.$invalid" disabled>Add account</button>
+                <button class="login-form__button" ng-click="addAccountAndLoginAction()" ng-disabled="loggingIn || accountForm.$invalid" disabled>Add account</button>
             </div>
             <div class="login-form__wrapper">
                 <p class="login-form__input-help" ng-show="error !== null">{{error}}</p>
