@@ -2,8 +2,29 @@
 // be executed in the renderer process for that window.
 // All of the Node.js APIs are available in this process.
 
-var angApp = require('./app/init')
+const { Amplify } = require('aws-amplify')
+Amplify.configure({
+    Auth: {
+        // REQUIRED only for Federated Authentication - Amazon Cognito Identity Pool ID
+        identityPoolId: '6jbo72qqpehqhu9sm21toc1m4j',
+        // REQUIRED - Amazon Cognito Region
+        region: 'us-east-2',
+        // OPTIONAL - Amazon Cognito User Pool ID
+        userPoolId: 'us-east-2_SIdjRFQg0',
+        // OPTIONAL - Amazon Cognito Web Client ID (26-char alphanumeric string)
+        userPoolWebClientId: '6jbo72qqpehqhu9sm21toc1m4j',
+    },
+    API: {
+        endpoints: [{
+            name: "",
+            endpoint: ""
+        }]
+    }
+})
 
+const angApp = require('./app/init')
+
+require('./app/services/cognito-service')
 require('./app/services/credentials-service')
 require('./app/services/settings-service')
 require('./app/services/system-service')
