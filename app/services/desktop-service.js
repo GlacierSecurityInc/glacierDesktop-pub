@@ -66,14 +66,12 @@ angApp.factory('DesktopService', (
     }
 
     desktopService.getCredentialsAndLogin = () => {
-        let credentials = CredentialsService.getCredentials()
-        credentials.then((result) => {
+        CredentialsService.getCredentials().then((result) => {
             desktopService.initConverse(result.connectionManager, result.login, result.password)
         }, (error) => {
             AppStateService.set(AppStateService.APP_STATE_LOGIN)
         })
     }
-
 
     desktopService.chatToOpen = null
 

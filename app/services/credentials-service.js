@@ -10,28 +10,24 @@ angApp.factory('CredentialsService', () => {
     credentialsService.getCredentials = () => {
         let credentials = {}
         credentials.login = settings.getSync('login')
-        let promise = new Promise((resolve, reject) => {
-            if (credentials.login) {
-                credentials.connectionManager = settings.getSync('connectionManager')
-                credentials.xmppService = credentials.login.split('@').pop()
-                let password = keytar.getPassword(credentials.xmppService, credentials.login)
-                password.then((result) => {
-                    credentials.password = result
-                    resolve(credentials)
-                })
-            }
-            else {
-                reject(Error('No login stored'))
-            }
+        return new Promise((resolve, reject) => {
+            if (!credentials.login) reject(Error('No login stored'))
+
+            credentials.connectionManager = settings.getSync('connectionManager')
+            credentials.xmppService = credentials.login.split('@').pop()
+            keytar.getPassword(credentials.xmppService, credentials.login).then((result) => {
+                if (result == null) reject(Error('No password stored'))
+                credentials.password = result
+                resolve(credentials)
+            })
         })
-        return promise
     }
 
     credentialsService.addCredentials = (connectionManager, login, password) => {
         let xmppService = login.split('@').pop()
         settings.setSync('connectionManager', connectionManager)
         settings.setSync('login', login)
-        keytar.setPassword(xmppService, login, password)
+        return keytar.setPassword(xmppService, login, password)
     }
 
     credentialsService.removeCredentials = (login) => {

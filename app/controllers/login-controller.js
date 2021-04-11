@@ -18,8 +18,7 @@ angApp.controller('LoginController', function($scope, AppInfo, DesktopService, C
                 AppInfo.GLACIER_BOSH,
                 credentials.login,
                 credentials.password
-            )
-            DesktopService.getCredentialsAndLogin()
+            ).then(() => DesktopService.getCredentialsAndLogin())
         }).catch(error => {
             $scope.error = error
         }).finally(() => {
