@@ -1,5 +1,7 @@
 let desktopPlugin = {}
 
+desktopPlugin.registered = false
+
 desktopPlugin.register = (login) => {
     converse.plugins.add('converseDesktop', {
         initialize: (event) => {
@@ -62,6 +64,7 @@ desktopPlugin.register = (login) => {
             })
         }
     })
+    desktopPlugin.registered = true
 }
 
 module.exports = desktopPlugin
