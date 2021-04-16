@@ -11,12 +11,12 @@ angApp.factory('SettingsService', () => {
             runMinimized: {
                 default: false,
                 title: 'Run minimized',
-                hint: 'Default: false. Whether run Converse Desktop minimized to tray or not.'
+                hint: 'Default: false. Whether run Glacier Desktop minimized to tray or not.'
             },
             minimizeOnClose: {
                 default: false,
                 title: 'Minimize on close',
-                hint: 'Default: false. Minimize or close Converse Desktop window.'
+                hint: 'Default: false. Minimize or close Glacier Desktop window.'
             },
             preserveWindowSize: {
                 default: true,

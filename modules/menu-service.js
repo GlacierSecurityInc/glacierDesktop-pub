@@ -12,7 +12,7 @@ menuService.createMenu = () => {
     const isMac = process.platform === 'darwin'
 
     const about = {
-        label: 'About Converse Desktop',
+        label: 'About Glacier Desktop',
         click: () => {
             // @see https://github.com/electron/electron/issues/16558#issuecomment-484460276
             // let activeWindow = BrowserWindow.getFocusedWindow()
@@ -23,7 +23,7 @@ menuService.createMenu = () => {
     }
 
     const application = {
-        label: 'Converse Desktop',
+        label: 'Glacier Desktop',
         submenu: [
             ... isMac ? [about] : [],
             {

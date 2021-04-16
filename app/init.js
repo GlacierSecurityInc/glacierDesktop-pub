@@ -9,7 +9,7 @@ const {
 
 const angApp = angular.module('app', [])
 angApp.constant('AppInfo', {
-    APP_NAME: 'Converse Desktop',
+    APP_NAME: 'Glacier Desktop',
     APP_VERSION: `v${appVersion}`,
     APP_HOME: 'https://github.com/conversejs/converse-desktop',
     APP_RELEASES_CHECK_URL: 'https://api.github.com/repos/conversejs/converse-desktop/releases',
