@@ -34,11 +34,6 @@ angApp.factory('SettingsService', () => {
                 default: false,
                 title: 'Allow server bookmarks',
                 hint: 'Default: false. Enables/disables chatroom bookmarks functionality.'
-            },
-            omemoDefault: {
-                default: false,
-                title: 'Use OMEMO encryption by default',
-                hint: 'Default: false. Use OMEMO encryption by default when the chat supports it.'
             }
         }
     }

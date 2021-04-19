@@ -46,7 +46,6 @@ angApp.factory('DesktopService', (
         desktopPlugin.register(login)
         let lang = navigator.language
         let allowBookmarks = SettingsService.get('allowBookmarks')
-        let omemoDefault = SettingsService.get('omemoDefault')
         let xmppResource = XmppHelperService.getResourceFromJid(login)
         if (!xmppResource) {
             xmppResource = '.' + (Math.random().toString(36)+'00000000000000000').slice(2, 7) // Generate 5 char unique str
@@ -57,10 +56,11 @@ angApp.factory('DesktopService', (
             allow_bookmarks: allowBookmarks,
             auto_login: true,
             auto_reconnect: true,
+            // clear_cache_on_logout: true,
             // debug: true,
             i18n: lang,
             jid: login,
-            omemo_default: omemoDefault,
+            omemo_default: true,
             password: password,
             play_sounds: false,
             priority: 50,
@@ -73,6 +73,7 @@ angApp.factory('DesktopService', (
             conversejsParams.bosh_service_url = connectionManager
         }
         $timeout(() => {
+            // TODO: https://conversejs.org/docs/html/api/-_converse.html#setUserJID for connection manager discovery
             converse.initialize(conversejsParams)
         }, 50)
     }
