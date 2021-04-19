@@ -11,7 +11,7 @@ angApp.factory('CredentialsService', () => {
         let credentials = {}
         credentials.login = settings.getSync('login')
         return new Promise((resolve, reject) => {
-            if (!credentials.login) reject(Error('No login stored'))
+            if (!credentials.login) resolve(null)
 
             credentials.connectionManager = settings.getSync('connectionManager')
             credentials.xmppService = credentials.login.split('@').pop()

@@ -7,7 +7,11 @@ angApp.factory('DesktopService', (
         SettingsService, XmppHelperService
     ) => {
 
-    let desktopService = {}
+    let desktopService = {
+        initialized: false,
+        loggedIn: false,
+        chatToOpen: null
+    }
 
     desktopService._notifyMessage = () => {
         SystemService.playAudio()
@@ -19,18 +23,26 @@ angApp.factory('DesktopService', (
     }
 
     desktopService.logout = () => {
-        let credentials = CredentialsService.getCredentials()
-        credentials.then((result) => {
-            let remove = CredentialsService.removeCredentials(result.login)
+        CredentialsService.getCredentials().then((result) => {
+            let remove = result !== null
+                ? CredentialsService.removeCredentials(result.login)
+                : Promise.resolve()
             console.log('Remove credentials on logout')
-            remove.then(() => {
-                AppStateService.set(AppStateService.APP_STATE_LOGIN)
-            })
+            desktopService.loggedIn = false
+            remove.then(() => AppStateService.set(AppStateService.APP_STATE_LOGIN))
         })
     }
 
     desktopService.initConverse = (connectionManager, login, password) => {
         AppStateService.set(AppStateService.APP_STATE_DEFAULT) // Always set to default state before init
+
+        if (desktopService.initialized) {
+            document.dispatchEvent(new CustomEvent('converse-login', {detail: {
+                jid: login, password
+            }}))
+            return
+        }
+
         desktopPlugin.register(login)
         let lang = navigator.language
         let allowBookmarks = SettingsService.get('allowBookmarks')
@@ -67,13 +79,23 @@ angApp.factory('DesktopService', (
 
     desktopService.getCredentialsAndLogin = () => {
         CredentialsService.getCredentials().then((result) => {
+            if (result === null) {
+                AppStateService.set(AppStateService.APP_STATE_LOGIN)
+                return
+            }
             desktopService.initConverse(result.connectionManager, result.login, result.password)
         }, (error) => {
             AppStateService.set(AppStateService.APP_STATE_LOGIN)
         })
     }
 
-    desktopService.chatToOpen = null
+    $window.document.addEventListener('conversejs-initialized', () => {
+        desktopService.initialized = true
+    })
+
+    $window.document.addEventListener('conversejs-user-status-initialized', () => {
+        desktopService.loggedIn = true
+    })
 
     $window.document.addEventListener('conversejs-logout', function (e) {
         desktopService.logout()
@@ -90,5 +112,4 @@ angApp.factory('DesktopService', (
     })
 
     return desktopService
-
 })

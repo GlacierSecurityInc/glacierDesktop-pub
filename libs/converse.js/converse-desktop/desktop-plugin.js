@@ -20,13 +20,22 @@ desktopPlugin.register = (login) => {
                 return result
             }
 
+            _converse.api.listen.on('initialized', () => {
+                document.dispatchEvent(new CustomEvent('conversejs-initialized'))
+            })
+            _converse.api.listen.on('statusInitialized', () => {
+                document.dispatchEvent(new CustomEvent('conversejs-user-status-initialized'))
+            })
+            window.document.addEventListener('converse-login', function (e) {
+                _converse.api.user.login(e.detail.jid, e.detail.password)
+            })
+
             Promise.all([
                 _converse.api.waitUntil('rosterContactsFetched'),
                 _converse.api.waitUntil('chatBoxesFetched')
             ]).then(() => {
                 _converse.api.listen.on('logout', () => {
-                    let event = new CustomEvent('conversejs-logout')
-                    document.dispatchEvent(event)
+                    document.dispatchEvent(new CustomEvent('conversejs-logout'))
                 })
                 _converse.api.listen.on('message', (data) => {
                     // Display notifications only for "payloaded" messages
@@ -48,7 +57,7 @@ desktopPlugin.register = (login) => {
                 })
                 window.document.addEventListener('converse-force-logout', function (e) {
                     console.log('Get converse-force-logout event')
-                    console.log('Logout form plugin')
+                    console.log('Logout from plugin')
                     _converse.api.user.logout()
                     //chimeverseService.logout()
                 })
