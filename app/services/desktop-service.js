@@ -31,7 +31,7 @@ angApp.factory('DesktopService', (
 
     desktopService.initConverse = (connectionManager, login, password) => {
         AppStateService.set(AppStateService.APP_STATE_DEFAULT) // Always set to default state before init
-        if (!desktopPlugin.registered) desktopPlugin.register(login)
+        desktopPlugin.register(login)
         let lang = navigator.language
         let allowBookmarks = SettingsService.get('allowBookmarks')
         let omemoDefault = SettingsService.get('omemoDefault')
