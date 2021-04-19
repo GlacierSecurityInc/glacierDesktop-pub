@@ -17,7 +17,7 @@ function initApp() {
     createWindow().show()
     // Set Windows platform notifications
     if (isWin) {
-        app.setAppUserModelId("com.denry.converseDesktop")
+        app.setAppUserModelId("chat.glacier.desktop")
     }
 }
 
