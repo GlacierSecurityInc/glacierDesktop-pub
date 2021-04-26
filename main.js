@@ -17,7 +17,7 @@ function initApp() {
     createWindow().show()
     // Set Windows platform notifications
     if (isWin) {
-        app.setAppUserModelId("com.denry.converseDesktop")
+        app.setAppUserModelId("chat.glacier.desktop")
     }
 }
 
@@ -28,6 +28,7 @@ function createWindow () {
         height: 600,
         minWidth: 780,
         minHeight: 560,
+        backgroundColor: '#f8f8f8',
         webPreferences: {
             nodeIntegration: true,
             contextIsolation: false,

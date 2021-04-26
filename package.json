@@ -35,6 +35,7 @@
   },
   "dependencies": {
     "angular": "^1.7.9",
+    "aws-amplify": "^3.3.26",
     "converse.js": "^7.0.0",
     "electron-settings": "^4.0.2",
     "github-buttons": "^2.8.0",
@@ -42,8 +43,8 @@
     "open-iconic": "^1.1.1"
   },
   "build": {
-    "appId": "com.denry.converse-desktop",
-    "productName": "Converse Desktop",
+    "appId": "chat.glacier.desktop",
+    "productName": "Glacier Desktop",
     "mac": {
       "category": "public.app-category.social-networking",
       "icon": "resources/images/logo.icns",
@@ -65,7 +66,7 @@
       ]
     },
     "linux": {
-      "artifactName": "converse_desktop-${version}_${arch}.${ext}",
+      "artifactName": "glacier_desktop-${version}_${arch}.${ext}",
       "icon": "resources/images/logo@2x.png",
       "target": [
         "deb",

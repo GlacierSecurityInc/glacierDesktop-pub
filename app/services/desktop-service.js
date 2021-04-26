@@ -7,7 +7,11 @@ angApp.factory('DesktopService', (
         SettingsService, XmppHelperService
     ) => {
 
-    let desktopService = {}
+    let desktopService = {
+        initialized: false,
+        loggedIn: false,
+        chatToOpen: null
+    }
 
     desktopService._notifyMessage = () => {
         SystemService.playAudio()
@@ -19,22 +23,29 @@ angApp.factory('DesktopService', (
     }
 
     desktopService.logout = () => {
-        let credentials = CredentialsService.getCredentials()
-        credentials.then((result) => {
-            let remove = CredentialsService.removeCredentials(result.login)
+        CredentialsService.getCredentials().then((result) => {
+            let remove = result !== null
+                ? CredentialsService.removeCredentials(result.login)
+                : Promise.resolve()
             console.log('Remove credentials on logout')
-            remove.then(() => {
-                AppStateService.set(AppStateService.APP_STATE_LOGIN)
-            })
+            desktopService.loggedIn = false
+            remove.then(() => AppStateService.set(AppStateService.APP_STATE_LOGIN))
         })
     }
 
     desktopService.initConverse = (connectionManager, login, password) => {
         AppStateService.set(AppStateService.APP_STATE_DEFAULT) // Always set to default state before init
+
+        if (desktopService.initialized) {
+            document.dispatchEvent(new CustomEvent('converse-login', {detail: {
+                jid: login, password
+            }}))
+            return
+        }
+
         desktopPlugin.register(login)
         let lang = navigator.language
         let allowBookmarks = SettingsService.get('allowBookmarks')
-        let omemoDefault = SettingsService.get('omemoDefault')
         let xmppResource = XmppHelperService.getResourceFromJid(login)
         if (!xmppResource) {
             xmppResource = '.' + (Math.random().toString(36)+'00000000000000000').slice(2, 7) // Generate 5 char unique str
@@ -45,10 +56,11 @@ angApp.factory('DesktopService', (
             allow_bookmarks: allowBookmarks,
             auto_login: true,
             auto_reconnect: true,
+            // clear_cache_on_logout: true,
             // debug: true,
             i18n: lang,
             jid: login,
-            omemo_default: omemoDefault,
+            omemo_default: true,
             password: password,
             play_sounds: false,
             priority: 50,
@@ -61,21 +73,30 @@ angApp.factory('DesktopService', (
             conversejsParams.bosh_service_url = connectionManager
         }
         $timeout(() => {
+            // TODO: https://conversejs.org/docs/html/api/-_converse.html#setUserJID for connection manager discovery
             converse.initialize(conversejsParams)
         }, 50)
     }
 
     desktopService.getCredentialsAndLogin = () => {
-        let credentials = CredentialsService.getCredentials()
-        credentials.then((result) => {
+        CredentialsService.getCredentials().then((result) => {
+            if (result === null) {
+                AppStateService.set(AppStateService.APP_STATE_LOGIN)
+                return
+            }
             desktopService.initConverse(result.connectionManager, result.login, result.password)
         }, (error) => {
             AppStateService.set(AppStateService.APP_STATE_LOGIN)
         })
     }
 
+    $window.document.addEventListener('conversejs-initialized', () => {
+        desktopService.initialized = true
+    })
 
-    desktopService.chatToOpen = null
+    $window.document.addEventListener('conversejs-user-status-initialized', () => {
+        desktopService.loggedIn = true
+    })
 
     $window.document.addEventListener('conversejs-logout', function (e) {
         desktopService.logout()
@@ -92,5 +113,4 @@ angApp.factory('DesktopService', (
     })
 
     return desktopService
-
 })
