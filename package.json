@@ -3,6 +3,10 @@
   "private": true,
   "version": "0.1.0",
   "description": "Desktop Jabber/XMPP client based on Converse.js and Electron",
+  "engines": {
+    "node": ">=15 <16"
+  },
+  "engineStrict": true,
   "main": "main.js",
   "scripts": {
     "postinstall": "electron-builder install-app-deps && npm run build",
