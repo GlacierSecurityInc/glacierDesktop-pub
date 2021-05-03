@@ -13,7 +13,7 @@
     "start": "electron .",
     "build": "npm run build:metadata && npm run build:vendor",
     "build:metadata": "node scripts/copy-version-metadata.js",
-    "build:vendor": "shx cp -r node_modules/converse.js libs/vendor/.",
+    "build:vendor": "shx cp -r node_modules/converse.js libs/vendor/. && node scripts/change-omemo-namespace.js",
     "pack": "electron-builder --dir",
     "dist": "electron-builder --mac dmg",
     "dist:win64": "electron-builder --win --x64",

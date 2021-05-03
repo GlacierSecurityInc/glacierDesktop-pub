@@ -52,7 +52,7 @@ angApp.factory('DesktopService', (
             login = login + '/converseDesktop'+xmppResource
         }
         let conversejsParams = {
-            assets_path: './node_modules/converse.js/dist/',
+            assets_path: './libs/vendor/converse.js/dist/',
             allow_bookmarks: allowBookmarks,
             auto_login: true,
             auto_reconnect: true,
