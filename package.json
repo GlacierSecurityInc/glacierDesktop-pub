@@ -11,8 +11,9 @@
   "scripts": {
     "postinstall": "electron-builder install-app-deps && npm run build",
     "start": "electron .",
-    "build": "npm run build:metadata",
+    "build": "npm run build:metadata && npm run build:vendor",
     "build:metadata": "node scripts/copy-version-metadata.js",
+    "build:vendor": "shx cp -r node_modules/converse.js libs/vendor/. && node scripts/change-omemo-namespace.js",
     "pack": "electron-builder --dir",
     "dist": "electron-builder --mac dmg",
     "dist:win64": "electron-builder --win --x64",
@@ -35,7 +36,8 @@
   "devDependencies": {
     "electron": "^12.0.2",
     "electron-builder": "^22.10.5",
-    "electron-packager": "^15.2.0"
+    "electron-packager": "^15.2.0",
+    "shx": "^0.3.3"
   },
   "dependencies": {
     "angular": "^1.7.9",
