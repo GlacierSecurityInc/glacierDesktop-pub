@@ -66,6 +66,8 @@ angApp.factory('DesktopService', (
             priority: 50,
             view_mode: 'embedded',
             whitelisted_plugins: ['converseDesktop'],
+            allow_contact_removal: false,
+            allow_adhoc_commands: false,
         }
         if (connectionManager.startsWith('ws')) {
             conversejsParams.websocket_url = connectionManager
