@@ -54,7 +54,8 @@
     "mac": {
       "category": "public.app-category.social-networking",
       "icon": "resources/images/logo.icns",
-      "target": "pkg"
+      "target": "pkg",
+      "identity": "Glacier Security, Inc. (5MXM7J8H38)"
     },
     "dmg": {
       "title": "${productName}",
