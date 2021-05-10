@@ -37,6 +37,7 @@
   "devDependencies": {
     "electron": "^12.0.2",
     "electron-builder": "^22.10.5",
+    "electron-builder-notarize": "^1.2.0",
     "electron-packager": "^15.2.0",
     "shx": "^0.3.3"
   },
@@ -52,11 +53,14 @@
   "build": {
     "appId": "chat.glacier.desktop",
     "productName": "Glacier Desktop",
+    "afterSign": "electron-builder-notarize",
     "mac": {
       "category": "public.app-category.social-networking",
       "icon": "resources/images/logo.icns",
       "target": "pkg",
-      "identity": "Glacier Security, Inc. (5MXM7J8H38)"
+      "identity": "Glacier Security, Inc. (5MXM7J8H38)",
+      "hardenedRuntime": true,
+      "entitlements": "entitlements.plist"
     },
     "dmg": {
       "title": "${productName}",
@@ -71,7 +75,8 @@
           "type": "link",
           "path": "/Applications"
         }
-      ]
+      ],
+      "sign": false
     },
     "linux": {
       "artifactName": "glacier_desktop-${version}_${arch}.${ext}",
