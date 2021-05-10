@@ -20,6 +20,12 @@ desktopPlugin.register = (login) => {
                 return result
             }
 
+            _converse.api.listen.on('getToolbarButtons', (_toolbar_el, buttons) => {
+                // Remove OMEMO toolbar button
+                buttons.pop()
+                return buttons
+            });
+
             _converse.api.listen.on('initialized', () => {
                 document.dispatchEvent(new CustomEvent('conversejs-initialized'))
             })
