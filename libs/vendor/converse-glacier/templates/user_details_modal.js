@@ -3,7 +3,6 @@ import { html } from "lit-html";
 import avatar from "./avatar.js";
 import { modal_close_button, modal_header_close_button } from "./buttons"
 
-
 export default (o) => {
     const i18n_address = __('XMPP Address');
     const i18n_email = __('Email');
@@ -18,7 +17,9 @@ export default (o) => {
         'extra_classes': 'mb-3',
         'height': '120',
         'width': '120'
-    }
+    };
+
+    const jidUsername = o.jid.split('@')[0];
 
     return html`
         <div class="modal-dialog" role="document">
@@ -29,8 +30,8 @@ export default (o) => {
                 </div>
                 <div class="modal-body">
                     ${ o.image ? html`<div class="mb-4">${avatar(Object.assign(o, avatar_data))}</div>` : '' }
+                    <p><a href="xmpp:${o.jid}">${o.nickname || ''}@${jidUsername}</a></p>
                     ${ o.fullname ? html`<p><label>${i18n_full_name}:</label> ${o.fullname}</p>` : '' }
-                    <p><label>${i18n_address}:</label> <a href="xmpp:${o.jid}">${o.jid}</a></p>
                     ${ o.nickname ? html`<p><label>${i18n_nickname}:</label> ${o.nickname}</p>` : '' }
                     ${ o.url ? html`<p><label>${i18n_url}:</label> <a target="_blank" rel="noopener" href="${o.url}">${o.url}</a></p>` : '' }
                     ${ o.email ? html`<p><label>${i18n_email}:</label> <a href="mailto:${o.email}">${o.email}</a></p>` : '' }
