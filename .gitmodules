@@ -1,3 +1,0 @@
-[submodule "libs/vendor/converse.js"]
-	path = libs/vendor/converse.js
-	url = https://github.com/conversejs/converse.js.git

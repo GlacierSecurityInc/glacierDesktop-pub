@@ -1,5 +1,6 @@
 # Vendored and Generated Sources
 app/metadata.json
+libs/vendor/converse.js/
 
 # Electron
 dist/
