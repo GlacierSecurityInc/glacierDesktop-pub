@@ -64,7 +64,7 @@ angApp.factory('DesktopService', (
             password: password,
             play_sounds: false,
             priority: 50,
-            view_mode: 'embedded',
+            view_mode: 'fullscreen',
             whitelisted_plugins: ['converseDesktop'],
             allow_contact_removal: false,
             allow_adhoc_commands: false,
