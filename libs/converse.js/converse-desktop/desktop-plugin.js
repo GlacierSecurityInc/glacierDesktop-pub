@@ -75,6 +75,17 @@ desktopPlugin.register = (login) => {
                     }
                 })
             })
+        },
+
+        overrides: {
+            RosterContact: {
+                getDisplayName () {
+                    const displayName = this.__super__.getDisplayName.apply(this);
+                    const jid = this.get('jid');
+                    const jidUsername = jid.split('@')[0];
+                    return displayName === jid ? jidUsername : displayName;
+                },
+            }
         }
     })
 }
