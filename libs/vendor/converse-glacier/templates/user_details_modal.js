@@ -3,6 +3,34 @@ import { html } from "lit-html";
 import avatar from "./avatar.js";
 import { modal_close_button, modal_header_close_button } from "./buttons"
 
+const device_fingerprint = (o) => {
+    if (o.device.get('bundle') && o.device.get('bundle').fingerprint) {
+        return html`
+            <li class="list-group-item">
+                <form class="fingerprint-trust">
+                <code class="fingerprint">${o.utils.formatFingerprint(o.device.get('bundle').fingerprint)}</code>
+                </form>
+            </li>
+        `;
+    } else {
+        return ''
+    }
+}
+
+const fingerprints = (o) => {
+    const i18n_no_devices = __("No OMEMO-enabled devices found");
+    const devices = o.view.devicelist.devices;
+    return html`
+        <hr/>
+        <ul class="list-group fingerprints">
+            <li class="list-group-item active">Fingerprints</li>
+            ${ devices.length ?
+                devices.map(device => device_fingerprint(Object.assign({device}, o))) :
+                html`<li class="list-group-item"> ${i18n_no_devices} </li>` }
+        </ul>
+    `;
+}
+
 export default (o) => {
     const i18n_address = __('XMPP Address');
     const i18n_email = __('Email');
@@ -30,16 +58,18 @@ export default (o) => {
                 </div>
                 <div class="modal-body">
                     ${ o.image ? html`<div class="mb-4">${avatar(Object.assign(o, avatar_data))}</div>` : '' }
-                    <p><a href="xmpp:${o.jid}">${o.nickname || ''}@${jidUsername}</a></p>
+                    <p class="mb-2"><a href="xmpp:${o.jid}">${o.nickname || ''}@${jidUsername}</a></p>
                     ${ o.fullname ? html`<p><label>${i18n_full_name}:</label> ${o.fullname}</p>` : '' }
                     ${ o.nickname ? html`<p><label>${i18n_nickname}:</label> ${o.nickname}</p>` : '' }
                     ${ o.url ? html`<p><label>${i18n_url}:</label> <a target="_blank" rel="noopener" href="${o.url}">${o.url}</a></p>` : '' }
                     ${ o.email ? html`<p><label>${i18n_email}:</label> <a href="mailto:${o.email}">${o.email}</a></p>` : '' }
                     ${ o.role ? html`<p><label>${i18n_role}:</label> ${o.role}</p>` : '' }
+
+                    ${ (o._converse.pluggable.plugins['converse-omemo'].enabled(o._converse)) ? fingerprints(o) : '' }
                 </div>
                 <div class="modal-footer">
                     ${modal_close_button}
-                    <button type="button" class="btn btn-info refresh-contact"><i class="fa fa-refresh"> </i>${i18n_refresh}</button>
+                    <button type="button" class="btn btn-info refresh-contact">${i18n_refresh}</button>
                 </div>
             </div>
         </div>
