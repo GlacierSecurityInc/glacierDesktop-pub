@@ -21,8 +21,17 @@ desktopPlugin.register = (login) => {
             }
 
             _converse.api.listen.on('getToolbarButtons', (_toolbar_el, buttons) => {
+                const omemoButtonIndex = buttons.findIndex(
+                    (b) => b && !!b.strings && b.strings.reduce(
+                        (isOmemoButton, str) => isOmemoButton || str.includes('toggle-omemo'),
+                        false
+                    ),
+                )
                 // Remove OMEMO toolbar button
-                buttons.pop()
+                if (omemoButtonIndex > -1) {
+                    buttons = buttons.filter((_, index) => index != omemoButtonIndex)
+                }
+
                 return buttons
             });
 
