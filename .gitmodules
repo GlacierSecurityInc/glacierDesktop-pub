@@ -1,0 +1,3 @@
+[submodule "libs/vendor/converse.js"]
+	path = libs/vendor/converse.js
+	url = git@github.com:GlacierSecurityInc/converse.js.git
