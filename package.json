@@ -14,7 +14,6 @@
     "build": "npm run build:metadata && npm run build:vendor",
     "build:metadata": "node scripts/copy-version-metadata.js",
     "build:vendor": "npm run build:converse && node scripts/change-omemo-namespace.js",
-    "build:theme": "shx cp -r libs/vendor/converse-glacier/templates/* libs/vendor/converse.js/src/templates",
     "build:converse": "cd libs/vendor/converse.js && make dist",
     "pack": "electron-builder --dir",
     "dist": "electron-builder --mac dmg",
