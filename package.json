@@ -13,7 +13,7 @@
     "start": "electron .",
     "build": "npm run build:metadata && npm run build:vendor",
     "build:metadata": "node scripts/copy-version-metadata.js",
-    "build:vendor": "npm run build:converse && node scripts/change-omemo-namespace.js",
+    "build:vendor": "npm run build:converse",
     "build:converse": "cd libs/vendor/converse.js && make dist",
     "pack": "electron-builder --dir",
     "dist": "electron-builder --mac dmg",
@@ -44,7 +44,6 @@
   "dependencies": {
     "angular": "^1.7.9",
     "aws-amplify": "^3.3.26",
-    "converse.js": "^7.0.0",
     "electron-settings": "^4.0.2",
     "github-buttons": "^2.8.0",
     "keytar": "^7.6.0",
