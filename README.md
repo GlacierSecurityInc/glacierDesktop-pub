@@ -53,7 +53,7 @@ See [CHANGES.md](https://github.com/GlacierSecurityInc/glacierDesktop/blob/main/
 ### Run with npm
 
 ```bash
-git clone https://github.com/GlacierSecurityInc/glacierDesktop.git
+git clone https://github.com/GlacierSecurityInc/glacierDesktop.git --recurse-submodules
 cd glacierDesktop
 npm install
 npm start
