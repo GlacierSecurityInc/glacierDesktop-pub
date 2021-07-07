@@ -64,7 +64,7 @@ npm start
 Prepare
 
 ```bash
-git clone https://github.com/GlacierSecurityInc/glacierDesktop.git
+git clone https://github.com/GlacierSecurityInc/glacierDesktop.git --recurse-submodules
 cd glacierDesktop
 npm install
 npm run build
