@@ -15,9 +15,14 @@ jobs:
 
     steps:
       - uses: actions/checkout@v1
-        with:
-          submodules: true
-          token: ${{ secrets.personal_access_token }}
+
+      - name: Checkout submodules using a PAT
+        run: |
+          git config --file .gitmodules --get-regexp url | while read url; do
+            git config --file=.gitmodules $(echo "$url" | sed -E "s/git@github.com:|https:\/\/github.com\//https:\/\/${{ secrets.PERSONAL_ACCESS_TOKEN }}:${{ secrets.PERSONAL_ACCESS_TOKEN }}@github.com\//")
+          done
+          git submodule sync
+          git submodule update --init --recursive
 
       - name: Cache Electron
         uses: actions/cache@v1
