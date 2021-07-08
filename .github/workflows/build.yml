@@ -24,6 +24,10 @@ jobs:
           git submodule sync
           git submodule update --init --recursive
 
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+
       - name: Cache Electron
         uses: actions/cache@v1
         with:
