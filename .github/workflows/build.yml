@@ -80,4 +80,5 @@ jobs:
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
         with:
+          name: macos
           path: dist/*.dmg
