@@ -22,7 +22,7 @@ jobs:
             git config --file=.gitmodules $(echo "$url" | sed -E "s/git@github.com:|https:\/\/github.com\//https:\/\/${{ secrets.PERSONAL_ACCESS_TOKEN }}:${{ secrets.PERSONAL_ACCESS_TOKEN }}@github.com\//")
           done
           git submodule sync
-          git submodule update --init --recursive
+          git submodule update --init --recursive --remote
 
       - uses: actions/setup-node@v2
         with:
@@ -58,5 +58,4 @@ jobs:
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
         with:
-          name: macos
           path: dist/*.dmg
