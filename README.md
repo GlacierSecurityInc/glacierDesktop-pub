@@ -37,7 +37,7 @@ Any custom build of Glacier Desktop without libsignal included will again be lic
 
 See [CHANGES.md](https://github.com/GlacierSecurityInc/glacierDesktop/blob/main/CHANGES.md)
 
-<!-- 
+<!--
 ### Latest release installers
 
 | Operation System | Download link |
@@ -69,6 +69,10 @@ cd glacierDesktop
 npm install
 npm run build
 ```
+
+## Releasing
+
+To prepare for a new version, update `version` in `package.json` and push (without tagging). This will create a new draft release that will be continuously updated with new builds. When it's ready to be released, go to [releases](https://github.com/GlacierSecurityInc/glacierDesktop/releases) and publish the draft.
 
 ### Build Targets
 
