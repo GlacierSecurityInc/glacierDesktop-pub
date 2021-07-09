@@ -90,10 +90,8 @@
       "icon": "resources/images/logo.ico"
     },
     "publish": {
-      "github": {
-        "repo": "glacierDesktop",
-        "owner": "GlacierSecurityInc"
-      }
+      "repo": "glacierDesktop",
+      "owner": "GlacierSecurityInc"
     }
   }
 }
