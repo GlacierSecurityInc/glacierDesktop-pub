@@ -88,6 +88,11 @@
     "win": {
       "target": "nsis",
       "icon": "resources/images/logo.ico"
+    },
+    "publish": {
+      "repo": "glacierDesktop",
+      "owner": "GlacierSecurityInc",
+      "provider": "github"
     }
   }
 }
