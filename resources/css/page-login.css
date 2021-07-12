@@ -1,5 +1,5 @@
 .login-form {
-    color: #777;
+    color: #d1d2d3;
     left: 50%;
     position: absolute;
     top: 47%;
@@ -18,10 +18,11 @@
 }
 
 .login-form__card {
-    background: #fff;
+    background: #222529;
     box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
     margin-top: 30px;
     padding: 30px;
+    border-radius: 10px;
 }
 
 .login-form__wrapper {
@@ -29,16 +30,18 @@
 }
 
 .login-form__input-group {
-    border: 1px solid #ddd;
-    border-radius: 0px;
+    background: white;
+    border-radius: 10px;
     padding: 0px 0px 0px 30px;
     position: relative;
+    overflow: hidden;
+    border: 1px solid transparent;
 }
 
 .login-form__input-group:active,
 .login-form__input-group:focus,
 .login-form__input-group:hover {
-    border: 1px solid #aaa;
+    border-color: #888;
 }
 
 .login-form__input-group .group-prepend {
@@ -79,19 +82,22 @@
  }
 
  .login-form__button {
-    border: 1px solid #ddd;
     background: rgb(5,93,228);
     background: linear-gradient(0deg, rgba(5,93,228,1) 0%, rgba(76,145,255,1) 100%);
-    color: #fff;
     display: inline-block;
     font-size: 18px;
     outline: none;
     padding: 10px 30px;
     width: 100%;
+    border-radius: 10px;
+    border: none;
+    color: white;
  }
 
  .login-form__button:disabled {
     background: #eee;
+    color: #bbb;
+    cursor: not-allowed;
  }
 
  .login-form__credentials-message {
