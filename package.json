@@ -1,7 +1,7 @@
 {
   "name": "chat-radar-desktop",
   "private": true,
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Desktop Jabber/XMPP client based on Converse.js and Electron",
   "engines": {
     "node": ">=15 <16"
