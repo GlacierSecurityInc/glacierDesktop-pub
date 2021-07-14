@@ -55,12 +55,21 @@ jobs:
         uses: tyankatsu0105/read-package-version-actions@v1
         id: package-version
 
+      - name: Get Changelog Entry
+        id: changelog_reader
+        uses: mindsers/changelog-reader-action@v2
+        with:
+          validation_depth: 10
+          path: ./CHANGELOG.md
+          version: 'Unreleased'
+
       - name: Create draft release (only on untagged commits)
         uses: softprops/action-gh-release@v1
         if: github.ref == 'refs/heads/main'
         with:
           draft: true
           name: 'v${{ steps.package-version.outputs.version }}'
+          body: ${{ steps.changelog_reader.outputs.changes }}
           tag_name: 'v${{ steps.package-version.outputs.version }}'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

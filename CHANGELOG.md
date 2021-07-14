@@ -1,0 +1,31 @@
+# Changelog
+All notable changes to this project will be documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [Unreleased]
+
+### Added
+- Fleshed out documentation on developing
+- Added a PR template
+- Draft releases will now be updated with this file
+
+### Changed
+- `CHANGES.md` -> `CHANGELOG.md`
+
+### Fixed
+
+## [0.1.0] - 2021-07-14
+
+### Added
+- First release since forked from [Chimeverse project](https://github.com/nick-denry/Chimeverse
+
+### Changed
+- Relicensed under MPL-2.0 (@see libsignal-protocol.js exclusion at README section)
+
+### Fixed
+- Fix error handling for version check
+
+[Unreleased]: https://github.com/GlacierSecurityInc/glacierDesktop/compare/v0.1.0...HEAD
+[0.1.0]: https://github.com/GlacierSecurityInc/glacierDesktop/releases/tag/v0.1.0
