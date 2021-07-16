@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Fleshed out documentation on developing
 - Added a PR template
 - Draft releases will now be updated with this file
+- Login button now shows a loading state
 
 ### Changed
 - `CHANGES.md` -> `CHANGELOG.md`
