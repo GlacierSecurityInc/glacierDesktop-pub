@@ -63,6 +63,14 @@ jobs:
           path: ./CHANGELOG.md
           version: 'Unreleased'
 
+      # TODO: ideally this would be made obsolete by the next action.
+      # See: https://github.com/softprops/action-gh-release/issues/103
+      - name: Delete current draft release, if exists
+        uses: hugo19941994/delete-draft-releases@v0.1.0
+        if: github.ref == 'refs/heads/main'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Create draft release (only on untagged commits)
         uses: softprops/action-gh-release@v1
         if: github.ref == 'refs/heads/main'
