@@ -53,7 +53,7 @@ angApp.factory('DesktopService', (
         }
         let conversejsParams = {
             assets_path: './libs/vendor/converse.js/dist/',
-            allow_bookmarks: allowBookmarks,
+            allow_bookmarks: true,
             auto_login: true,
             auto_reconnect: true,
             // clear_cache_on_logout: true,
