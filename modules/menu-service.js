@@ -111,7 +111,6 @@ menuService.createMenu = () => {
         label: 'View',
         submenu: [
             { role: 'reload' },
-            { role: 'forceReload' },
             { type: 'separator' },
             { role: 'togglefullscreen' },
             { type: 'separator' },
