@@ -36,11 +36,11 @@ angApp.controller('DefaultController', function($scope, $timeout, $http, AppInfo
         }, timeout)
     }
 
-    checkForUpdateDelayed()
+    // checkForUpdateDelayed()
 
     $scope.checkRetry = ($event) => {
         $event.preventDefault()
-        checkForUpdate()
+        // checkForUpdate()
     }
 
 

@@ -16,6 +16,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `CHANGES.md` -> `CHANGELOG.md`
 
 ### Fixed
+- No longer checks for updates against upstream Converse Desktop repo
+- Removed analytics script
 
 ## [0.1.0] - 2021-07-14
 
