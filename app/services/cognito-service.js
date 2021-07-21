@@ -12,7 +12,7 @@ angApp.factory('CognitoService', ($window, $timeout, AppInfo) => {
                 ? response.challengeParam.userAttributes["custom:organization"]
                 : response.attributes['custom:organization']
 
-                return RestAPI.get('userinfo', '/user', {
+                return RestAPI.get('userinfo', '/userinfo', {
                     queryStringParameters: {
                         username: response.username,
                         organization: organization
