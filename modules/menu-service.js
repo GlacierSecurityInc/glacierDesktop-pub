@@ -107,6 +107,20 @@ menuService.createMenu = () => {
       ],
     }
 
+    const view = {
+        label: 'View',
+        submenu: [
+            { role: 'reload' },
+            { role: 'forceReload' },
+            { type: 'separator' },
+            { role: 'togglefullscreen' },
+            { type: 'separator' },
+            { role: 'resetZoom' },
+            { role: 'zoomIn' },
+            { role: 'zoomOut' }
+        ]
+    }
+
     const help = {
         label: 'Help',
         submenu: [
@@ -122,7 +136,7 @@ menuService.createMenu = () => {
         ]
     }
 
-    const template = [application, edit, help]
+    const template = [application, edit, view, help]
 
     Menu.setApplicationMenu(Menu.buildFromTemplate(template))
 }
