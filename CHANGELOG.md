@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added a PR template
 - Draft releases will now be updated with this file
 - Login button now shows a loading state
+- View submenu
 
 ### Changed
 - `CHANGES.md` -> `CHANGELOG.md`
