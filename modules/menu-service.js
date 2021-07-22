@@ -27,16 +27,7 @@ menuService.createMenu = () => {
         submenu: [
             ... isMac ? [about] : [],
             {
-                label: 'Reconnect',
-                accelerator: 'CmdOrCtrl+R',
-                click: () => {
-                    let activeWindow = BrowserWindow.getAllWindows()[0]
-                    activeWindow.show()
-                    activeWindow.reload()
-                }
-            },
-            {
-                label: 'Force logout',
+                label: 'Logout',
                 accelerator: 'CmdOrCtrl+D',
                 click: () => {
                     let activeWindow = BrowserWindow.getAllWindows()[0]
