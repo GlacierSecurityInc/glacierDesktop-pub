@@ -31,7 +31,7 @@ angApp.factory('SettingsService', () => {
         },
         conversejs: {
             allowBookmarks: {
-                default: false,
+                default: true,
                 title: 'Allow server bookmarks',
                 hint: 'Default: false. Enables/disables chatroom bookmarks functionality.'
             }
