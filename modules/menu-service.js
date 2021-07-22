@@ -27,16 +27,7 @@ menuService.createMenu = () => {
         submenu: [
             ... isMac ? [about] : [],
             {
-                label: 'Reconnect',
-                accelerator: 'CmdOrCtrl+R',
-                click: () => {
-                    let activeWindow = BrowserWindow.getAllWindows()[0]
-                    activeWindow.show()
-                    activeWindow.reload()
-                }
-            },
-            {
-                label: 'Force logout',
+                label: 'Logout',
                 accelerator: 'CmdOrCtrl+D',
                 click: () => {
                     let activeWindow = BrowserWindow.getAllWindows()[0]
@@ -107,6 +98,19 @@ menuService.createMenu = () => {
       ],
     }
 
+    const view = {
+        label: 'View',
+        submenu: [
+            { role: 'reload' },
+            { type: 'separator' },
+            { role: 'togglefullscreen' },
+            { type: 'separator' },
+            { role: 'resetZoom' },
+            { role: 'zoomIn' },
+            { role: 'zoomOut' }
+        ]
+    }
+
     const help = {
         label: 'Help',
         submenu: [
@@ -122,7 +126,7 @@ menuService.createMenu = () => {
         ]
     }
 
-    const template = [application, edit, help]
+    const template = [application, edit, view, help]
 
     Menu.setApplicationMenu(Menu.buildFromTemplate(template))
 }
