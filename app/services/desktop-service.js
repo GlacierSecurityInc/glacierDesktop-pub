@@ -106,6 +106,10 @@ angApp.factory('DesktopService', (
         desktopService.logout()
     })
 
+    $window.document.addEventListener('conversejs-disconnect', function (e) {
+        desktopService.logout()
+    })
+
     $window.document.addEventListener('conversejs-unread', function (e) {
         let sender = e.detail
         desktopService.chatToOpen = sender
