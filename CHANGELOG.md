@@ -19,6 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - No longer checks for updates against upstream Converse Desktop repo
 - Removed analytics script
+- Logs out on disconnection
 
 ## [0.1.0] - 2021-07-14
 
