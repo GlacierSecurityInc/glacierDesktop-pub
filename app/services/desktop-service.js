@@ -60,6 +60,8 @@ angApp.factory('DesktopService', (
             // debug: true,
             i18n: lang,
             jid: login,
+            enable_smacks: true,
+            discover_connection_methods: true,
             omemo_default: true,
             password: password,
             play_sounds: false,
