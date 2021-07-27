@@ -54,6 +54,10 @@ angApp.factory('DesktopService', (
         let conversejsParams = {
             assets_path: './libs/vendor/converse.js/dist/',
             allow_bookmarks: true,
+            allow_chat_pending_contacts: true,
+            allow_registration: false,
+            auto_away: 300,
+            auto_join_on_invite: true,
             auto_login: true,
             auto_reconnect: true,
             // clear_cache_on_logout: true,
@@ -62,6 +66,8 @@ angApp.factory('DesktopService', (
             jid: login,
             enable_smacks: true,
             discover_connection_methods: true,
+            muc_show_join_leave: false,
+            notify_all_room_messages: true,
             omemo_default: true,
             password: password,
             play_sounds: false,
@@ -71,8 +77,10 @@ angApp.factory('DesktopService', (
             allow_contact_removal: false,
             allow_adhoc_commands: false,
             time_format: 'hh:mm A',
-            show_retraction_warning: false
+            show_retraction_warning: false,
+            synchronize_availability: false
         }
+        
         if (connectionManager.startsWith('ws')) {
             conversejsParams.websocket_url = connectionManager
         } else {

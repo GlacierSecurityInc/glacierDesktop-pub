@@ -13,6 +13,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Login button now shows a loading state
 - View submenu
 - Code signing & notarization for macOS
+- Updated configuration and bind parameters
+- Moved to using websockets
 
 ### Changed
 - `CHANGES.md` -> `CHANGELOG.md`
