@@ -45,6 +45,19 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-electron-builder-cache-
 
+      - name: Codesign on macOS
+        if: runner.os == 'macOS'
+        env:
+          MACOS_CERTIFICATE: ${{ secrets.MACOS_CERTIFICATE }}
+          MACOS_KEYCHAIN_PASSWORD: ${{ secrets.MACOS_KEYCHAIN_PASSWORD }}
+        run: |
+          echo $MACOS_CERTIFICATE | base64 --decode > certificate.p12
+          security create-keychain -p $MACOS_KEYCHAIN_PASSWORD build.keychain
+          security default-keychain -s build.keychain
+          security unlock-keychain -p $MACOS_KEYCHAIN_PASSWORD build.keychain
+          security import certificate.p12 -k build.keychain -P "" -T /usr/bin/codesign
+          security set-key-partition-list -S apple-tool:,apple: -s -k $MACOS_KEYCHAIN_PASSWORD build.keychain
+
       - name: Install dependencies
         run: npm i
 
