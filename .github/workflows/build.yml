@@ -2,6 +2,9 @@ name: Build
 
 on: push
 
+# Prevents a race condition when building on `main` and updating releases
+concurrency: ci-${{ github.ref }}
+
 jobs:
   release:
     runs-on: ${{ matrix.os }}
