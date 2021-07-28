@@ -51,6 +51,17 @@
     "spinners-angular": "^0.0.4"
   },
   "build": {
+    "files": [
+      "main.js",
+      "renderer.js",
+      "modules/**/*",
+      "resources/**/*",
+      "app/**/*",
+      "index.html",
+      "package.json",
+      "libs/vendor/converse.js/dist/**/*",
+      "libs/converse.js/**/*"
+    ],
     "appId": "chat.glacier.desktop",
     "productName": "Glacier Desktop",
     "afterSign": "electron-builder-notarize",
