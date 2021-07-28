@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Code signing & notarization for macOS
 - Updated configuration and bind parameters
 - Moved to using websockets
+- Add the ability for an email-less user to set their password
 
 ### Changed
 - `CHANGES.md` -> `CHANGELOG.md`
