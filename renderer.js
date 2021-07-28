@@ -5,8 +5,6 @@
 const { Amplify } = require('aws-amplify')
 Amplify.configure({
     Auth: {
-        // REQUIRED only for Federated Authentication - Amazon Cognito Identity Pool ID
-        identityPoolId: '3k4qjqjebjl4so20om93so38me',
         // REQUIRED - Amazon Cognito Region
         region: 'us-east-1',
         // OPTIONAL - Amazon Cognito User Pool ID
