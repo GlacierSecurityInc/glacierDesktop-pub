@@ -46,6 +46,8 @@ make devserver # will automatically reload in the browser when code changes
 
 To prepare for a new version, update `version` in `package.json` and push (without tagging). This will create a new draft release that will be continuously updated with new builds. (During this time, changes should go under 'Unreleased' in `CHANGELOG.md`.)
 
+After the push, a draft release will automatically generated. (This will overright previous drafts so be sure to promote old draft to prerelease before pushing a new version.)
+
 When it's ready to be released, first update `CHANGELOG.md` (`Unreleased` -> new version and add new `Unreleased` header & template at top). Then, go to [releases](https://github.com/GlacierSecurityInc/glacierDesktop/releases) and publish the draft.
 
 
