@@ -1,6 +1,6 @@
 let angApp = require(__dirname+'/../init')
 
-angApp.controller('LoginController', function($scope, AppInfo, DesktopService, CognitoService, CredentialsService) {
+angApp.controller('LoginController', function($scope, AppInfo, DesktopService, CognitoService, CredentialsService, AppStateService) {
 
     $scope.help = {}
     $scope.loggingIn = false
@@ -10,22 +10,34 @@ angApp.controller('LoginController', function($scope, AppInfo, DesktopService, C
         $scope.help[item] = typeof $scope.help[item] === 'undefined' ? true : !$scope.help[item];
     }
 
-    $scope.addAccountAndLoginAction = () => {
+    $scope.addAccountAndLoginAction = async () => {
         $scope.loggingIn = true
         $scope.error = null
-        CognitoService.fetchCredentials($scope.credentials.login, $scope.credentials.password).then(credentials => {
-            CredentialsService.addCredentials(
-                AppInfo.GLACIER_BOSH,
-                credentials.login,
-                credentials.password
-            ).then(() => DesktopService.getCredentialsAndLogin())
-        }).catch(error => {
+
+        try {
+            const credentials = await CognitoService.fetchCredentials($scope.credentials.login, $scope.credentials.password);
+
+            if (credentials.needsToSetPassword) {
+                AppStateService.setCurrentPassword($scope.credentials.password)
+                AppStateService.setUsername($scope.credentials.login)
+                AppStateService.set(AppStateService.APP_STATE_SET_PASSWORD)
+            } else {
+                await CredentialsService.addCredentials(
+                    AppInfo.GLACIER_BOSH,
+                    credentials.login,
+                    credentials.password
+                )
+
+                DesktopService.getCredentialsAndLogin()
+            }
+        } catch (error) {
             $scope.error = error
-        }).finally(() => {
-            $scope.loggingIn = false
-            $scope.accountForm.$setPristine()
-            $scope.accountForm.$setUntouched()
-            $scope.credentials = {}
-        })
+        }
+
+        $scope.loggingIn = false
+        $scope.accountForm.$setPristine()
+        $scope.accountForm.$setUntouched()
+        $scope.credentials = {}
+        $scope.$applyAsync()
     }
 })
