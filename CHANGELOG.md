@@ -18,6 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 - `CHANGES.md` -> `CHANGELOG.md`
+- Reduced bundle size
 
 ### Fixed
 - No longer checks for updates against upstream Converse Desktop repo
