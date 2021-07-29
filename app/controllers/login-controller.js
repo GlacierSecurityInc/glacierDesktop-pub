@@ -15,7 +15,7 @@ angApp.controller('LoginController', function($scope, AppInfo, DesktopService, C
         $scope.error = null
         CognitoService.fetchCredentials($scope.credentials.login, $scope.credentials.password).then(credentials => {
             CredentialsService.addCredentials(
-                AppInfo.GLACIER_BOSH,
+                AppInfo.CONNECTION_MANAGER,
                 credentials.login,
                 credentials.password
             ).then(() => DesktopService.getCredentialsAndLogin())

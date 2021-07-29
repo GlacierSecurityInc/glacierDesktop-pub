@@ -16,7 +16,7 @@ angApp.constant('AppInfo', {
     // APP_RELEASES_URL: 'https://github.com/conversejs/converse-desktop/releases',
     CONVERSE_VERSION: converseVersion.replace('^', 'v'),
     ELECTRON_VERSION: electronVersion.replace('^', 'v'),
-    GLACIER_BOSH: 'http://web.glaciersec.cc/bosh'
+    CONNECTION_MANAGER: 'wss://discover' //placeholder, using discovery method
 });
 
 module.exports = angApp
