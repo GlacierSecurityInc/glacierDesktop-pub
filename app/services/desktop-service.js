@@ -64,7 +64,6 @@ angApp.factory('DesktopService', (
             jid: login,
             enable_smacks: true,
             discover_connection_methods: true,
-            message_archiving: 'undefined',
             muc_show_join_leave: false,
             notification_icon: './resources/images/logo.png',
             notify_all_room_messages: true,
