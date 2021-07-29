@@ -26,6 +26,13 @@ npm run dist # build a macOS distributable
 
 A few notes:
 - You can make modifications to our [Converse.js fork](https://github.com/GlacierSecurityInc/converse.js) directly in the submodule folder (`libs/vendor/converse.js`). It acts like a normal Git repository, meaning that you can create a branch with your changes as normal, push them to our fork, and then make a PR.
+
+To update the submodule:
+
+```bash
+git submodule update --recursive --remote
+```
+
 - As of 07/14/2021, Converse.js's build script doesn't seem to always pick up on changes. This means that if you're making changes to Converse, the full process is:
 
 ```bash
