@@ -42,6 +42,7 @@
     "shx": "^0.3.3"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.15.3",
     "angular": "^1.7.9",
     "aws-amplify": "^4.2.1",
     "electron-settings": "^4.0.2",
