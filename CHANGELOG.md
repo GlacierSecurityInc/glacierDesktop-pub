@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+
+### Changed
+- User is now automatically logged in after changing their password
+
+### Fixed
+
+## [0.2.4] - 2021-08-02
+
+### Added
 - Fleshed out documentation on developing
 - Added a PR template
 - Draft releases will now be updated with this file
@@ -37,5 +46,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - Fix error handling for version check
 
-[Unreleased]: https://github.com/GlacierSecurityInc/glacierDesktop/compare/v0.1.0...HEAD
+[Unreleased]: https://github.com/GlacierSecurityInc/glacierDesktop/compare/v0.2.4...HEAD
+[0.2.4]: https://github.com/GlacierSecurityInc/glacierDesktop/releases/tag/v0.2.4
 [0.1.0]: https://github.com/GlacierSecurityInc/glacierDesktop/releases/tag/v0.1.0
