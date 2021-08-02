@@ -2,9 +2,12 @@ let angApp = require(__dirname + '/../init')
 
 angApp.factory('AppStateService', [ '$rootScope', ($rootScope) => {
 
-    let stateService = {}
+    let stateService = {
+        currentPassword: null
+    }
 
     stateService.APP_STATE_LOGIN = 'login'
+    stateService.APP_STATE_SET_PASSWORD = 'set-password'
     stateService.APP_STATE_DEFAULT = 'default'
     stateService.APP_STATE_SETTINGS = 'settings'
     stateService.APP_STATE_ABOUT = 'about'
@@ -25,6 +28,14 @@ angApp.factory('AppStateService', [ '$rootScope', ($rootScope) => {
         }
 
         $rootScope.$broadcast('app:state:changed', stateService.state)
+    }
+
+    stateService.setCurrentPassword = currentPassword => {
+        stateService.currentPassword = currentPassword
+    }
+
+    stateService.setUsername = username => {
+        stateService.username = username
     }
 
     stateService.set(stateService.APP_STATE_DEFAULT)

@@ -1,0 +1,36 @@
+<div class="login-form" ng-controller="SetPasswordController">
+  <h3 class="login-form__title">Update Password</h3>
+  <div class="login-form__card">
+      <form name="setPasswordForm">
+          <div class="login-form__wrapper">
+              <div class="login-form__input-group">
+                  <span class="group-prepend oi" data-glyph="lock-locked"></span>
+                  <input ng-model="credentials.password1" class="login-form__input" type="password" placeholder="New password" required>
+              </div>
+          </div>
+          <div class="login-form__wrapper">
+            <div class="login-form__input-group">
+                <span class="group-prepend oi" data-glyph="lock-locked"></span>
+                <input ng-model="credentials.password2" class="login-form__input" type="password" placeholder="Confirm password" required>
+            </div>
+          </div>
+          <div class="login-form__wrapper">
+              <button class="login-form__button" ng-click="setPassword()" ng-disabled="settingPassword || setPasswordForm.$invalid" disabled>
+                  {{settingPassword ? '' : 'Update'}}
+                  <sa-spinner-circular-fixed
+                      size="1em"
+                      thickness="200"
+                      speed="200"
+                      color="rgb(5,93,228)"
+                      secondaryColor="#1a1d21"
+                      ng-show="settingPassword === true">
+                  </sa-spinner-circular-fixed>
+              </button>
+          </div>
+          <div class="login-form__wrapper">
+              <p class="login-form__input-help" ng-show="error !== null">{{error}}</p>
+          </div>
+      </form>
+  </div>
+</div>
+<ng-include src="'./app/views/shared/_footer.html'"></ng-include>
