@@ -23,7 +23,7 @@ angApp.controller('LoginController', function($scope, AppInfo, DesktopService, C
                 AppStateService.set(AppStateService.APP_STATE_SET_PASSWORD)
             } else {
                 await CredentialsService.addCredentials(
-                    AppInfo.GLACIER_BOSH,
+                    AppInfo.CONNECTION_MANAGER,
                     credentials.login,
                     credentials.password
                 )

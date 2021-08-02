@@ -60,13 +60,12 @@ angApp.factory('DesktopService', (
             auto_join_on_invite: true,
             auto_login: true,
             auto_reconnect: true,
-            // clear_cache_on_logout: true,
-            // debug: true,
             i18n: lang,
             jid: login,
             enable_smacks: true,
             discover_connection_methods: true,
             muc_show_join_leave: false,
+            notification_icon: './resources/images/logo.png',
             notify_all_room_messages: true,
             omemo_default: true,
             password: password,
@@ -80,7 +79,7 @@ angApp.factory('DesktopService', (
             show_retraction_warning: false,
             synchronize_availability: false
         }
-        
+
         if (connectionManager.startsWith('ws')) {
             conversejsParams.websocket_url = connectionManager
         } else {
