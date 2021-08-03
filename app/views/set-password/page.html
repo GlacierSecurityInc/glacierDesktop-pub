@@ -3,15 +3,33 @@
   <div class="login-form__card">
       <form name="setPasswordForm">
           <div class="login-form__wrapper">
-              <div class="login-form__input-group">
+              <div class="login-form__input-group with-right-addon">
                   <span class="group-prepend oi" data-glyph="lock-locked"></span>
-                  <input ng-model="credentials.password1" class="login-form__input" type="password" placeholder="New password" required>
+                  <input ng-model="credentials.password1" class="login-form__input" type="{{showPassword ? 'text' : 'password'}}" placeholder="New password" required>
+
+                  <span ng-click="showPassword = !showPassword" class="right-addon">
+                    <span ng-show="showPassword">
+                        <i class="fas fa-eye-slash"></i>
+                    </span>
+                    <span ng-show="!showPassword">
+                        <i class="fas fa-eye"></i>
+                    </span>
+                </span>
               </div>
           </div>
           <div class="login-form__wrapper">
-            <div class="login-form__input-group">
+            <div class="login-form__input-group with-right-addon">
                 <span class="group-prepend oi" data-glyph="lock-locked"></span>
-                <input ng-model="credentials.password2" class="login-form__input" type="password" placeholder="Confirm password" required>
+                <input ng-model="credentials.password2" class="login-form__input" type="{{showPassword ? 'text' : 'password'}}" placeholder="Confirm password" required>
+
+                <span ng-click="showPassword = !showPassword" class="right-addon">
+                    <span ng-show="showPassword">
+                        <i class="fas fa-eye-slash"></i>
+                    </span>
+                    <span ng-show="!showPassword">
+                        <i class="fas fa-eye"></i>
+                    </span>
+                </span>
             </div>
           </div>
           <div class="login-form__wrapper">
