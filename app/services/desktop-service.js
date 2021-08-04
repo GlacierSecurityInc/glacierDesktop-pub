@@ -45,7 +45,6 @@ angApp.factory('DesktopService', (
 
         desktopPlugin.register(login)
         let lang = navigator.language
-        let allowBookmarks = SettingsService.get('allowBookmarks')
         let xmppResource = XmppHelperService.getResourceFromJid(login)
         if (!xmppResource) {
             xmppResource = '.' + (Math.random().toString(36)+'00000000000000000').slice(2, 7) // Generate 5 char unique str
