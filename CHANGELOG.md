@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - User is now automatically logged in after changing their password
 
 ### Fixed
+- Group chats no longer disappear after logging out
 
 ## [0.2.4] - 2021-08-02
 
