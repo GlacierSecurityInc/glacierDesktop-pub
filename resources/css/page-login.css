@@ -38,6 +38,15 @@
     border: 1px solid transparent;
 }
 
+.login-form__input-group.with-right-addon {
+    padding-right: 30px;
+}
+
+.login-form__input-group.with-right-addon .right-addon {
+    position: absolute;
+    top: 14px;
+}
+
 .login-form__input-group:active,
 .login-form__input-group:focus,
 .login-form__input-group:hover {

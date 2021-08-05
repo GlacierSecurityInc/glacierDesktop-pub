@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- Added option to show password when updating it
 
 ### Changed
 - User is now automatically logged in after changing their password
