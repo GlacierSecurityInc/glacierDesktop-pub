@@ -1,5 +1,6 @@
 // Modules to control application life and create native browser window
 const { app, BrowserWindow, ipcMain, shell } = require('electron')
+const appConfig = require('electron-settings');
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -8,24 +9,21 @@ let mainWindow
 // Require other app modules
 const trayService     = require(__dirname+'/modules/tray-service')
 const menuService     = require(__dirname+'/modules/menu-service')
-const settingsService = require(__dirname+'/modules/settings-service')
 
 const isMac = process.platform === 'darwin'
 const isWin = process.platform === 'win32'
 
-function initApp() {
-    createWindow().show()
+async function initApp() {
+    (await createWindow()).show()
     // Set Windows platform notifications
     if (isWin) {
         app.setAppUserModelId("chat.glacier.desktop")
     }
 }
 
-function createWindow () {
+async function createWindow () {
     // Main window options
     let mainWindowOptions = {
-        width: 800,
-        height: 600,
         minWidth: 780,
         minHeight: 560,
         backgroundColor: '#f8f8f8',
@@ -37,25 +35,22 @@ function createWindow () {
     }
 
     // Load app settings
-    let runMinimized = settingsService.get('runMinimized')
+    let runMinimized = await appConfig.get('runMinimized')
     if (runMinimized) {
         mainWindowOptions.show = !runMinimized
     }
-    let preserveWindowSize = settingsService.get('preserveWindowSize')
-    if (preserveWindowSize) {
-        let width = settingsService.get('windowWidth')
-        let height = settingsService.get('windowHeight')
-        if (width) mainWindowOptions.width = width
-        if (height) mainWindowOptions.height = height
-    }
 
-    let preserveWindowPosition = settingsService.get('preserveWindowPosition')
-    if (preserveWindowPosition) {
-        let windowX = settingsService.get('windowX')
-        let windowY = settingsService.get('windowY')
-        if (windowX) mainWindowOptions.x = windowX
-        if (windowY) mainWindowOptions.y = windowY
-    }
+    // Restore size
+    let width = await appConfig.get('windowWidth')
+    let height = await appConfig.get('windowHeight')
+    if (width) mainWindowOptions.width = width
+    if (height) mainWindowOptions.height = height
+
+    // Restore position
+    let windowX = await appConfig.get('windowX')
+    let windowY = await appConfig.get('windowY')
+    if (typeof windowX === 'number') mainWindowOptions.x = windowX
+    if (typeof windowY === 'number') mainWindowOptions.y = windowY
 
     // Create the browser window.
     mainWindow = new BrowserWindow(mainWindowOptions)
@@ -73,7 +68,7 @@ function createWindow () {
     // mainWindow.webContents.openDevTools()
 
     // Before close
-    let minimizeOnClose = settingsService.get('minimizeOnClose')
+    let minimizeOnClose = await appConfig.get('minimizeOnClose')
     if (minimizeOnClose) {
         mainWindow.on('close', (e) => {
             if (!app.isQuitting) {
@@ -84,26 +79,22 @@ function createWindow () {
     }
 
     // Save window size
-    if (preserveWindowSize) {
-        mainWindow.on('resize', (e) => {
-            let newSize = mainWindow.getSize()
-            let width = newSize[0]
-            let height = newSize[1]
-            settingsService.set('windowWidth', width)
-            settingsService.set('windowHeight', height)
-        })
-    }
+    mainWindow.on('resize', async (e) => {
+        let newSize = mainWindow.getSize()
+        let width = newSize[0]
+        let height = newSize[1]
+        await appConfig.set('windowWidth', width)
+        await appConfig.set('windowHeight', height)
+    })
 
     // Save window position
-    if (preserveWindowPosition !== 'undefined') {
-        mainWindow.on('move', (e) => {
-            let newPosition = mainWindow.getPosition()
-            let windowX = newPosition[0]
-            let windowY = newPosition[1]
-            settingsService.set('windowX', windowX)
-            settingsService.set('windowY', windowY)
-        })
-    }
+    mainWindow.on('move', async (e) => {
+        let newPosition = mainWindow.getPosition()
+        let windowX = newPosition[0]
+        let windowY = newPosition[1]
+        await appConfig.set('windowX', windowX)
+        await appConfig.set('windowY', windowY)
+    })
 
     // Handle shutdown event on Mac with minimizeOnClose
     // to prevent shutdown interrupt
@@ -135,7 +126,7 @@ function createWindow () {
         e.preventDefault()
         shell.openExternal(url)
     })
-    
+
     return mainWindow
 }
 
@@ -154,10 +145,10 @@ app.on('window-all-closed', function () {
     app.quit()
 })
 
-app.on('activate', function () {
+app.on('activate', async function () {
     // On macOS it's common to re-create a window in the app when the
     // dock icon is clicked and there are no other windows open.
-    if (mainWindow === null) createWindow()
+    if (mainWindow === null) await createWindow()
     mainWindow.show()
 })
 
