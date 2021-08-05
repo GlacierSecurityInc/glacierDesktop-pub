@@ -35886,7 +35886,7 @@ SessionBuilder.prototype = {
             record.archiveCurrentState();
         }
         if (message.preKeyId && !preKeyPair) {
-            console.log('Invalid prekey id', message.preKeyId);
+            console.log('Invalid prekey id');
         }
         return this.initSession(false, preKeyPair, signedPreKeyPair,
             message.identityKey.toArrayBuffer(),
@@ -36049,11 +36049,11 @@ SessionCipher.prototype = {
           myRegistrationId = results[1];
           record           = results[2];
           if (!record) {
-              throw new Error("No record for " + address);
+              throw new Error("No record for " + address.split('@')[0]);
           }
           session = record.getOpenSession();
           if (!session) {
-              throw new Error("No session to encrypt message for " + address);
+              throw new Error("No session to encrypt message for " + address.split('@')[0]);
           }
 
           msg.ephemeralKey = util.toArrayBuffer(
