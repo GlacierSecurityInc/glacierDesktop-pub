@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 - User is now automatically logged in after changing their password
+- Window size and position is saved across opens
 
 ### Fixed
 
