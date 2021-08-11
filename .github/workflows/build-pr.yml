@@ -1,0 +1,58 @@
+name: Build artifact from PR
+on:
+  repository_dispatch:
+    types: [build-command]
+
+jobs:
+  build-pr:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout GlacierDesktop
+        uses: actions/checkout@v1
+        with:
+          ref: ${{ github.event.client_payload.pull_request.head.ref }}
+
+      - name: Checkout Converse.js
+        run: |
+          git config --file .gitmodules --get-regexp url | while read url; do
+            git config --file=.gitmodules $(echo "$url" | sed -E "s/git@github.com:|https:\/\/github.com\//https:\/\/${{ secrets.PERSONAL_ACCESS_TOKEN }}:${{ secrets.PERSONAL_ACCESS_TOKEN }}@github.com\//")
+          done
+          git submodule sync
+          git submodule update --init --recursive --remote
+          cd libs/vendor/converse.js && git checkout ${{ github.event.client_payload.slash_command.args.unnamed.all }}
+
+      - name: Setup Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: '15'
+          cache: 'npm'
+
+      - name: Cache Electron
+        uses: actions/cache@v1
+        with:
+          path: ${{ github.workspace }}/.cache/electron
+          key: ${{ runner.os }}-electron-cache-${{ hashFiles(format('{0}{1}', github.workspace, '/package-lock.json')) }}
+          restore-keys: |
+            ${{ runner.os }}-electron-cache-
+
+      - name: Install dependencies
+        run: npm i
+
+      - name: Build/release Electron app
+        uses: samuelmeuli/action-electron-builder@v1
+        with:
+          github_token: ${{ secrets.github_token }}
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: macos
+          path: dist/*.dmg
+
+      - name: Add reaction
+        uses: peter-evans/create-or-update-comment@v1
+        with:
+          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+          repository: ${{ github.event.client_payload.github.payload.repository.full_name }}
+          comment-id: ${{ github.event.client_payload.github.payload.comment.id }}
+          reaction-type: hooray
