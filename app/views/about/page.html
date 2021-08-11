@@ -1,35 +1,46 @@
 <div class="page-about" ng-controller="AboutController">
-    <div class="about-card">
+    <div class="about-card-dark">
         <div class="about-card__content">
             <div class="about-card__logo">
                 <img src="./resources/images/logo.png" srcset="./resources/images/logo@2x.png 2x" alt=""
                     class="chimeverse-branding__img" />
             </div>
             <div class="about-card__description">
-                <h3 class="about__title">About {{appInfo.APP_NAME}} {{appInfo.APP_VERSION}}</h3>
-                <div class="about__description">Jabber/XMPP client based on Converse.js and Electron</div>
-                <div>&nbsp;</div>
-                <div class="about__converse-version">
-                    Version of <a href="https://conversejs.org/" target="_blank">converse.js</a> is {{appInfo.CONVERSE_VERSION}}
+                <h2 class="about__title">About {{appInfo.APP_NAME}} 
+                    <div class="about__description2">
+                        <b>{{appInfo.APP_VERSION}}</b>
+                    </div>
+                </h2>
+
+                <div class="about__description">
+
+                    <p>The highest level of security for your team’s text, voice, and video calls.</p>
+
+                    <p>Copyright @ 2017-2021<br>
+                        Glacier Security Inc<br>
+                        www.glacier.chat<br>
+                        support@glacier.chat</p>
+
+                    <p>This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, starting with either version 3 of the License, or (at your option) any later version. </p>
+
+                    <p>This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. </p>
+
+                    <p>You should have received a copy of the GNU General Public License along with this program. If not, see https://www.gnu.org/licenses </p>
+
+                    <p>Download the full source code at https://github.com/GlacierSecurityInc </p>
+
+                    <p>Libraries:<br>
+                    https://github.com/angular/angular <br>
+                    https://github.com/conversejs/converse.js - Converse v{{appInfo.CONVERSE_VERSION}}<br>
+                    https://github.com/electron/electron - Electron {{appInfo.ELECTRON_VERSION }}<br>
+                    </p>
+                    
                 </div>
-                <div class="about__electron-version">
-                    Version of <a href="https://www.electronjs.org/" target="_blank">electron</a> is {{appInfo.ELECTRON_VERSION }}
-                </div>
-                <div>&nbsp;</div>
-                <div class="about__thanks">
-                    Thanks to
-                    <a href="https://github.com/nick-denry/Chimeverse/graphs/contributors" target="_blank">all contributors</a>
-                </div>
-                <div>&nbsp;</div>
             </div>
         </div>
 
         <div class="about__action">
             <button class="about__close-button" ng-click="closeAbout()">OK</button>
         </div>
-        <div>&nbsp;</div>
-        <div class="about__copyright">Copyright &copy; 2019-2020 Nick Denry</div>
     </div>
 </div>
-
-<ng-include src="'./app/views/shared/_footer.html'"></ng-include>
