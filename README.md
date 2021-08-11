@@ -12,16 +12,16 @@ See [the releases page](https://github.com/GlacierSecurityInc/glacierDesktop/rel
 
 ## Development
 
-VS Code is easiest to get started with.
+VS Code is easiest to get started with. We use [Yarn](https://classic.yarnpkg.com/lang/en/) instead of NPM.
 
 ```bash
 git clone https://github.com/GlacierSecurityInc/glacierDesktop.git --recurse-submodules
 cd glacierDesktop
-npm install
-npm run build
-npm start # start a dev environment
+yarn install
+yarn build
+yarn start # start a dev environment
 
-npm run dist # build a macOS distributable
+yarn dist # build a macOS distributable
 ```
 
 A few notes:
@@ -38,8 +38,8 @@ git submodule update --recursive --remote
 ```bash
 # Make changes
 rm -rf libs/vendor/converse.js/dist
-npm run build
-npm start # includes your changes
+yarn build
+yarn start # includes your changes
 ```
 
 - If you're making simple changes that can be tested with a regular XMPP client (theming), then it's much faster to start a dev server:
