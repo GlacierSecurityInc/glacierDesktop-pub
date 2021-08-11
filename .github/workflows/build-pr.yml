@@ -70,6 +70,15 @@ jobs:
           name: macos
           path: dist/*.dmg
 
+      - name: Comment with link to artifact
+        uses: tonyhallett/artifacts-url-comments@v1.1.0
+        env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+            prefix: 'Artifacts:'
+            format: name
+            addTo: pullandissues
+
       - name: Add reaction
         uses: peter-evans/create-or-update-comment@v1
         with:
