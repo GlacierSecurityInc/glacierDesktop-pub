@@ -70,14 +70,26 @@ jobs:
           name: macos
           path: dist/*.dmg
 
-      - name: Comment with link to artifact
-        uses: tonyhallett/artifacts-url-comments@v1.1.0
-        env:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # - name: Upload artifact to Google Drive
+      #   uses: Jodebu/upload-to-drive@master
+      #   with:
+      #     target: README.md
+      #     credentials: secrets.<YOUR_DRIVE_CREDENTIALS>
+      #     folder: <YOUR_DRIVE_FOLDER_ID>
+
+      - name: Parse PR body
+        id: parsedPR
+        uses: codetheweb/gh-action-issue-parser@v1
         with:
-            prefix: 'Artifacts:'
-            format: name
-            addTo: pullandissues
+          body: ${{ github.event.client_payload.pull_request.body }}
+
+      - name: Comment with link to artifact
+        uses: peter-evans/create-or-update-comment@v1
+        with:
+          issue-number: ${{ steps.parsedPR.outputs.parsed.actions.close[0].issue }}
+          body: |
+            Artifact ready for testing:
+          reactions: 'rocket'
 
       - name: Add reaction
         uses: peter-evans/create-or-update-comment@v1
