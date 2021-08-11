@@ -69,7 +69,7 @@ desktopPlugin.register = (login) => {
                         let senderJid = Strophe.getBareJidFromJid(sender)
                         let loginJid = Strophe.getBareJidFromJid(login)
                         if (senderJid != loginJid) {
-                            console.log(senderJid)
+                            console.log(senderJid.split('@')[0])
                             let event = new CustomEvent('conversejs-unread', {detail: senderJid})
                             document.dispatchEvent(event)
                         }

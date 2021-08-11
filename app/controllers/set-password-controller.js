@@ -20,9 +20,19 @@ angApp.controller('SetPasswordController', function($scope, AppInfo, DesktopServ
 
       try {
         await CognitoService.setPassword(AppStateService.username, AppStateService.currentPassword, password1)
+
+        const credentials = await CognitoService.fetchCredentials(AppStateService.username, password1)
+
+        await CredentialsService.addCredentials(
+          AppInfo.CONNECTION_MANAGER,
+          credentials.login,
+          credentials.password
+        )
+
+        DesktopService.getCredentialsAndLogin()
+
         $scope.setPasswordForm.$setPristine()
         $scope.setPasswordForm.$setUntouched()
-        AppStateService.set(AppStateService.APP_STATE_LOGIN)
       } catch (error) {
         console.error('Error changing password:', error)
         $scope.error = 'Unknown error. Please try again later.'

@@ -1,19 +1,16 @@
 {
-  "name": "chat-radar-desktop",
+  "name": "glacier-desktop",
   "private": true,
   "version": "0.2.4",
   "description": "Desktop Jabber/XMPP client based on Converse.js and Electron",
-  "engines": {
-    "node": ">=15 <16"
-  },
   "engineStrict": true,
   "main": "main.js",
   "scripts": {
     "postinstall": "electron-builder install-app-deps",
     "start": "electron .",
-    "build": "npm run build:metadata && npm run build:vendor",
+    "build": "yarn build:metadata && yarn build:vendor",
     "build:metadata": "node scripts/copy-version-metadata.js",
-    "build:vendor": "npm run build:converse",
+    "build:vendor": "yarn build:converse",
     "build:converse": "cd libs/vendor/converse.js && make dist",
     "pack": "electron-builder --dir",
     "dist": "electron-builder --mac dmg",

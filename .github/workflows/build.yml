@@ -27,10 +27,16 @@ jobs:
           git submodule sync
           git submodule update --init --recursive --remote
 
-      - uses: actions/setup-node@v2
+      - name: Setup Node
+        uses: actions/setup-node@v2
         with:
           node-version: '15'
-          cache: 'npm'
+          cache: 'yarn'
+
+      - name: Cache Converse.js dependencies
+        uses: c-hive/gha-npm-cache@v1
+        with:
+          directory: libs/vendor/converse.js
 
       - name: Cache Electron
         uses: actions/cache@v1
@@ -62,10 +68,10 @@ jobs:
           security set-key-partition-list -S apple-tool:,apple: -s -k $MACOS_KEYCHAIN_PASSWORD build.keychain
 
       - name: Install dependencies
-        run: npm i
+        run: yarn install --frozen-lockfile
 
       - name: Build app
-        run: npm run build
+        run: yarn build
 
       - name: Read package.json
         uses: tyankatsu0105/read-package-version-actions@v1
@@ -100,7 +106,7 @@ jobs:
 
       - name: Package app & update release
         if: github.ref == 'refs/heads/main'
-        run: npm run dist
+        run: yarn dist
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           APPLE_ID: ${{ secrets.APPLE_ID }}
@@ -108,7 +114,7 @@ jobs:
 
       - name: Package app without updating release
         if: github.ref != 'refs/heads/main' && startsWith(github.ref, 'refs/tags/') != true
-        run: npm run dist -- -p never
+        run: yarn dist -- -p never
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 

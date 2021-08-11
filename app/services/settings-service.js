@@ -101,4 +101,3 @@ angApp.factory('SettingsService', () => {
 
     return settingsService
 })
-
