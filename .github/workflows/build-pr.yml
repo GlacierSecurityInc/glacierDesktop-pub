@@ -26,9 +26,6 @@ jobs:
         with:
           node-version: '15'
           cache: 'yarn'
-          cache-dependency-path: |
-            yarn.lock
-            libs/vendor/converse.js/yarn.lock
 
       - name: Cache Electron
         uses: actions/cache@v1
