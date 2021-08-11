@@ -1,6 +1,9 @@
-name: Build
+name: Build release / release candidate
 
-on: push
+on:
+  push:
+    branches:
+      - main
 
 # Prevents a race condition when building on `main` and updating releases
 concurrency: ci-${{ github.ref }}
@@ -30,7 +33,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v2
         with:
-          node-version: '15'
+          node-version: '16'
           cache: 'yarn'
 
       - name: Cache Converse.js dependencies
