@@ -24,8 +24,13 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v2
         with:
-          node-version: '15'
+          node-version: '16'
           cache: 'yarn'
+
+      - name: Cache Converse.js dependencies
+        uses: c-hive/gha-npm-cache@v1
+        with:
+          directory: libs/vendor/converse.j
 
       - name: Cache Electron
         uses: actions/cache@v1
