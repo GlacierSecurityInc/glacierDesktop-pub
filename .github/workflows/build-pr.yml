@@ -30,7 +30,7 @@ jobs:
       - name: Cache Converse.js dependencies
         uses: c-hive/gha-npm-cache@v1
         with:
-          directory: libs/vendor/converse.j
+          directory: libs/vendor/converse.js
 
       - name: Cache Electron
         uses: actions/cache@v1
