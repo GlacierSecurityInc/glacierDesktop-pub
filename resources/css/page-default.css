@@ -7,19 +7,20 @@
 }
 
 .chimeverse-branding__img {
-    margin-left: 20px;
+    margin-left: 10px;
+    margin-right: 10px;
 }
 
 .chimeverse-branding__header {
     font-size: 26px;
     font-weight: normal;
-    color: #999;
+    color: #ccc;
     margin: 0px;
 }
 
 .chimeverse-branding__version {
     font-size: 12px;
-    color: #999;
+    color: #ccc;
     margin-top: 10px;
 }
 
