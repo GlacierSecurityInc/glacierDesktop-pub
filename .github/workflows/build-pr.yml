@@ -17,7 +17,7 @@ jobs:
         run: |
           echo $parsed | jq
         env:
-          parsed: ${{ teps.parsedPR.outputs.parsed }}
+          parsed: ${{ steps.parsedPR.outputs.parsed }}
 
       - name: Dump closed issue
         run: |
