@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Window size and position is saved across opens
 
 ### Fixed
+- Group chats no longer disappear after logging out
 
 ## [0.2.4] - 2021-08-02
 
