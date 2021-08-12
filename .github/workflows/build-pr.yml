@@ -7,6 +7,32 @@ jobs:
   build-pr:
     runs-on: macos-latest
     steps:
+      - name: Parse PR body
+        id: parsedPR
+        uses: codetheweb/gh-action-issue-parser@v1
+        with:
+          body: ${{ github.event.client_payload.pull_request.body }}
+
+      - name: Dump parsed object
+        run: |
+          echo $parsed | jq
+        env:
+          parsed: ${{ teps.parsedPR.outputs.parsed }}
+
+      - name: Dump closed issue
+        run: |
+          echo $parsed | jq
+        env:
+          parsed: ${{ steps.parsedPR.outputs.parsed.actions.close }}
+
+      - name: Comment with build status
+        uses: peter-evans/create-or-update-comment@v1
+        id: createdComment
+        with:
+          issue-number: ${{ steps.parsedPR.outputs.parsed.actions.close[0].issue }}
+          body: |
+            ⚙️ building artifact...
+
       - name: Checkout GlacierDesktop
         uses: actions/checkout@v1
         with:
@@ -77,16 +103,12 @@ jobs:
       #     credentials: secrets.<YOUR_DRIVE_CREDENTIALS>
       #     folder: <YOUR_DRIVE_FOLDER_ID>
 
-      - name: Parse PR body
-        id: parsedPR
-        uses: codetheweb/gh-action-issue-parser@v1
-        with:
-          body: ${{ github.event.client_payload.pull_request.body }}
 
       - name: Comment with link to artifact
         uses: peter-evans/create-or-update-comment@v1
         with:
           issue-number: ${{ steps.parsedPR.outputs.parsed.actions.close[0].issue }}
+          comment-id: ${{ steps.createdComment.outputs.comment-id }}
           body: |
             Artifact ready for testing:
           reactions: 'rocket'
