@@ -3,6 +3,14 @@ on:
   repository_dispatch:
     types: [build-command]
 
+# Possible inputs:
+# - /build in GlacierDesktop PR:
+#   - ConverseBranch=master, GlacierDesktop=$PR_BRANCH
+# - /build $CONVERSE_BRANCH in GlacierDesktop PR:
+#   - ConverseBranch=converse-branch, GlacierDesktop=$PR_BRANCH
+# - /build in Converse.js PR
+#   - ConverseBranch=$PR_BRANCH, GlacierDesktop=main
+
 jobs:
   build-pr:
     runs-on: macos-latest
@@ -20,14 +28,6 @@ jobs:
           issue-number: ${{ fromJSON(steps.parsedPR.outputs.parsed).actions.close[0].issue }}
           body: |
             ⚙️ building artifact...
-
-      # Possible inputs:
-      # - /build in GlacierDesktop PR:
-      #   - ConverseBranch=master, GlacierDesktop=$PR_BRANCH
-      # - /build $CONVERSE_BRANCH in GlacierDesktop PR:
-      #   - ConverseBranch=converse-branch, GlacierDesktop=$PR_BRANCH
-      # - /build in Converse.js PR
-      #   - ConverseBranch=$PR_BRANCH, GlacierDesktop=main
 
       - name: Get branch of GlacierDesktop to build
         id: glacierBranch
@@ -156,6 +156,7 @@ jobs:
 
       - name: Update build status comment to failed
         if: ${{ failure() }}
+        uses: peter-evans/create-or-update-comment@v1
         with:
           issue-number: ${{ fromJSON(steps.parsedPR.outputs.parsed).actions.close[0].issue }}
           comment-id: ${{ steps.createdComment.outputs.comment-id }}
