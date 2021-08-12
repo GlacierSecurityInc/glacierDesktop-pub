@@ -4,17 +4,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [0.2.5] - 2021-08-12
 
-### Added
-- Added option to show password when updating it
+### Added/ Changed
+- Ability to set a permanent password when first logging in
+- Auto-login after password change
+- Added toggle for viewing password in password field
+- Improved visibility of unread message indicators
+- Auto-bookmarking for group chats
+- Updated About Glacier Desktop page
+- Remembers app window size and position when reopening
+- Update theming for @mention activity
+- Improved avatar image selection and compression
+- Additional obfuscation and cleaning up of log
+- Updated styling, icons, and UI layouts
+- Miscellaneous other fixes, improvements, and tweaks
 
-### Changed
-- User is now automatically logged in after changing their password
-- Window size and position is saved across opens
-
-### Fixed
-- Group chats no longer disappear after logging out
 
 ## [0.2.4] - 2021-08-02
 
