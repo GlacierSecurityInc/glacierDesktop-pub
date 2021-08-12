@@ -41,6 +41,16 @@ desktopPlugin.register = (login) => {
             _converse.api.listen.on('statusInitialized', () => {
                 document.dispatchEvent(new CustomEvent('conversejs-user-status-initialized'))
             })
+            _converse.api.listen.on('enteredNewRoom', room => {
+                if (_converse.bookmarks) {
+                    _converse.bookmarks.createBookmark({
+                        'jid': room.get('jid'),
+                        'autojoin': true,
+                        'name': room.get('name'),
+                        'nick': room.get('nick')
+                    })
+                }
+            })
             window.document.addEventListener('converse-login', function (e) {
                 _converse.api.user.login(e.detail.jid, e.detail.password)
             })
