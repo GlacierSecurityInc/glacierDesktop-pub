@@ -23,7 +23,7 @@ jobs:
         run: |
           echo $parsed | jq
         env:
-          parsed: ${{ steps.parsedPR.outputs.parsed.actions.close }}
+          parsed: ${{ fromJSON(steps.parsedPR.outputs.parsed).actions.close }}
 
       - name: Comment with build status
         uses: peter-evans/create-or-update-comment@v1
