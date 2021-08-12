@@ -23,13 +23,13 @@ jobs:
         run: |
           echo $parsed | jq
         env:
-          parsed: ${{ steps.parsedPR.outputs.parsed.actions.close }}
+          parsed: ${{ toJSON(fromJSON(steps.parsedPR.outputs.parsed).actions.close) }}
 
       - name: Comment with build status
         uses: peter-evans/create-or-update-comment@v1
         id: createdComment
         with:
-          issue-number: ${{ steps.parsedPR.outputs.parsed.actions.close[0].issue }}
+          issue-number: ${{ fromJSON(steps.parsedPR.outputs.parsed).actions.close[0].issue }}
           body: |
             ⚙️ building artifact...
 
