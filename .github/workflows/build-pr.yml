@@ -130,13 +130,12 @@ jobs:
           name: macos
           path: dist/*.dmg
 
-      # - name: Upload artifact to Google Drive
-      #   uses: Jodebu/upload-to-drive@master
-      #   with:
-      #     target: README.md
-      #     credentials: secrets.<YOUR_DRIVE_CREDENTIALS>
-      #     folder: <YOUR_DRIVE_FOLDER_ID>
-
+      - name: Upload artifact to Google Drive
+        uses: Jodebu/upload-to-drive@master
+        with:
+          target: dist
+          credentials: ${{ secrets.GDRIVE_CREDENTIALS }}
+          folder: ${{ secrets.GDRIVE_FOLDER }}
 
       - name: Comment with link to artifact
         uses: peter-evans/create-or-update-comment@v1
