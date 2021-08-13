@@ -74,7 +74,13 @@ jobs:
         with:
           ref: ${{ steps.glacierBranch.outputs.branch }}
 
+      - name: Get short SHA of GlacierDesktop
+        id: glacierDesktopSHA
+        run: |
+          echo "::set-output name=SHA_SHORT::$(git rev-parse --short HEAD)"
+
       - name: Checkout Converse.js
+        id: converseCheckout
         run: |
           git config --file .gitmodules --get-regexp url | while read url; do
             git config --file=.gitmodules $(echo "$url" | sed -E "s/git@github.com:|https:\/\/github.com\//https:\/\/${{ secrets.PERSONAL_ACCESS_TOKEN }}:${{ secrets.PERSONAL_ACCESS_TOKEN }}@github.com\//")
@@ -82,6 +88,16 @@ jobs:
           git submodule sync
           git submodule update --init --recursive --remote
           cd libs/vendor/converse.js && git checkout ${{ steps.converseBranch.outputs.branch }}
+          echo "::set-output name=SHA_SHORT::$(git rev-parse --short HEAD)"
+
+      - name: Get app version
+        id: package-version
+        uses: martinbeentjes/npm-get-version-action@master
+
+      - name: Compute artifact name
+        id: artifactName
+        run: |
+          echo "::set-output name=NAME::$(echo 'GlacierDesktop_Closes_${{ fromJSON(steps.parsedPR.outputs.parsed).actions.close[0].issue }}_${{ steps.glacierBranch.outputs.branch }}_${{ steps.converseBranch.outputs.branch }}_${{ steps.glacierDesktopSHA.outputs.SHA_SHORT }}_${{ steps.converseCheckout.outputs.SHA_SHORT }}_${{ steps.package-version.outputs.current-version}}' | tr -cd '.A-Za-z0-9_-')"
 
       - name: Setup Node
         uses: actions/setup-node@v2
@@ -126,10 +142,16 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Rename artifact
+        run: |
+          mv dist/*.dmg dist/$NAME.dmg
+        env:
+          NAME: ${{ steps.artifactName.outputs.NAME }}
+
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
         with:
-          name: macos
+          name: ${{ steps.artifactName.outputs.NAME }}
           path: dist/*.dmg
 
       - name: Upload artifact to Google Drive
@@ -139,6 +161,7 @@ jobs:
           target: dist
           credentials: ${{ secrets.GDRIVE_CREDENTIALS }}
           folder: ${{ secrets.GDRIVE_FOLDER }}
+          name: ${{ steps.artifactName.outputs.NAME }}
 
       - name: Comment with link to artifact
         uses: peter-evans/create-or-update-comment@v1.4.5
