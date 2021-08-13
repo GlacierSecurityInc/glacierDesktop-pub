@@ -92,12 +92,12 @@ jobs:
 
       - name: Get app version
         id: package-version
-        uses: martinbeentjes/npm-get-version-action@master
+        uses: Saionaro/extract-package-version@v1.0.6
 
       - name: Compute artifact name
         id: artifactName
         run: |
-          echo "::set-output name=NAME::$(echo 'GlacierDesktop_Closes_${{ fromJSON(steps.parsedPR.outputs.parsed).actions.close[0].issue }}_${{ steps.glacierBranch.outputs.branch }}_${{ steps.converseBranch.outputs.branch }}_${{ steps.glacierDesktopSHA.outputs.SHA_SHORT }}_${{ steps.converseCheckout.outputs.SHA_SHORT }}_${{ steps.package-version.outputs.current-version}}' | tr -cd '.A-Za-z0-9_-')"
+          echo "::set-output name=NAME::$(echo 'GlacierDesktop_Closes_${{ fromJSON(steps.parsedPR.outputs.parsed).actions.close[0].issue }}_${{ steps.glacierBranch.outputs.branch }}_${{ steps.converseBranch.outputs.branch }}_${{ steps.glacierDesktopSHA.outputs.SHA_SHORT }}_${{ steps.converseCheckout.outputs.SHA_SHORT }}_${{ steps.package-version.outputs.version}}' | tr -cd '.A-Za-z0-9_-')"
 
       - name: Setup Node
         uses: actions/setup-node@v2
