@@ -119,7 +119,7 @@ jobs:
         run: yarn install --frozen-lockfile
 
       - name: Build app
-        run: yarn build
+        run: yarn build -p never
 
       - name: Package app
         run: yarn dist
