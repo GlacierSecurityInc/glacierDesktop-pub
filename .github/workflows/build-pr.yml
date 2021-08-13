@@ -22,12 +22,14 @@ jobs:
           body: ${{ github.event.client_payload.pull_request.body }}
 
       - name: Comment with build status
-        uses: peter-evans/create-or-update-comment@v1
+        uses: peter-evans/create-or-update-comment@v1.4.5
         id: createdComment
         with:
           issue-number: ${{ fromJSON(steps.parsedPR.outputs.parsed).actions.close[0].issue }}
           body: |
             ⚙️ building artifact...
+
+            [Inspect workflow run](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})
 
       - name: Get branch of GlacierDesktop to build
         id: glacierBranch
@@ -132,22 +134,25 @@ jobs:
 
       - name: Upload artifact to Google Drive
         uses: Jodebu/upload-to-drive@master
+        id: gdrive
         with:
           target: dist
           credentials: ${{ secrets.GDRIVE_CREDENTIALS }}
           folder: ${{ secrets.GDRIVE_FOLDER }}
 
       - name: Comment with link to artifact
-        uses: peter-evans/create-or-update-comment@v1
+        uses: peter-evans/create-or-update-comment@v1.4.5
         with:
           issue-number: ${{ fromJSON(steps.parsedPR.outputs.parsed).actions.close[0].issue }}
           comment-id: ${{ steps.createdComment.outputs.comment-id }}
+          edit-mode: replace
           body: |
-            Artifact ready for testing:
-          reactions: 'rocket'
+            🚀 artifact ready for testing:
+
+            [Download artifact](${{ steps.gdrive.outputs.link }})
 
       - name: Add reaction
-        uses: peter-evans/create-or-update-comment@v1
+        uses: peter-evans/create-or-update-comment@v1.4.5
         with:
           token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
           repository: ${{ github.event.client_payload.github.payload.repository.full_name }}
@@ -156,9 +161,12 @@ jobs:
 
       - name: Update build status comment to failed
         if: ${{ failure() }}
-        uses: peter-evans/create-or-update-comment@v1
+        uses: peter-evans/create-or-update-comment@v1.4.5
         with:
           issue-number: ${{ fromJSON(steps.parsedPR.outputs.parsed).actions.close[0].issue }}
           comment-id: ${{ steps.createdComment.outputs.comment-id }}
+          edit-mode: replace
           body: |
             🚫 artifact failed to build
+
+            [Inspect workflow run](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})
