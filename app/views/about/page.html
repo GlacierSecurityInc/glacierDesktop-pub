@@ -6,13 +6,47 @@
                     class="chimeverse-branding__img" />
             </div>
             <div class="about-card__description">
-                <h2 class="about__title">About {{appInfo.APP_NAME}} 
+                <h2 class="about__title">About {{appInfo.APP_NAME}}
                     <div class="about__description2">
-                        <b>{{appInfo.APP_VERSION}}</b>
+                        <b>{{appInfo.metadata.VERSION}}</b>
                     </div>
                 </h2>
 
                 <div class="about__description">
+                    <p ng-if="appInfo.metadata.CLOSES">
+                        Closes
+                        <a href="https://github.com/GlacierSecurityInc/glacierDesktop/issues/{{appInfo.metadata.CLOSES}}" target="_blank">
+                            #{{appInfo.metadata.CLOSES}}
+                        </a>
+                    </p>
+
+                    <p ng-if="appInfo.metadata.GLACIER_BRANCH">
+                        Glacier Desktop branch:
+                        <a href="https://github.com/GlacierSecurityInc/glacierDesktop/tree/{{appInfo.metadata.GLACIER_BRANCH}}" target="_blank">
+                            {{appInfo.metadata.GLACIER_BRANCH}}
+                        </a>
+                    </p>
+
+                    <p ng-if="appInfo.metadata.CONVERSE_BRANCH">
+                        Converse.js branch:
+                        <a href="https://github.com/GlacierSecurityInc/converse.js/tree/{{appInfo.metadata.CONVERSE_BRANCH}}" target="_blank">
+                            {{appInfo.metadata.CONVERSE_BRANCH}}
+                        </a>
+                    </p>
+
+                    <p ng-if="appInfo.metadata.GLACIER_SHA">
+                        Glacier Desktop SHA:
+                        <a href="https://github.com/GlacierSecurityInc/glacierDesktop/tree/{{appInfo.metadata.GLACIER_SHA}}" target="_blank">
+                            {{appInfo.metadata.GLACIER_SHA}}
+                        </a>
+                    </p>
+
+                    <p ng-if="appInfo.metadata.CONVERSE_SHA">
+                        Converse.js SHA:
+                        <a href="https://github.com/GlacierSecurityInc/converse.js/tree/{{appInfo.metadata.CONVERSE_SHA}}" target="_blank">
+                            {{appInfo.metadata.CONVERSE_SHA}}
+                        </a>
+                    </p>
 
                     <p>The highest level of security for your team’s text, voice, and video calls.</p>
 
@@ -34,7 +68,7 @@
                     https://github.com/conversejs/converse.js - Converse v{{appInfo.CONVERSE_VERSION}}<br>
                     https://github.com/electron/electron - Electron {{appInfo.ELECTRON_VERSION }}<br>
                     </p>
-                    
+
                 </div>
             </div>
         </div>
