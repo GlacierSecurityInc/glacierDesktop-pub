@@ -97,7 +97,7 @@ jobs:
       - name: Compute artifact name
         id: artifactName
         run: |
-          echo "::set-output name=NAME::$(echo 'GlacierDesktop_Closes_${{ fromJSON(steps.parsedPR.outputs.parsed).actions.close[0].issue }}_${{ steps.glacierBranch.outputs.branch }}_${{ steps.converseBranch.outputs.branch }}_${{ steps.glacierDesktopSHA.outputs.SHA_SHORT }}_${{ steps.converseCheckout.outputs.SHA_SHORT }}_${{ steps.package-version.outputs.version}}' | tr -cd '.A-Za-z0-9_-')"
+          echo "::set-output name=NAME::$(echo 'GlacierDesktop_Closes_${{ fromJSON(steps.parsedPR.outputs.parsed).actions.close[0].issue }}_${{ steps.glacierBranch.outputs.branch }}_${{ steps.converseBranch.outputs.branch }}_${{ steps.glacierDesktopSHA.outputs.SHA_SHORT }}_${{ steps.converseCheckout.outputs.SHA_SHORT }}_${{ steps.package-version.outputs.version }}' | tr -cd '.A-Za-z0-9_-')"
 
       - name: Setup Node
         uses: actions/setup-node@v2
@@ -133,6 +133,16 @@ jobs:
 
       - name: Install dependencies
         run: yarn install --frozen-lockfile
+
+      - name: Build metadata
+        run: yarn build:metadata
+        env:
+          CLOSES: ${{ fromJSON(steps.parsedPR.outputs.parsed).actions.close[0].issue }}
+          GLACIER_BRANCH: ${{ steps.glacierBranch.outputs.branch }}
+          CONVERSE_BRANCH: ${{ steps.converseBranch.outputs.branch }}
+          GLACIER_SHA: ${{ steps.glacierDesktopSHA.outputs.SHA_SHORT }}
+          CONVERSE_SHA: ${{ steps.converseCheckout.outputs.SHA_SHORT }}
+          VERSION: ${{ steps.package-version.outputs.version }}
 
       - name: Build app
         run: yarn build
@@ -170,7 +180,7 @@ jobs:
           comment-id: ${{ steps.createdComment.outputs.comment-id }}
           edit-mode: replace
           body: |
-            🚀 artifact ready for testing:
+            🚀 artifact ready for testing: ${{ steps.artifactName.outputs.NAME }}
 
             [Download artifact](${{ steps.gdrive.outputs.fileLink }})
 
