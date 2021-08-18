@@ -83,14 +83,14 @@ jobs:
       - name: Get changelog version
         id: changelogHeader
         run: |
-          if [$REF == 'refs/heads/main']
-            then
+          if [ $REF == "refs/heads/main" ]; then
               echo "::set-output name=version::Unreleased"
             else
-              echo "::set-output name=version::$REF"
+              echo "::set-output name=version::$VERSION"
             fi
         env:
           REF: ${{ github.ref }}
+          VERSION: ${{ steps.package-version.outputs.version }}
 
       - name: Get Changelog Entry
         id: changelog_reader
