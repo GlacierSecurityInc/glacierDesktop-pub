@@ -80,13 +80,25 @@ jobs:
         uses: tyankatsu0105/read-package-version-actions@v1
         id: package-version
 
+      - name: Get changelog version
+        id: changelogHeader
+        run: |
+          if [$REF == 'refs/heads/main']
+            then
+              echo "::set-output name=version::Unreleased"
+            else
+              echo "::set-output name=version::$REF"
+            fi
+        env:
+          REF: ${{ github.ref }}
+
       - name: Get Changelog Entry
         id: changelog_reader
         uses: mindsers/changelog-reader-action@v2
         with:
           validation_depth: 10
           path: ./CHANGELOG.md
-          version: 'Unreleased'
+          version: ${{ steps.changelogHeader.outputs.version }}
 
       # TODO: ideally this would be made obsolete by the next action.
       # See: https://github.com/softprops/action-gh-release/issues/103
@@ -114,12 +126,6 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           APPLE_ID: ${{ secrets.APPLE_ID }}
           APPLE_ID_PASSWORD: ${{ secrets.APPLE_ID_PASSWORD }}
-
-      - name: Package app without updating release
-        if: github.ref != 'refs/heads/main' && startsWith(github.ref, 'refs/tags/') != true
-        run: yarn dist -- -p never
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v2

@@ -4,9 +4,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Added
+- Now shows build info on about page
+
+### Changed
+
+### Fixed
+
 ## [0.2.5] - 2021-08-12
 
-### Added/ Changed
+### Added
+
+### Changed
 - Ability to set a permanent password when first logging in
 - Auto-login after password change
 - Added toggle for viewing password in password field
@@ -19,6 +30,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Additional obfuscation and cleaning up of log
 - Updated styling, icons, and UI layouts
 - Miscellaneous other fixes, improvements, and tweaks
+
+### Fixed
 
 
 ## [0.2.4] - 2021-08-02
@@ -54,6 +67,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - Fix error handling for version check
 
-[Unreleased]: https://github.com/GlacierSecurityInc/glacierDesktop/compare/v0.2.4...HEAD
+[Unreleased]: https://github.com/GlacierSecurityInc/glacierDesktop/compare/v0.2.5...HEAD
+[0.2.5]: https://github.com/GlacierSecurityInc/glacierDesktop/releases/tag/v0.2.5
 [0.2.4]: https://github.com/GlacierSecurityInc/glacierDesktop/releases/tag/v0.2.4
 [0.1.0]: https://github.com/GlacierSecurityInc/glacierDesktop/releases/tag/v0.1.0

@@ -51,12 +51,33 @@ make devserver # will automatically reload in the browser when code changes
 
 ### Releasing
 
-To prepare for a new version, update `version` in `package.json` and push (without tagging). This will create a new draft release that will be continuously updated with new builds. (During this time, changes should go under 'Unreleased' in `CHANGELOG.md`.)
+1. Figure out what version this release should use. It can be any number that's not currently listed on [the releases page](https://github.com/GlacierSecurityInc/glacierDesktop/releases), but you should follow [SemVer](https://semver.org/spec/v2.0.0.html). This version number (**without** the `v` prefix) will be referred to as `$VERSION` in the following steps.
 
-After the push, a draft release will automatically generated. (This will overright previous drafts so be sure to promote old draft to prerelease before pushing a new version.)
+2. Update `version` in `package.json` to `$VERSION` (don't commit yet).
 
-When it's ready to be released, first update `CHANGELOG.md` (`Unreleased` -> new version and add new `Unreleased` header & template at top). Then, go to [releases](https://github.com/GlacierSecurityInc/glacierDesktop/releases) and publish the draft.
+3. Update `CHANGELOG.md` with `$VERSION`:
+  - `Unreleased` -> `$VERSION`
+  - Add new `Unreleased` header & template at top.
+  - Add links in footer
+  - See [this commit](https://github.com/GlacierSecurityInc/glacierDesktop/commit/56988a4a91cb3284c5ee74778692dc591601974d#diff-06572a96a58dc510037d5efa622f9bec8519bc1beab13c9f251e97e657a9d4ed) for an example of what should be changed.
 
+4. Commit your changes from steps 2 & 3, the commit message should be something like `v$VERSION Release`.
+
+5. After committing, tag your commit: `git tag v$VERSION` (**add** the `v` prefix).
+
+6. Push your commit and tag: `git push && git push --tags`.
+
+7. A new release will appear on [the releases page](https://github.com/GlacierSecurityInc/glacierDesktop/releases) after the build workflow finishes.
+
+8. To prepare for the next release and enable draft builds, update `version` in `package.json` once again. You can always change this later before the next version is published to better follow [SemVer](https://semver.org/spec/v2.0.0.html) depending on what changes, so just think of it as a placeholder for now. For example, if you just published `v0.2.4` you could change the version field to `0.2.5`.
+
+### Actions
+
+All automations are handled by [GitHub Actions](https://docs.github.com/en/actions/learn-github-actions). They are stored in `.github/workflows`. A few tips / notes:
+
+- Actions will use the latest version of its specification **within the current context**. For example, say you create a new branch called `patch/new-fix`, commit, and push a change to `.github/workflows/build.yml`. In this scenario, `build.yml` specifies that the action should run on every push. When it runs for your push, it'll use your updated specification since the context is from within your branch.
+- Alternatively, say `.github/workflows/build.yml` runs on every push, but only when the push is to `main`. In this scenario, the action will not execute for `patch/new-fix` (since it only runs on pushes to `main`) and when triggered by future pushes to `main` **will not** use your updated version until you merge your changes into `main`.
+- Use Linux (`ubuntu-latest`) runners whenever possible, as they're far cheaper than macOS & Windows.
 
 ## License
 
