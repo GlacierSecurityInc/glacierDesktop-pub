@@ -94,10 +94,16 @@ jobs:
         id: package-version
         uses: Saionaro/extract-package-version@v1.0.6
 
+      - name: Get build number
+        id: buildNum
+        uses: einaregilsson/build-number@v3
+        with:
+          token: ${{secrets.github_token}}
+
       - name: Compute artifact name
         id: artifactName
         run: |
-          echo "::set-output name=NAME::$(echo 'GlacierDesktop_Closes_${{ fromJSON(steps.parsedPR.outputs.parsed).actions.close[0].issue }}_${{ steps.glacierBranch.outputs.branch }}_${{ steps.converseBranch.outputs.branch }}_${{ steps.glacierDesktopSHA.outputs.SHA_SHORT }}_${{ steps.converseCheckout.outputs.SHA_SHORT }}_${{ steps.package-version.outputs.version }}' | tr -cd '.A-Za-z0-9_-')"
+          echo "::set-output name=NAME::$(echo 'GlacierDesktop ${{ steps.package-version.outputs.version }} bld_${{ steps.buildNum.outputs.build_number }} tkt_${{ fromJSON(steps.parsedPR.outputs.parsed).actions.close[0].issue }} ${{ steps.glacierBranch.outputs.branch }}_${{ steps.glacierDesktopSHA.outputs.SHA_SHORT }} ${{ steps.converseBranch.outputs.branch }}_${{ steps.converseCheckout.outputs.SHA_SHORT }}' | tr '/' '-')"
 
       - name: Setup Node
         uses: actions/setup-node@v2
@@ -143,6 +149,7 @@ jobs:
           GLACIER_SHA: ${{ steps.glacierDesktopSHA.outputs.SHA_SHORT }}
           CONVERSE_SHA: ${{ steps.converseCheckout.outputs.SHA_SHORT }}
           VERSION: ${{ steps.package-version.outputs.version }}
+          BUILD_NUMBER: ${{ steps.buildNum.outputs.build_number }}
 
       - name: Build app
         run: yarn build
