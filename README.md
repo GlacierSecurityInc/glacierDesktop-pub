@@ -12,6 +12,8 @@ See [the releases page](https://github.com/GlacierSecurityInc/glacierDesktop/rel
 
 ## Development
 
+### Getting started
+
 VS Code is easiest to get started with. We use [Yarn](https://classic.yarnpkg.com/lang/en/) instead of NPM.
 
 ```bash
@@ -48,6 +50,16 @@ yarn start # includes your changes
 cd libs/vendor/converse.js
 make devserver # will automatically reload in the browser when code changes
 ```
+
+### Contributing
+
+When you're ready for others to test your changes, [open a PR](https://github.com/GlacierSecurityInc/glacierDesktop/compare). Make sure you follow the template: **every PR should be associated with exactly one issue / ticket**. If your changes are to both glacierDesktop and our Converse.js fork, make sure you link to your Converse.js PR in your glacierDesktop PR.
+
+Inside your PR, you can comment `/build` when you're ready for QA to test your changes. This will trigger a workflow that'll automatically build an artifact and drop a link to it in the associated ticket.
+
+If your changes are to both glacierDesktop and our Converse.js fork:
+- When commenting inside a glacierDesktop PR, you can specify the branch in Converse.js like so: `/build my-converse-branch`.
+- When commenting inside a Converse.js PR, you can specify the branch in glacierDesktop like so: `/build my-glacierDesktop-branch`.
 
 ### Releasing
 
