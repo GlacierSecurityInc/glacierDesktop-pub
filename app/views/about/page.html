@@ -8,51 +8,54 @@
             <div class="about-card__description">
                 <h2 class="about__title">About {{appInfo.APP_NAME}}
                     <div class="about__description2">
-                        <b>{{appInfo.metadata.VERSION}}</b>
+                        <b>v{{appInfo.metadata.VERSION}}</b>
                     </div>
                 </h2>
 
                 <div class="about__description">
-                    <p ng-if="appInfo.metadata.BUILD_NUMBER">
-                       Build: {{appInfo.metadata.BUILD_NUMBER}}
-                    </p>
+                    <div class="debug_info">
+                        <p ng-if="appInfo.metadata.BUILD_NUMBER">
+                           <span>Build:</span>
+                           {{appInfo.metadata.BUILD_NUMBER}}
+                        </p>
 
-                    <p ng-if="appInfo.metadata.CLOSES">
-                        Ticket:
-                        <a href="https://github.com/GlacierSecurityInc/glacierDesktop/issues/{{appInfo.metadata.CLOSES}}" target="_blank">
-                            #{{appInfo.metadata.CLOSES}}
-                        </a>
-                    </p>
+                        <p ng-if="appInfo.metadata.CLOSES">
+                            <span>Ticket:</span>
+                            <a href="https://github.com/GlacierSecurityInc/glacierDesktop/issues/{{appInfo.metadata.CLOSES}}" target="_blank">
+                                #{{appInfo.metadata.CLOSES}}
+                            </a>
+                        </p>
 
-                    <p ng-if="appInfo.metadata.GLACIER_BRANCH">
-                        Glacier Desktop branch:
-                        <a href="https://github.com/GlacierSecurityInc/glacierDesktop/tree/{{appInfo.metadata.GLACIER_BRANCH}}" target="_blank">
-                            {{appInfo.metadata.GLACIER_BRANCH}}
-                        </a>
-                    </p>
+                        <p ng-if="appInfo.metadata.GLACIER_BRANCH">
+                            <span>glacierDesktop branch:</span>
+                            <a href="https://github.com/GlacierSecurityInc/glacierDesktop/tree/{{appInfo.metadata.GLACIER_BRANCH}}" target="_blank">
+                                {{appInfo.metadata.GLACIER_BRANCH}}
+                            </a>
+                        </p>
 
-                    <p ng-if="appInfo.metadata.CONVERSE_BRANCH">
-                        Converse.js branch:
-                        <a href="https://github.com/GlacierSecurityInc/converse.js/tree/{{appInfo.metadata.CONVERSE_BRANCH}}" target="_blank">
-                            {{appInfo.metadata.CONVERSE_BRANCH}}
-                        </a>
-                    </p>
+                        <p ng-if="appInfo.metadata.GLACIER_SHA">
+                            <span>glacierDesktop SHA:</span>
+                            <a href="https://github.com/GlacierSecurityInc/glacierDesktop/tree/{{appInfo.metadata.GLACIER_SHA}}" target="_blank">
+                                {{appInfo.metadata.GLACIER_SHA}}
+                            </a>
+                        </p>
 
-                    <p ng-if="appInfo.metadata.GLACIER_SHA">
-                        Glacier Desktop SHA:
-                        <a href="https://github.com/GlacierSecurityInc/glacierDesktop/tree/{{appInfo.metadata.GLACIER_SHA}}" target="_blank">
-                            {{appInfo.metadata.GLACIER_SHA}}
-                        </a>
-                    </p>
+                        <p ng-if="appInfo.metadata.CONVERSE_BRANCH">
+                            <span>Converse.js branch:</span>
+                            <a href="https://github.com/GlacierSecurityInc/converse.js/tree/{{appInfo.metadata.CONVERSE_BRANCH}}" target="_blank">
+                                {{appInfo.metadata.CONVERSE_BRANCH}}
+                            </a>
+                        </p>
 
-                    <p ng-if="appInfo.metadata.CONVERSE_SHA">
-                        Converse.js SHA:
-                        <a href="https://github.com/GlacierSecurityInc/converse.js/tree/{{appInfo.metadata.CONVERSE_SHA}}" target="_blank">
-                            {{appInfo.metadata.CONVERSE_SHA}}
-                        </a>
-                    </p>
+                        <p ng-if="appInfo.metadata.CONVERSE_SHA">
+                            <span>Converse.js SHA:</span>
+                            <a href="https://github.com/GlacierSecurityInc/converse.js/tree/{{appInfo.metadata.CONVERSE_SHA}}" target="_blank">
+                                {{appInfo.metadata.CONVERSE_SHA}}
+                            </a>
+                        </p>
+                    </div>
 
-                    <p>The highest level of security for your team’s text, voice, and video calls.</p>
+                    <p>Glacier provides the highest level of security for your team’s text, voice, and video calls.</p>
 
                     <p>Copyright @ 2017-2021<br>
                         Glacier Security Inc<br>
@@ -69,8 +72,8 @@
 
                     <p>Libraries:<br>
                     https://github.com/angular/angular <br>
-                    https://github.com/conversejs/converse.js - Converse v{{appInfo.CONVERSE_VERSION}}<br>
-                    https://github.com/electron/electron - Electron {{appInfo.ELECTRON_VERSION }}<br>
+                    https://github.com/conversejs/converse.js - Converse v{{appInfo.metadata.CONVERSE_VERSION}}<br>
+                    https://github.com/electron/electron - Electron {{appInfo.metadata.ELECTRON_VERSION }}<br>
                     </p>
 
                 </div>
