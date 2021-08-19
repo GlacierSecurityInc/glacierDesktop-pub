@@ -13,8 +13,12 @@
                 </h2>
 
                 <div class="about__description">
+                    <p ng-if="appInfo.metadata.BUILD_NUMBER">
+                       Build: {{appInfo.metadata.BUILD_NUMBER}}
+                    </p>
+
                     <p ng-if="appInfo.metadata.CLOSES">
-                        Closes
+                        Ticket:
                         <a href="https://github.com/GlacierSecurityInc/glacierDesktop/issues/{{appInfo.metadata.CLOSES}}" target="_blank">
                             #{{appInfo.metadata.CLOSES}}
                         </a>

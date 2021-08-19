@@ -8,7 +8,8 @@ const out = {
     CONVERSE_BRANCH: process.env.CONVERSE_BRANCH,
     GLACIER_SHA: process.env.GLACIER_SHA,
     CONVERSE_SHA: process.env.CONVERSE_SHA,
-    VERSION: process.env.VERSION
+    VERSION: process.env.VERSION,
+    BUILD_NUMBER: process.env.BUILD_NUMBER
 };
 
 fs.writeFileSync(path.join(appDir, 'metadata.json'), JSON.stringify(out), {flag: 'w'});
