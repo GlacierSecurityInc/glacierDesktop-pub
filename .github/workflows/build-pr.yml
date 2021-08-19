@@ -161,7 +161,7 @@ jobs:
 
       - name: Rename artifact
         run: |
-          mv dist/*.dmg dist/$NAME.dmg
+          mv dist/*.dmg "dist/$NAME.dmg"
         env:
           NAME: ${{ steps.artifactName.outputs.NAME }}
 
