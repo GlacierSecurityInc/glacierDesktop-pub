@@ -2,8 +2,6 @@
 
 Electron-based Desktop client for Glacier Chat.
 
-## Converse Desktop
-
 This project started as a fork of [converse-desktop](https://github.com/conversejs/converse-desktop) Nick Denry's [Chimeverse](https://github.com/conversejs/converse-desktop).
 
 ## Releases
@@ -29,7 +27,7 @@ yarn dist # build a macOS distributable
 A few notes:
 - You can make modifications to our [Converse.js fork](https://github.com/GlacierSecurityInc/converse.js) directly in the submodule folder (`libs/vendor/converse.js`). It acts like a normal Git repository, meaning that you can create a branch with your changes as normal, push them to our fork, and then make a PR.
 
-To update the submodule:
+To update the submodule (equivalent to doing `git pull` inside the submodule folder):
 
 ```bash
 git submodule update --recursive --remote
@@ -44,24 +42,28 @@ yarn build
 yarn start # includes your changes
 ```
 
-- If you're making simple changes that can be tested with a regular XMPP client (theming), then it's much faster to start a dev server:
+- If you're making non-Glacier specific changes that can be tested with a regular XMPP client (theming), then it's much faster to start a dev server:
 
 ```bash
 cd libs/vendor/converse.js
-make devserver # will automatically reload in the browser when code changes
+make devserver # will start a local server, print a URL, & automatically reload in the browser when code changes
 ```
 
 ### Contributing
 
-When you're ready for others to test your changes, [open a PR](https://github.com/GlacierSecurityInc/glacierDesktop/compare). Make sure you follow the template: **every PR should be associated with exactly one issue / ticket**. If your changes are to both glacierDesktop and our Converse.js fork, make sure you link to your Converse.js PR in your glacierDesktop PR.
+When you're ready for others to test your changes, [open a PR](https://github.com/GlacierSecurityInc/glacierDesktop/compare). Make sure you follow the template: **every PR should be associated with exactly one issue / ticket**. Automations assume this. If it's absolutely necessary to open a PR that closes multiple tickets, automations will still run correctly but artifact names will only mention one ticket and the automation will only comment in one ticket.
+
+If your changes are to both glacierDesktop and our Converse.js fork, make sure you link to your Converse.js PR in your glacierDesktop PR by pasting a link to it somewhere in the PR body.
 
 Inside your PR, you can comment `/build` when you're ready for QA to test your changes. This will trigger a workflow that'll automatically build an artifact and drop a link to it in the associated ticket.
 
-If your changes are to both glacierDesktop and our Converse.js fork:
+When building, the automation needs to resolve two different branches to figure out what code to build: the branch on glacierDesktop and the branch on our Converse.js fork. It will always use the PR branch as one of the branches. The other branch defaults to `main` / `master`, but you can specify it manually if necessary (i.e. your changes are to both glacierDesktop and the Converse.js fork):
 - When commenting inside a glacierDesktop PR, you can specify the branch in Converse.js like so: `/build my-converse-branch`.
 - When commenting inside a Converse.js PR, you can specify the branch in glacierDesktop like so: `/build my-glacierDesktop-branch`.
 
 ### Releasing
+
+(These steps should be performed on this repo, glacierDesktop. Our Converse.js fork is not currently versioned beyond what's provided by upstream.)
 
 1. Figure out what version this release should use. It can be any number that's not currently listed on [the releases page](https://github.com/GlacierSecurityInc/glacierDesktop/releases), but you should follow [SemVer](https://semver.org/spec/v2.0.0.html). This version number (**without** the `v` prefix) will be referred to as `$VERSION` in the following steps.
 
@@ -89,7 +91,7 @@ All automations are handled by [GitHub Actions](https://docs.github.com/en/actio
 
 - Actions will use the latest version of its specification **within the current context**. For example, say you create a new branch called `patch/new-fix`, commit, and push a change to `.github/workflows/build.yml`. In this scenario, `build.yml` specifies that the action should run on every push. When it runs for your push, it'll use your updated specification since the context is from within your branch.
 - Alternatively, say `.github/workflows/build.yml` runs on every push, but only when the push is to `main`. In this scenario, the action will not execute for `patch/new-fix` (since it only runs on pushes to `main`) and when triggered by future pushes to `main` **will not** use your updated version until you merge your changes into `main`.
-- Use Linux (`ubuntu-latest`) runners whenever possible, as they're far cheaper than macOS & Windows.
+- Use Linux (`ubuntu-latest`) [runners](https://docs.github.com/en/actions/using-github-hosted-runners/about-github-hosted-runners) whenever possible, as they're far cheaper than macOS & Windows.
 
 ## License
 
