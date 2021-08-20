@@ -22,13 +22,21 @@ jobs:
     steps:
       - uses: actions/checkout@v1
 
-      - name: Checkout submodules using a PAT
+      - name: Get short SHA of GlacierDesktop
+        id: glacierDesktopSHA
+        run: |
+          echo "::set-output name=SHA_SHORT::$(git rev-parse --short HEAD)"
+
+      - name: Checkout submodule using a PAT
+        id: converseCheckout
         run: |
           git config --file .gitmodules --get-regexp url | while read url; do
             git config --file=.gitmodules $(echo "$url" | sed -E "s/git@github.com:|https:\/\/github.com\//https:\/\/${{ secrets.PERSONAL_ACCESS_TOKEN }}:${{ secrets.PERSONAL_ACCESS_TOKEN }}@github.com\//")
           done
           git submodule sync
           git submodule update --init --recursive --remote
+          cd libs/vendor/converse.js
+          echo "::set-output name=SHA_SHORT::$(git rev-parse --short HEAD)"
 
       - name: Setup Node
         uses: actions/setup-node@v2
@@ -72,6 +80,33 @@ jobs:
 
       - name: Install dependencies
         run: yarn install --frozen-lockfile
+
+      - name: Get app version
+        id: package-version
+        uses: Saionaro/extract-package-version@v1.0.
+
+      - name: Get build number
+        id: buildNum
+        uses: einaregilsson/build-number@v3
+        with:
+          token: ${{secrets.github_token}}
+
+      - name: Build metadata (draft release version)
+        if: github.ref == 'refs/heads/main'
+        run: yarn build:metadata
+        env:
+          GLACIER_BRANCH: main
+          CONVERSE_BRANCH: master
+          GLACIER_SHA: ${{ steps.glacierDesktopSHA.outputs.SHA_SHORT }}
+          CONVERSE_SHA: ${{ steps.converseCheckout.outputs.SHA_SHORT }}
+          VERSION: ${{ steps.package-version.outputs.version }}
+          BUILD_NUMBER: ${{ steps.buildNum.outputs.build_number }}
+
+      - name: Build metadata (release version)
+        if: github.ref != 'refs/heads/main'
+        run: yarn build:metadata
+        env:
+          VERSION: ${{ steps.package-version.outputs.version }}
 
       - name: Build app
         run: yarn build
