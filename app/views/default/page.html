@@ -5,6 +5,10 @@
         <h3 class="chimeverse-branding__header"><br>{{appInfo.APP_NAME}}</h3>
         <div class="chimeverse-branding__version">
             <span>{{appInfo.metadata.VERSION}}</span>
+            <p ng-if="appInfo.metadata.BUILD_NUMBER">
+                <span>Build:</span>
+                {{appInfo.metadata.BUILD_NUMBER}}
+             </p>
             <span class="chimeverse-branding__update">
                 <span class="update__checking" ng-show="checkingForUpdate == 'inProgress'">checking for update...</span>
                 <span class="update__error" ng-show="checkingForUpdate == 'checkErr'">
