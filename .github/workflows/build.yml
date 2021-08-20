@@ -83,7 +83,7 @@ jobs:
 
       - name: Get app version
         id: package-version
-        uses: Saionaro/extract-package-version@v1.0.
+        uses: Saionaro/extract-package-version@v1.0.6
 
       - name: Get build number
         id: buildNum
