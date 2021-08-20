@@ -70,10 +70,22 @@ When building, the automation needs to resolve two different branches to figure 
 2. Update `version` in `package.json` to `$VERSION` (don't commit yet).
 
 3. Update `CHANGELOG.md` with `$VERSION`:
-  - `Unreleased` -> `$VERSION`
-  - Add new `Unreleased` header & template at top.
-  - Add links in footer
-  - See [this commit](https://github.com/GlacierSecurityInc/glacierDesktop/commit/56988a4a91cb3284c5ee74778692dc591601974d#diff-06572a96a58dc510037d5efa622f9bec8519bc1beab13c9f251e97e657a9d4ed) for an example of what should be changed.
+  1. Change `## [Unreleased]` -> `## [$VERSION] - year-month-day`
+  2. Add new `Unreleased` section at top:
+  ```markdown
+  ## [Unreleased]
+
+  ### Added
+
+  ### Changed
+
+  ### Fixed
+
+  ```
+  3. Add/update links in footer:
+    - Under the `[Unreleased]: ...` link, add a new entry: `[$VERSION]: https://github.com/GlacierSecurityInc/glacierDesktop/releases/tag/v$VERSION`
+    - Change the `[Unreleased]: ...` link to be based off of the new version: `[Unreleased]: https://github.com/GlacierSecurityInc/glacierDesktop/compare/v$OLD_VERSION...HEAD` -> `[Unreleased]: https://github.com/GlacierSecurityInc/glacierDesktop/compare/v$VERSION...HEAD`
+  4. See [this commit](https://github.com/GlacierSecurityInc/glacierDesktop/commit/56988a4a91cb3284c5ee74778692dc591601974d#diff-06572a96a58dc510037d5efa622f9bec8519bc1beab13c9f251e97e657a9d4ed) for an example of what should be changed.
 
 4. Commit your changes from steps 2 & 3, the commit message should be something like `v$VERSION Release`.
 
