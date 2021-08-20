@@ -111,10 +111,6 @@ jobs:
       - name: Build app
         run: yarn build
 
-      - name: Read package.json
-        uses: tyankatsu0105/read-package-version-actions@v1
-        id: package-version
-
       - name: Get changelog version
         id: changelogHeader
         run: |
