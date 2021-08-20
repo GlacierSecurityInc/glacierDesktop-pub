@@ -8,7 +8,7 @@
   "scripts": {
     "postinstall": "electron-builder install-app-deps",
     "start": "electron .",
-    "build": "yarn build:metadata && yarn build:vendor",
+    "build": "yarn build:vendor",
     "build:metadata": "node scripts/copy-version-metadata.js",
     "build:vendor": "yarn build:converse",
     "build:converse": "cd libs/vendor/converse.js && make dist",

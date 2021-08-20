@@ -30,6 +30,15 @@
     padding: 0px 15px;
 }
 
+.about__description .debug_info p {
+    margin: 0.2em;
+}
+
+.about__description .debug_info p > span {
+    display: inline-block;
+    width: 10rem;
+}
+
 .about__description2 {
     padding: 0px 2px;
     font-size: 12px;
