@@ -54,6 +54,7 @@ angApp.factory('DesktopService', (
             assets_path: './libs/vendor/converse.js/dist/',
             allow_bookmarks: true,
             allow_chat_pending_contacts: true,
+            allow_non_roster_messaging: true,
             allow_registration: false,
             auto_away: 300,
             auto_join_on_invite: true,
