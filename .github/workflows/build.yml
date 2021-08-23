@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - main
+    tags:
+      - v*
 
 # Prevents a race condition when building on `main` and updating releases
 concurrency: ci-${{ github.ref }}
