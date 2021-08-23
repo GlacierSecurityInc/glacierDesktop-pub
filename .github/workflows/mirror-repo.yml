@@ -1,0 +1,23 @@
+name: Mirror to public repo
+
+on: [push, delete]
+
+jobs:
+  to_public:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+
+      - name: Set up credentials
+        uses: oleksiyrudenko/gha-git-credentials@v2.1
+        with:
+          global: true
+          name: 'GitHub Action'
+          actor: 'futurealecks'
+          token: '${{ secrets.PERSONAL_ACCESS_TOKEN }}'
+
+      - name: Mirror
+        run: |
+          git remote add mirror "https://github.com/GlacierSecurityInc/glacierDesktop-pub.git"
+          git push --tags --force --prune mirror "refs/remotes/origin/*:refs/heads/*"
