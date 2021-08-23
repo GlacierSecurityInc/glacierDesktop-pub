@@ -6,7 +6,9 @@ This project started as a fork of [converse-desktop](https://github.com/converse
 
 ## Releases
 
-See [the releases page](https://github.com/GlacierSecurityInc/glacierDesktop/releases).
+See [the releases page](https://github.com/GlacierSecurityInc/glacierDesktop-pub/releases).
+
+Draft releases are [here](https://github.com/GlacierSecurityInc/glacierDesktop/releases) (private repo).
 
 ## Development
 
@@ -74,11 +76,11 @@ When building, the automation needs to resolve two different branches to figure 
     2. Add new `Unreleased` section at top:
     ```markdown
     ## [Unreleased]
-  
+
     ### Added
-  
+
     ### Changed
-  
+
     ### Fixed
 
     ```
