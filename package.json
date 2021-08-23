@@ -6,7 +6,7 @@
   "engineStrict": true,
   "main": "main.js",
   "scripts": {
-    "postinstall": "electron-builder install-app-deps",
+    "postinstall": "electron-builder install-app-deps && yarn build:metadata",
     "start": "electron .",
     "build": "yarn build:vendor",
     "build:metadata": "node scripts/copy-version-metadata.js",
