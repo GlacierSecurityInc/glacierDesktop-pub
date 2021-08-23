@@ -158,6 +158,17 @@ jobs:
           APPLE_ID: ${{ secrets.APPLE_ID }}
           APPLE_ID_PASSWORD: ${{ secrets.APPLE_ID_PASSWORD }}
 
+      - name: Create release (if tagged commit)
+        uses: softprops/action-gh-release@v1
+        if: github.ref != 'refs/heads/main'
+        with:
+          repository: glacierDesktop-pub
+          name: 'v${{ steps.package-version.outputs.version }}'
+          body: ${{ steps.changelog_reader.outputs.changes }}
+          tag_name: 'v${{ steps.package-version.outputs.version }}'
+          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+          files: dist/*
+
       - name: Reset build number to 1 if tagged commit
         if: github.ref != 'refs/heads/main'
         uses: actions/github-script@v3
