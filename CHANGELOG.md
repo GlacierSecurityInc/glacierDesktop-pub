@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+
+### Changed
+
+### Fixed
+
+## [0.2.6] - 2021-08-23
+
+### Added
 - Now shows build info on about page
 - Shows build number on login & default views
 
@@ -68,7 +76,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - Fix error handling for version check
 
-[Unreleased]: https://github.com/GlacierSecurityInc/glacierDesktop/compare/v0.2.5...HEAD
+[Unreleased]: https://github.com/GlacierSecurityInc/glacierDesktop/compare/v0.2.6...HEAD
+[0.2.6]: https://github.com/GlacierSecurityInc/glacierDesktop/releases/tag/v0.2.6
 [0.2.5]: https://github.com/GlacierSecurityInc/glacierDesktop/releases/tag/v0.2.5
 [0.2.4]: https://github.com/GlacierSecurityInc/glacierDesktop/releases/tag/v0.2.4
 [0.1.0]: https://github.com/GlacierSecurityInc/glacierDesktop/releases/tag/v0.1.0
