@@ -162,7 +162,7 @@ jobs:
         uses: softprops/action-gh-release@v1
         if: github.ref != 'refs/heads/main'
         with:
-          repository: glacierDesktop-pub
+          repository: GlacierSecurityInc/glacierDesktop-pub
           name: 'v${{ steps.package-version.outputs.version }}'
           body: ${{ steps.changelog_reader.outputs.changes }}
           tag_name: 'v${{ steps.package-version.outputs.version }}'
@@ -187,3 +187,17 @@ jobs:
         with:
           name: macos
           path: dist/*.dmg
+
+      - name: Compute artifact name
+        id: artifactName
+        run: |
+          echo "::set-output name=NAME::$(echo 'GlacierDesktop ${{ steps.package-version.outputs.version }}' | tr '/' '-')"
+
+      - name: Upload artifact to Google Drive
+        uses: codetheweb/upload-to-drive@v1.3.0
+        id: gdrive
+        with:
+          target: dist/*.dmg
+          credentials: ${{ secrets.GDRIVE_CREDENTIALS }}
+          folder: ${{ secrets.GDRIVE_FOLDER }}
+          name: ${{ steps.artifactName.outputs.NAME }}
