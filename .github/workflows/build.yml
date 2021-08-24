@@ -11,11 +11,13 @@ on:
 concurrency: ci-${{ github.ref }}
 
 jobs:
-  release:
-    runs-on: ${{ matrix.os }}
+  build:
     strategy:
       matrix:
-        os: [macos-latest]
+        os: [macos-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    outputs:
+      artifactName: ${{ steps.artifactName.outputs.NAME }}
 
     env:
       ELECTRON_CACHE: ${{ github.workspace }}/.cache/electron
@@ -93,6 +95,11 @@ jobs:
         with:
           token: ${{secrets.github_token}}
 
+      - name: Compute artifact name
+        id: artifactName
+        run: |
+          echo "::set-output name=NAME::$(echo 'GlacierDesktop ${{ steps.package-version.outputs.version }} bld_${{ steps.buildNum.outputs.build_number }} main_${{ steps.glacierDesktopSHA.outputs.SHA_SHORT }} master_${{ steps.converseCheckout.outputs.SHA_SHORT }}' | tr '/' '-')"
+
       - name: Build metadata (draft release version)
         if: github.ref == 'refs/heads/main'
         run: yarn build:metadata
@@ -112,6 +119,32 @@ jobs:
 
       - name: Build app
         run: yarn build
+
+      - name: Package app
+        run: yarn dist -p never
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          APPLE_ID: ${{ secrets.APPLE_ID }}
+          APPLE_ID_PASSWORD: ${{ secrets.APPLE_ID_PASSWORD }}
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: ${{ runner.os }}
+          path: dist/*
+
+  upload:
+    runs-on: ubuntu-latest
+    needs: [build]
+    steps:
+      - name: Download artifacts
+        uses: actions/download-artifact@v2
+        with:
+          path: ./artifacts
+
+      - name: Flatten downloaded artifacts
+        run: |
+          find ./artifacts -mindepth 2 -type f -exec mv -i '{}' ./artifacts ';'
 
       - name: Get changelog version
         id: changelogHeader
@@ -148,15 +181,9 @@ jobs:
           name: 'v${{ steps.package-version.outputs.version }}'
           body: ${{ steps.changelog_reader.outputs.changes }}
           tag_name: 'v${{ steps.package-version.outputs.version }}'
+          files: ./artifacts/*
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Package app & update release
-        run: yarn dist
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          APPLE_ID: ${{ secrets.APPLE_ID }}
-          APPLE_ID_PASSWORD: ${{ secrets.APPLE_ID_PASSWORD }}
 
       - name: Create release (if tagged commit)
         uses: softprops/action-gh-release@v1
@@ -167,7 +194,7 @@ jobs:
           body: ${{ steps.changelog_reader.outputs.changes }}
           tag_name: 'v${{ steps.package-version.outputs.version }}'
           token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
-          files: dist/*
+          files: ./artifacts/*
 
       - name: Delete current build number tag if tagged commit
         if: github.ref != 'refs/heads/main'
@@ -184,22 +211,11 @@ jobs:
           repo-token: "${{ github.token }}"
           tag: "build-number-1"
 
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v2
-        with:
-          name: macos
-          path: dist/*.dmg
-
-      - name: Compute artifact name
-        id: artifactName
-        run: |
-          echo "::set-output name=NAME::$(echo 'GlacierDesktop ${{ steps.package-version.outputs.version }} bld_${{ steps.buildNum.outputs.build_number }} main_${{ steps.glacierDesktopSHA.outputs.SHA_SHORT }} master_${{ steps.converseCheckout.outputs.SHA_SHORT }}' | tr '/' '-')
-
       - name: Upload artifact to Google Drive
         uses: codetheweb/upload-to-drive@v1.3.0
         id: gdrive
         with:
-          target: dist/*.dmg
+          target: ./artifacts/*
           credentials: ${{ secrets.GDRIVE_CREDENTIALS }}
           folder: ${{ secrets.GDRIVE_FOLDER }}
-          name: ${{ steps.artifactName.outputs.NAME }}
+          name: ${{ needs.build.outputs.artifactName }}
