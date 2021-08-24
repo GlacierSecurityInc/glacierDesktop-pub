@@ -16,8 +16,6 @@ jobs:
       matrix:
         os: [macos-latest]
     runs-on: ${{ matrix.os }}
-    outputs:
-      artifactName: ${{ steps.artifactName.outputs.NAME }}
 
     env:
       ELECTRON_CACHE: ${{ github.workspace }}/.cache/electron
@@ -100,6 +98,26 @@ jobs:
         run: |
           echo "::set-output name=NAME::$(echo 'GlacierDesktop ${{ steps.package-version.outputs.version }} bld_${{ steps.buildNum.outputs.build_number }} main_${{ steps.glacierDesktopSHA.outputs.SHA_SHORT }} master_${{ steps.converseCheckout.outputs.SHA_SHORT }}' | tr '/' '-')"
 
+      - name: Get changelog version
+        id: changelogHeader
+        run: |
+          if [ $REF == "refs/heads/main" ]; then
+              echo "::set-output name=version::Unreleased"
+            else
+              echo "::set-output name=version::$VERSION"
+            fi
+        env:
+          REF: ${{ github.ref }}
+          VERSION: ${{ steps.package-version.outputs.version }}
+
+      - name: Get Changelog Entry
+        id: changelog_reader
+        uses: mindsers/changelog-reader-action@v2
+        with:
+          validation_depth: 10
+          path: ./CHANGELOG.md
+          version: ${{ steps.changelogHeader.outputs.version }}
+
       - name: Build metadata (draft release version)
         if: github.ref == 'refs/heads/main'
         run: yarn build:metadata
@@ -127,47 +145,18 @@ jobs:
           APPLE_ID: ${{ secrets.APPLE_ID }}
           APPLE_ID_PASSWORD: ${{ secrets.APPLE_ID_PASSWORD }}
 
+      - name: Move artifacts
+        run: |
+          mkdir artifacts
+          mv dist/*.yml artifacts/
+          mv dist/*.exe* artifacts/
+          mv dist/*.dmg* artifacts/
+
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
         with:
           name: ${{ runner.os }}
-          path: |
-            dist/*.yml
-            dist/*.exe*
-            dist/*.dmg*
-
-  upload:
-    runs-on: ubuntu-latest
-    needs: [build]
-    steps:
-      - name: Download artifacts
-        uses: actions/download-artifact@v2
-        with:
-          path: ./artifacts
-
-      - name: Flatten downloaded artifacts
-        run: |
-          find ./artifacts -mindepth 2 -type f -exec mv -i '{}' ./artifacts ';'
-
-      - name: Get changelog version
-        id: changelogHeader
-        run: |
-          if [ $REF == "refs/heads/main" ]; then
-              echo "::set-output name=version::Unreleased"
-            else
-              echo "::set-output name=version::$VERSION"
-            fi
-        env:
-          REF: ${{ github.ref }}
-          VERSION: ${{ steps.package-version.outputs.version }}
-
-      - name: Get Changelog Entry
-        id: changelog_reader
-        uses: mindsers/changelog-reader-action@v2
-        with:
-          validation_depth: 10
-          path: ./CHANGELOG.md
-          version: ${{ steps.changelogHeader.outputs.version }}
+          path: ./artifacts/*
 
       # TODO: ideally this would be made obsolete by the next action.
       # See: https://github.com/softprops/action-gh-release/issues/103
@@ -221,4 +210,4 @@ jobs:
           target: ./artifacts/*
           credentials: ${{ secrets.GDRIVE_CREDENTIALS }}
           folder: ${{ secrets.GDRIVE_FOLDER }}
-          name: ${{ needs.build.outputs.artifactName }}
+          name: ${{ steps.artifactName.outputs.NAME }}
