@@ -102,7 +102,7 @@ jobs:
           GLACIER_SHA: ${{ steps.glacierDesktopSHA.outputs.SHA_SHORT }}
           CONVERSE_SHA: ${{ steps.converseCheckout.outputs.SHA_SHORT }}
           VERSION: ${{ steps.package-version.outputs.version }}
-          BUILD_NUMBER: ${{ steps.buildNum.outputs.build_number }}
+          BUILD_NUM: ${{ steps.buildNum.outputs.build_number }}
 
       - name: Build metadata (release version)
         if: github.ref != 'refs/heads/main'
@@ -171,16 +171,10 @@ jobs:
 
       - name: Reset build number to 1 if tagged commit
         if: github.ref != 'refs/heads/main'
-        uses: actions/github-script@v3
+        uses: tvdias/github-tagger@v0.0.1
         with:
-          github-token: ${{ github.token }}
-          script: |
-            github.git.createRef({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              ref: "refs/tags/build-number-1",
-              sha: context.sha
-            })
+          repo-token: "${{ github.token }}"
+          tag: "build-number-1"
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v2

@@ -15,7 +15,7 @@ const out = {
     VERSION: package.version,
     ELECTRON_VERSION: electronVersion,
     CONVERSE_VERSION: converseVersion,
-    BUILD_NUMBER: process.env.BUILD_NUMBER
+    BUILD_NUMBER: process.env.BUILD_NUM
 };
 
 fs.writeFileSync(path.join(appDir, 'metadata.json'), JSON.stringify(out), {flag: 'w'});
