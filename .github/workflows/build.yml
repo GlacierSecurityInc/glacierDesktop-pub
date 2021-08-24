@@ -14,7 +14,6 @@ jobs:
   build:
     strategy:
       matrix:
-        # When ready to build on Windows, add windows-latest to below
         os: [macos-latest]
     runs-on: ${{ matrix.os }}
     outputs:
@@ -29,13 +28,11 @@ jobs:
 
       - name: Get short SHA of GlacierDesktop
         id: glacierDesktopSHA
-        shell: bash
         run: |
           echo "::set-output name=SHA_SHORT::$(git rev-parse --short HEAD)"
 
       - name: Checkout submodule using a PAT
         id: converseCheckout
-        shell: bash
         run: |
           git config --file .gitmodules --get-regexp url | while read url; do
             git config --file=.gitmodules $(echo "$url" | sed -E "s/git@github.com:|https:\/\/github.com\//https:\/\/${{ secrets.PERSONAL_ACCESS_TOKEN }}:${{ secrets.PERSONAL_ACCESS_TOKEN }}@github.com\//")
@@ -100,7 +97,6 @@ jobs:
 
       - name: Compute artifact name
         id: artifactName
-        shell: bash
         run: |
           echo "::set-output name=NAME::$(echo 'GlacierDesktop ${{ steps.package-version.outputs.version }} bld_${{ steps.buildNum.outputs.build_number }} main_${{ steps.glacierDesktopSHA.outputs.SHA_SHORT }} master_${{ steps.converseCheckout.outputs.SHA_SHORT }}' | tr '/' '-')"
 
@@ -122,12 +118,10 @@ jobs:
           VERSION: ${{ steps.package-version.outputs.version }}
 
       - name: Build app
-        shell: bash
         run: yarn build
 
       - name: Package app
-        shell: bash
-        run: yarn dist -p never
+        run: yarn electron-builder -w --mac dmg -p never
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           APPLE_ID: ${{ secrets.APPLE_ID }}
@@ -137,7 +131,10 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: ${{ runner.os }}
-          path: dist/*
+          path: |
+            dist/*.yml
+            dist/*.exe*
+            dist/*.dmg*
 
   upload:
     runs-on: ubuntu-latest
