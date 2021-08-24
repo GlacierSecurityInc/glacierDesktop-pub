@@ -193,7 +193,7 @@ jobs:
       - name: Compute artifact name
         id: artifactName
         run: |
-          echo "::set-output name=NAME::$(echo 'GlacierDesktop ${{ steps.package-version.outputs.version }}' | tr '/' '-')"
+          echo "::set-output name=NAME::$(echo 'GlacierDesktop ${{ steps.package-version.outputs.version }} bld_${{ steps.buildNum.outputs.build_number }} main_${{ steps.glacierDesktopSHA.outputs.SHA_SHORT }} master_${{ steps.converseCheckout.outputs.SHA_SHORT }}' | tr '/' '-')
 
       - name: Upload artifact to Google Drive
         uses: codetheweb/upload-to-drive@v1.3.0
