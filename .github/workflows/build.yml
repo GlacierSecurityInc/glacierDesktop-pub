@@ -14,7 +14,8 @@ jobs:
   build:
     strategy:
       matrix:
-        os: [macos-latest, windows-latest]
+        # When ready to build on Windows, add windows-latest to below
+        os: [macos-latest]
     runs-on: ${{ matrix.os }}
     outputs:
       artifactName: ${{ steps.artifactName.outputs.NAME }}
