@@ -155,13 +155,21 @@ jobs:
         run: yarn build
 
       - name: Package app
-        run: yarn dist -p never
+        run: yarn electron-builder -w --mac dmg -p never
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Rename artifact
+      - name: Move artifacts
+        run: |
+          mkdir artifacts
+          mv dist/*.yml artifacts/
+          mv dist/*.exe* artifacts/
+          mv dist/*.dmg* artifacts
+
+      - name: Rename artifacts
         run: |
           mv dist/*.dmg "dist/$NAME.dmg"
+          mv dist/*.exe "dist/$NAME.exe"
         env:
           NAME: ${{ steps.artifactName.outputs.NAME }}
 
@@ -169,13 +177,13 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: ${{ steps.artifactName.outputs.NAME }}
-          path: dist/*.dmg
+          path: ./artifacts/*
 
       - name: Upload artifact to Google Drive
         uses: codetheweb/upload-to-drive@v1.3.0
         id: gdrive
         with:
-          target: dist/*.dmg
+          target: ./artifacts/*
           credentials: ${{ secrets.GDRIVE_CREDENTIALS }}
           folder: ${{ secrets.GDRIVE_FOLDER }}
           name: ${{ steps.artifactName.outputs.NAME }}
@@ -190,6 +198,8 @@ jobs:
             🚀 artifact ready for testing: ${{ steps.artifactName.outputs.NAME }}
 
             [Download artifact](${{ steps.gdrive.outputs.fileLink }})
+
+            [Inspect workflow run](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})
 
       - name: Add reaction
         uses: peter-evans/create-or-update-comment@v1.4.5
