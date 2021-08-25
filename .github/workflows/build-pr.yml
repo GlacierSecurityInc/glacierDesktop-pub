@@ -160,19 +160,19 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Move artifacts
-        run: |
-          mkdir artifacts
-          mv dist/*.yml artifacts/
-          mv dist/*.exe* artifacts/
-          mv dist/*.dmg* artifacts
-
       - name: Rename artifacts
         run: |
           mv dist/*.dmg "dist/$NAME.dmg"
           mv dist/*.exe "dist/$NAME.exe"
         env:
           NAME: ${{ steps.artifactName.outputs.NAME }}
+
+      - name: Move artifacts
+        run: |
+          mkdir artifacts
+          mv dist/*.yml artifacts/
+          mv dist/*.exe* artifacts/
+          mv dist/*.dmg* artifacts/
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
