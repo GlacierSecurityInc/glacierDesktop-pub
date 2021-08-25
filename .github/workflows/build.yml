@@ -211,4 +211,4 @@ jobs:
           target: ./artifacts/*
           credentials: ${{ secrets.GDRIVE_CREDENTIALS }}
           folder: ${{ secrets.GDRIVE_FOLDER }}
-          name: ${{ steps.artifactName.outputs.NAME }}
+          name: ${{ steps.artifactName.outputs.NAME }}.zip
