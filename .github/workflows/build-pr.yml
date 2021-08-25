@@ -13,6 +13,7 @@ on:
 
 jobs:
   build-pr:
+    timeout-minutes: 30
     runs-on: macos-latest
     steps:
       - name: Parse PR body

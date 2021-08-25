@@ -12,6 +12,7 @@ concurrency: ci-${{ github.ref }}
 
 jobs:
   build:
+    timeout-minutes: 30
     strategy:
       matrix:
         os: [macos-latest]
