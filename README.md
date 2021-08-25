@@ -19,6 +19,7 @@ git clone https://github.com/GlacierSecurityInc/glacierDesktop.git --recurse-sub
 cd glacierDesktop
 yarn install
 yarn build
+yarn build:metadata
 yarn start # start a dev environment
 
 yarn dist # build a macOS distributable
