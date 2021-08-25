@@ -1,6 +1,6 @@
 .page-about {
     color: #ccc;
-    background: #444;
+    background: #777;
     border-radius: 5px;
     position: absolute;
     top: 0%;
@@ -38,9 +38,8 @@
 
 .about-card__content {
     display: flex;
-    padding-bottom: 5px;
     font-size: var(--font-size);
-    text-align: justify;
+    text-align: left;
 }
 
 .about__title {
@@ -51,31 +50,53 @@
 }
 
 .about__description {
-    padding: 0px 15px;
     font-family: var(--normal-font);
+    padding: 0px 15px;
+}
+
+.about__description_writeup {
+    font-family: var(--normal-font);
+    padding-top: 0px; 
+    padding-bottom: 0px; 
+}
+
+.debug_info {
+    font-family: var(--normal-font);  
+    padding-top: 0px; 
+    padding-bottom: 0px; 
+}
+
+.debug_info_base {
+    padding-bottom: 0px;
+    font-size: 5px; 
 }
 
 .about__description .debug_info p {
-    margin: 0em;
+    margin-top: 0.15em; 
+    margin-bottom: 0.15em; 
+    font-family: var(--normal-font);
 }
 
 .about__description .debug_info p > span {
     display: inline-block;
-    width: 10rem;
+    width: 10.2rem;
+    font-family: var(--normal-font);
 }
 
-.about__description2 {
+.about__description_version {
     padding: 0px 2px;
     font-size: 12px;
 }
 
 .about__action {
     text-align: center;
+    padding-top: 5px;
 }
 
 .about__close-button {
     border: 0px solid #ddd;
-    background: var(--primary-color);    color: #fff;
+    background: var(--primary-color);
+    color: #fff;
     cursor: pointer;
     display: inline-block;
     font-size: 18px;

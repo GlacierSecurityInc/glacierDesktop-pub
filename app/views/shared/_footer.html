@@ -1,9 +1,8 @@
 <div class="page__footer" ng-controller="FooterController">
     <span class="footer__version">
-        {{appInfo.APP_NAME}} v{{appInfo.metadata.VERSION}}
-
+        {{appInfo.APP_NAME}}&nbsp;&nbsp;v{{appInfo.metadata.VERSION}}
         <span ng-if="appInfo.metadata.BUILD_NUMBER">
-            Build {{appInfo.metadata.BUILD_NUMBER}}
+            &nbsp;&nbsp;Build {{appInfo.metadata.BUILD_NUMBER}}
          </span>
     </span>
 </div>
