@@ -1,11 +1,11 @@
 let angApp = require(__dirname + '/../init')
 
-const desktopPlugin = require(__dirname +'/../../libs/converse.js/converse-desktop/desktop-plugin')
+const desktopPlugin = require(__dirname + '/../../libs/converse.js/converse-desktop/desktop-plugin')
 
 angApp.factory('DesktopService', (
-        $window, $timeout, CredentialsService, SystemService, AppStateService,
-        SettingsService, XmppHelperService
-    ) => {
+    $window, $timeout, CredentialsService, SystemService, AppStateService,
+    SettingsService, XmppHelperService
+) => {
 
     let desktopService = {
         initialized: false,
@@ -23,10 +23,11 @@ angApp.factory('DesktopService', (
     }
 
     desktopService.logout = () => {
+
         CredentialsService.getCredentials().then((result) => {
-            let remove = result !== null
-                ? CredentialsService.removeCredentials(result.login)
-                : Promise.resolve()
+            let remove = result !== null ?
+                CredentialsService.removeCredentials(result.login) :
+                Promise.resolve()
             console.log('Remove credentials on logout')
             desktopService.loggedIn = false
             remove.then(() => AppStateService.set(AppStateService.APP_STATE_LOGIN))
@@ -37,9 +38,12 @@ angApp.factory('DesktopService', (
         AppStateService.set(AppStateService.APP_STATE_DEFAULT) // Always set to default state before init
 
         if (desktopService.initialized) {
-            document.dispatchEvent(new CustomEvent('converse-login', {detail: {
-                jid: login, password
-            }}))
+            document.dispatchEvent(new CustomEvent('converse-login', {
+                detail: {
+                    jid: login,
+                    password
+                }
+            }))
             return
         }
 
@@ -47,8 +51,8 @@ angApp.factory('DesktopService', (
         let lang = navigator.language
         let xmppResource = XmppHelperService.getResourceFromJid(login)
         if (!xmppResource) {
-            xmppResource = '.' + (Math.random().toString(36)+'00000000000000000').slice(2, 7) // Generate 5 char unique str
-            login = login + '/converseDesktop'+xmppResource
+            xmppResource = '.' + (Math.random().toString(36) + '00000000000000000').slice(2, 7) // Generate 5 char unique str
+            login = login + '/converseDesktop' + xmppResource
         }
         let conversejsParams = {
             assets_path: './libs/vendor/converse.js/dist/',
@@ -111,21 +115,21 @@ angApp.factory('DesktopService', (
         desktopService.loggedIn = true
     })
 
-    $window.document.addEventListener('conversejs-logout', function (e) {
+    $window.document.addEventListener('conversejs-logout', function(e) {
         desktopService.logout()
     })
 
-    $window.document.addEventListener('conversejs-disconnect', function (e) {
+    $window.document.addEventListener('conversejs-disconnect', function(e) {
         desktopService.logout()
     })
 
-    $window.document.addEventListener('conversejs-unread', function (e) {
+    $window.document.addEventListener('conversejs-unread', function(e) {
         let sender = e.detail
         desktopService.chatToOpen = sender
         desktopService._notifyMessage()
     })
 
-    $window.document.addEventListener('conversejs-no-unread', function (e) {
+    $window.document.addEventListener('conversejs-no-unread', function(e) {
         desktopService._hideNotifyMessage()
     })
 

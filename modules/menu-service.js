@@ -2,9 +2,10 @@
  * Module for Menu functions.
  */
 
-const {app, Menu, BrowserWindow} = require('electron')
+const { app, Menu, BrowserWindow, dialog} = require('electron')
 
 let menuService = {}
+
 
 
 menuService.createMenu = () => {
@@ -25,14 +26,24 @@ menuService.createMenu = () => {
     const application = {
         label: 'Glacier Desktop',
         submenu: [
-            ... isMac ? [about] : [],
+            ...isMac ? [about] : [],
+            // add a check for if client is logged in
             {
                 label: 'Logout',
                 accelerator: 'CmdOrCtrl+D',
                 click: () => {
-                    let activeWindow = BrowserWindow.getAllWindows()[0]
-                    activeWindow.show()
-                    activeWindow.webContents.send('force-logout-event')
+                    let options  = {
+                        buttons: ["Cancel","OK"],
+                        message: "Are you sure you want to log out?"
+                       }
+                    const result = dialog.showMessageBox(options).then((data) => {
+                        let activeWindow = BrowserWindow.getAllWindows()[0]
+                        console.log(data)
+                        activeWindow.show()
+                        if (data['response'] === 1) {
+                            activeWindow.webContents.send('force-logout-event')
+                        }
+                    })
                 }
             },
             {
@@ -58,13 +69,12 @@ menuService.createMenu = () => {
                     app.quit()
                 },
             },
-      ],
+        ],
     }
 
     const edit = {
         label: 'Edit',
-        submenu: [
-            {
+        submenu: [{
                 label: 'Undo',
                 accelerator: 'CmdOrCtrl+Z',
                 role: 'undo',
@@ -95,7 +105,7 @@ menuService.createMenu = () => {
                 accelerator: 'CmdOrCtrl+A',
                 role: 'selectAll',
             },
-      ],
+        ],
     }
 
     const view = {
@@ -114,7 +124,7 @@ menuService.createMenu = () => {
     const help = {
         label: 'Help',
         submenu: [
-            ... !isMac ? [about] : [],
+            ...!isMac ? [about] : [],
             {
                 label: 'Debug info',
                 accelerator: 'F12',
