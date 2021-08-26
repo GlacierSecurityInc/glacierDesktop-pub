@@ -13,7 +13,7 @@ const out = {
     GLACIER_SHA: process.env.GLACIER_SHA,
     CONVERSE_SHA: process.env.CONVERSE_SHA,
     VERSION: package.version,
-    ELECTRON_VERSION: electronVersion,
+    ELECTRON_VERSION: electronVersion.replace('^', ''),
     CONVERSE_VERSION: converseVersion,
     BUILD_NUMBER: process.env.BUILD_NUM
 };
