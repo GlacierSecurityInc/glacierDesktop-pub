@@ -184,7 +184,7 @@ jobs:
         uses: codetheweb/upload-to-drive@v1.3.0
         id: gdrive
         with:
-          target: ./artifacts/*
+          target: ./artifacts/*.{dmg,exe}
           credentials: ${{ secrets.GDRIVE_CREDENTIALS }}
           folder: ${{ secrets.GDRIVE_FOLDER }}
           name: ${{ steps.artifactName.outputs.NAME }}.zip
