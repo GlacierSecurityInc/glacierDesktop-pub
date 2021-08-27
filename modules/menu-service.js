@@ -26,21 +26,32 @@ menuService.createMenu = () => {
     const application = {
         label: 'Glacier Desktop',
         submenu: [
-            ...isMac ? [about] : [],
-            // add a check for if client is logged in
+            ... isMac ? [about] : [],
+            // {
+            //     label: 'Preferences',
+            //     accelerator: 'CmdOrCtrl+,',
+            //     click: () => {
+            //         let activeWindow = BrowserWindow.getAllWindows()[0]
+            //         activeWindow.show()
+            //         activeWindow.webContents.send('preferences-event')
+            //     }
+            // },
+            {
+                type: 'separator',
+            },
             {
                 label: 'Logout',
                 accelerator: 'CmdOrCtrl+D',
                 click: () => {
                     let options  = {
-                        buttons: ["Cancel","OK"],
+                        buttons: ["OK","Cancel"],
                         message: "Are you sure you want to log out?"
                        }
                     const result = dialog.showMessageBox(options).then((data) => {
                         let activeWindow = BrowserWindow.getAllWindows()[0]
-                        console.log(data)
+                        //console.log(data)
                         activeWindow.show()
-                        if (data['response'] === 1) {
+                        if (data['response'] === 0) {
                             activeWindow.webContents.send('force-logout-event')
                         }
                     })
@@ -50,26 +61,25 @@ menuService.createMenu = () => {
                 type: 'separator',
             },
             {
-                label: 'Preferences',
-                accelerator: 'CmdOrCtrl+,',
-                click: () => {
-                    let activeWindow = BrowserWindow.getAllWindows()[0]
-                    activeWindow.show()
-                    activeWindow.webContents.send('preferences-event')
-                }
-            },
-            {
-                type: 'separator',
-            },
-            {
                 label: 'Quit',
                 accelerator: 'CmdOrCtrl+Q',
                 click: () => {
-                    app.isQuitting = true
-                    app.quit()
+                    let options  = {
+                        buttons: ["OK","Cancel"],
+                        message: "Are you sure you want to quit?"
+                       }
+
+                    const result = dialog.showMessageBox(options).then((data) => {
+                        let activeWindow = BrowserWindow.getAllWindows()[0]
+                        //console.log(data)
+                        if (data['response'] === 0) {
+                            app.isQuitting = true
+                            app.quit()
+                        }
+                    })
                 },
             },
-        ],
+      ],
     }
 
     const edit = {
