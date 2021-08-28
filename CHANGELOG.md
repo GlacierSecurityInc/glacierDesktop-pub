@@ -16,7 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 - Added "Are you sure" prompts for logout and quit
-- Added obfuscation of jids on hover
+- Added obfuscation of jids on hover 
 
 ### Changed
 - Updated About Glacier Desktop page
