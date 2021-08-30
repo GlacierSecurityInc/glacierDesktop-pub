@@ -2,6 +2,8 @@ name: Build release / release candidate
 
 on:
   push:
+    paths:
+      - 'CHANGELOG.md'
     branches:
       - main
     tags:
@@ -156,7 +158,7 @@ jobs:
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
         with:
-          name: ${{ runner.os }}
+          name: ${{ steps.artifactName.outputs.NAME }}
           path: ./${{ steps.artifactName.outputs.DIRECTORY }}/*
 
       # TODO: ideally this would be made obsolete by the next action.
