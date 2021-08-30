@@ -22,6 +22,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Updated About Glacier Desktop page
 - Updated theming of emoji box and search bar
 - Commented out some system level messaging
+- Changed build artifact naming
+- Only auto-build on tagged versions and changes to CHANGELOG
+- Only notarize tagged release versions
 
 ### Fixed
 - Fixed group dropdowns disappearing and not condensing
