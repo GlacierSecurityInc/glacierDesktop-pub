@@ -1,10 +1,16 @@
 name: Mirror to public repo
 
 on: [push, delete]
-  branches:
-    - main
-  tags:
-    - v*
+  push:
+    branches:
+      - main
+    tags:
+      - v*
+  delete:
+    branches:
+      - main
+    tags:
+      - v*
 
 jobs:
   to_public:
