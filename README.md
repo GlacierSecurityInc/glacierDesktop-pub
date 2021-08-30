@@ -93,7 +93,7 @@ When building, the automation needs to resolve two different branches to figure 
 
 5. After committing, tag your commit: `git tag v$VERSION` (**add** the `v` prefix).
 
-6. Push your commit and tag: `git push && git push --tags`.
+6. Push your commit and tag: `git push -u origin main && git push origin v$VERSION`.
 
 7. A new release will appear on [the releases page](https://github.com/GlacierSecurityInc/glacierDesktop/releases) after the build workflow finishes.
 

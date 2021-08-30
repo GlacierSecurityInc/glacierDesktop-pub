@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 ### Fixed
+- Only check for /build on PR comments
 
 ## [0.2.8] - 2021-08-30
 
