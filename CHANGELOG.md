@@ -11,7 +11,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 ### Fixed
+
+## [0.2.9] - 2021-08-30
+
+### Added
+
+### Changed
+- No longer reset build number after tagging and removing
+
+### Fixed
 - Only check for /build on PR comments
+- Prevent multiple builds on tagging
 
 ## [0.2.8] - 2021-08-30
 
@@ -107,7 +117,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - Fix error handling for version check
 
-[Unreleased]: https://github.com/GlacierSecurityInc/glacierDesktop/compare/v0.2.8...HEAD
+[Unreleased]: https://github.com/GlacierSecurityInc/glacierDesktop/compare/v0.2.9...HEAD
+[0.2.9]: https://github.com/GlacierSecurityInc/glacierDesktop/releases/tag/v0.2.9
 [0.2.8]: https://github.com/GlacierSecurityInc/glacierDesktop/releases/tag/v0.2.8
 [0.2.7]: https://github.com/GlacierSecurityInc/glacierDesktop/releases/tag/v0.2.7
 [0.2.6]: https://github.com/GlacierSecurityInc/glacierDesktop/releases/tag/v0.2.6
