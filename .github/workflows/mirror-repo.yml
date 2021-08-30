@@ -2,13 +2,9 @@ name: Mirror to public repo
 
 on:
   push:
-    branches:
-      - main
     tags:
       - v*
   delete:
-    branches:
-      - main
     tags:
       - v*
 
