@@ -185,7 +185,7 @@ jobs:
 
       - name: Create draft release (if untagged commit)
         uses: softprops/action-gh-release@v1
-        if: github.ref == 'refs/heads/main'
+        # if: github.ref == 'refs/heads/main'
         with:
           draft: true
           name: 'v${{ steps.package-version.outputs.version }}'
