@@ -1,6 +1,6 @@
 name: Mirror to public repo
 
-on: [push, delete]
+on:
   push:
     branches:
       - main
