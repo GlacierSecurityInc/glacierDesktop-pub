@@ -11,6 +11,9 @@ on:
 # - /build in Converse.js PR
 #   - ConverseBranch=$PR_BRANCH, GlacierDesktop=main
 
+# Prevents a race condition when building on `main` and updating releases
+concurrency: ci-${{ github.ref }}
+
 jobs:
   build-pr:
     timeout-minutes: 30
@@ -29,20 +32,16 @@ jobs:
           issue-number: ${{ fromJSON(steps.parsedPR.outputs.parsed).actions.close[0].issue }}
           body: |
             ⚙️ building artifact...
-
             [Inspect workflow run](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})
-
       - name: Get branch of GlacierDesktop to build
         id: glacierBranch
         run: |
           if [ $PR_HEAD_REPO == "GlacierSecurityInc/glacierDesktop" ]; then
             echo "::set-output name=branch::$PR_HEAD_BRANCH"
           fi
-
           if [ $PR_HEAD_REPO == "GlacierSecurityInc/converse.js" -a ! "$BUILD_ARGS" == "" ]; then
             echo "::set-output name=branch::$BUILD_ARGS"
           fi
-
           if [ $PR_HEAD_REPO == "GlacierSecurityInc/converse.js" -a "$BUILD_ARGS" == "" ]; then
             echo "::set-output name=branch::main"
           fi
@@ -57,11 +56,9 @@ jobs:
           if [ $PR_HEAD_REPO == "GlacierSecurityInc/glacierDesktop" -a "$BUILD_ARGS" == "" ]; then
             echo "::set-output name=branch::master"
           fi
-
           if [ $PR_HEAD_REPO == "GlacierSecurityInc/glacierDesktop" -a ! "$BUILD_ARGS" == "" ]; then
             echo "::set-output name=branch::$BUILD_ARGS"
           fi
-
           if [ $PR_HEAD_REPO == "GlacierSecurityInc/converse.js" ]; then
             echo "::set-output name=branch::$PR_HEAD_BRANCH"
           fi
@@ -79,7 +76,6 @@ jobs:
         id: glacierDesktopSHA
         run: |
           echo "::set-output name=SHA_SHORT::$(git rev-parse --short HEAD)"
-
       - name: Checkout Converse.js
         id: converseCheckout
         run: |
@@ -90,7 +86,6 @@ jobs:
           git submodule update --init --recursive --remote
           cd libs/vendor/converse.js && git checkout ${{ steps.converseBranch.outputs.branch }}
           echo "::set-output name=SHA_SHORT::$(git rev-parse --short HEAD)"
-
       - name: Get app version
         id: package-version
         uses: Saionaro/extract-package-version@v1.0.6
@@ -105,7 +100,7 @@ jobs:
         id: artifactName
         run: |
           echo "::set-output name=NAME::$(echo 'GlacierDesktop ${{ steps.package-version.outputs.version }} bld_${{ steps.buildNum.outputs.build_number }} tkt_${{ fromJSON(steps.parsedPR.outputs.parsed).actions.close[0].issue }} ${{ steps.glacierBranch.outputs.branch }}_${{ steps.glacierDesktopSHA.outputs.SHA_SHORT }} ${{ steps.converseBranch.outputs.branch }}_${{ steps.converseCheckout.outputs.SHA_SHORT }}' | tr '/' '-')"
-
+          echo "::set-output name=DIRECTORY::$(echo 'GlacierDesktop_${{ steps.package-version.outputs.version }}_bld_${{ steps.buildNum.outputs.build_number }}' | tr '/' '-')"
       - name: Setup Node
         uses: actions/setup-node@v2
         with:
@@ -124,7 +119,6 @@ jobs:
           key: ${{ runner.os }}-electron-cache-${{ hashFiles(format('{0}{1}', github.workspace, '/package-lock.json')) }}
           restore-keys: |
             ${{ runner.os }}-electron-cache-
-
       - name: Codesign on macOS
         if: runner.os == 'macOS'
         env:
@@ -137,7 +131,6 @@ jobs:
           security unlock-keychain -p $MACOS_KEYCHAIN_PASSWORD build.keychain
           security import certificate.p12 -k build.keychain -P "" -T /usr/bin/codesign
           security set-key-partition-list -S apple-tool:,apple: -s -k $MACOS_KEYCHAIN_PASSWORD build.keychain
-
       - name: Install dependencies
         run: yarn install --frozen-lockfile
 
@@ -169,22 +162,20 @@ jobs:
 
       - name: Move artifacts
         run: |
-          mkdir artifacts
-          mv dist/*.yml artifacts/
-          mv dist/*.exe* artifacts/
-          mv dist/*.dmg* artifacts/
-
+          mkdir ${{ steps.artifactName.outputs.DIRECTORY }}
+          mv dist/*.exe ${{ steps.artifactName.outputs.DIRECTORY }}/
+          mv dist/*.dmg ${{ steps.artifactName.outputs.DIRECTORY }}/
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
         with:
           name: ${{ steps.artifactName.outputs.NAME }}
-          path: ./artifacts/*
+          path: ./${{ steps.artifactName.outputs.DIRECTORY }}/*
 
       - name: Upload artifact to Google Drive
         uses: codetheweb/upload-to-drive@v1.3.0
         id: gdrive
         with:
-          target: ./artifacts/*.{dmg,exe}
+          target: ./${{ steps.artifactName.outputs.DIRECTORY }}/*
           credentials: ${{ secrets.GDRIVE_CREDENTIALS }}
           folder: ${{ secrets.GDRIVE_FOLDER }}
           name: ${{ steps.artifactName.outputs.NAME }}.zip
@@ -197,11 +188,8 @@ jobs:
           edit-mode: replace
           body: |
             🚀 artifact ready for testing: ${{ steps.artifactName.outputs.NAME }}
-
             [Download artifact](${{ steps.gdrive.outputs.fileLink }})
-
             [Inspect workflow run](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})
-
       - name: Add reaction
         uses: peter-evans/create-or-update-comment@v1.4.5
         with:
@@ -219,5 +207,4 @@ jobs:
           edit-mode: replace
           body: |
             🚫 artifact failed to build
-
             [Inspect workflow run](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})

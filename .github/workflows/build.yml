@@ -29,7 +29,6 @@ jobs:
         id: glacierDesktopSHA
         run: |
           echo "::set-output name=SHA_SHORT::$(git rev-parse --short HEAD)"
-
       - name: Checkout submodule using a PAT
         id: converseCheckout
         run: |
@@ -40,7 +39,6 @@ jobs:
           git submodule update --init --recursive --remote
           cd libs/vendor/converse.js
           echo "::set-output name=SHA_SHORT::$(git rev-parse --short HEAD)"
-
       - name: Setup Node
         uses: actions/setup-node@v2
         with:
@@ -59,7 +57,6 @@ jobs:
           key: ${{ runner.os }}-electron-cache-${{ hashFiles(format('{0}{1}', github.workspace, '/package-lock.json')) }}
           restore-keys: |
             ${{ runner.os }}-electron-cache-
-
       - name: Cache Electron-Builder
         uses: actions/cache@v1
         with:
@@ -67,7 +64,6 @@ jobs:
           key: ${{ runner.os }}-electron-builder-cache-${{ hashFiles(format('{0}{1}', github.workspace, '/package-lock.json')) }}
           restore-keys: |
             ${{ runner.os }}-electron-builder-cache-
-
       - name: Codesign on macOS
         if: runner.os == 'macOS'
         env:
@@ -80,7 +76,6 @@ jobs:
           security unlock-keychain -p $MACOS_KEYCHAIN_PASSWORD build.keychain
           security import certificate.p12 -k build.keychain -P "" -T /usr/bin/codesign
           security set-key-partition-list -S apple-tool:,apple: -s -k $MACOS_KEYCHAIN_PASSWORD build.keychain
-
       - name: Install dependencies
         run: yarn install --frozen-lockfile
 
@@ -98,7 +93,7 @@ jobs:
         id: artifactName
         run: |
           echo "::set-output name=NAME::$(echo 'GlacierDesktop ${{ steps.package-version.outputs.version }} bld_${{ steps.buildNum.outputs.build_number }} main_${{ steps.glacierDesktopSHA.outputs.SHA_SHORT }} master_${{ steps.converseCheckout.outputs.SHA_SHORT }}' | tr '/' '-')"
-
+          echo "::set-output name=DIRECTORY::$(echo 'GlacierDesktop_${{ steps.package-version.outputs.version }}_bld_${{ steps.buildNum.outputs.build_number }}' | tr '/' '-')"
       - name: Get changelog version
         id: changelogHeader
         run: |
@@ -139,25 +134,30 @@ jobs:
       - name: Build app
         run: yarn build
 
-      - name: Package app
+      - name: Package and notarize app
+        if: github.ref != 'refs/heads/main'
         run: yarn electron-builder -w --mac dmg -p never
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           APPLE_ID: ${{ secrets.APPLE_ID }}
           APPLE_ID_PASSWORD: ${{ secrets.APPLE_ID_PASSWORD }}
 
+      - name: Package app without notarization
+        if: github.ref == 'refs/heads/main'
+        run: yarn electron-builder -w --mac dmg -p never
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Move artifacts
         run: |
-          mkdir artifacts
-          mv dist/*.yml artifacts/
-          mv dist/*.exe* artifacts/
-          mv dist/*.dmg* artifacts/
-
+          mkdir ${{ steps.artifactName.outputs.DIRECTORY }}
+          mv dist/*.exe ${{ steps.artifactName.outputs.DIRECTORY }}/
+          mv dist/*.dmg ${{ steps.artifactName.outputs.DIRECTORY }}/
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
         with:
           name: ${{ runner.os }}
-          path: ./artifacts/*
+          path: ./${{ steps.artifactName.outputs.DIRECTORY }}/*
 
       # TODO: ideally this would be made obsolete by the next action.
       # See: https://github.com/softprops/action-gh-release/issues/103
@@ -174,7 +174,7 @@ jobs:
           name: 'v${{ steps.package-version.outputs.version }}'
           body: ${{ steps.changelog_reader.outputs.changes }}
           tag_name: 'v${{ steps.package-version.outputs.version }}'
-          files: ./artifacts/*
+          files: ./${{ steps.artifactName.outputs.DIRECTORY }}/*
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -187,7 +187,7 @@ jobs:
           body: ${{ steps.changelog_reader.outputs.changes }}
           tag_name: 'v${{ steps.package-version.outputs.version }}'
           token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
-          files: ./artifacts/*
+          files: ./${{ steps.artifactName.outputs.DIRECTORY }}/*
 
       - name: Delete current build number tag if tagged commit
         if: github.ref != 'refs/heads/main'
@@ -208,7 +208,7 @@ jobs:
         uses: codetheweb/upload-to-drive@v1.3.0
         id: gdrive
         with:
-          target: ./artifacts/*.{dmg,exe}
+          target: ./${{ steps.artifactName.outputs.DIRECTORY }}/*
           credentials: ${{ secrets.GDRIVE_CREDENTIALS }}
           folder: ${{ secrets.GDRIVE_FOLDER }}
           name: ${{ steps.artifactName.outputs.NAME }}.zip
