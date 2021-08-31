@@ -11,6 +11,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 ### Fixed
+
+## [0.2.13] - 2021-08-31
+
+### Added
+
+### Changed
+
+### Fixed
 - Fix occasional notarization hang
 
 ## [0.2.12] - 2021-08-31
@@ -144,7 +152,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - Fix error handling for version check
 
-[Unreleased]: https://github.com/GlacierSecurityInc/glacierDesktop/compare/v0.2.12...HEAD
+[Unreleased]: https://github.com/GlacierSecurityInc/glacierDesktop/compare/v0.2.13...HEAD
+[0.2.13]: https://github.com/GlacierSecurityInc/glacierDesktop/releases/tag/v0.2.13
 [0.2.12]: https://github.com/GlacierSecurityInc/glacierDesktop/releases/tag/v0.2.12
 [0.2.11]: https://github.com/GlacierSecurityInc/glacierDesktop/releases/tag/v0.2.11
 [0.2.10]: https://github.com/GlacierSecurityInc/glacierDesktop/releases/tag/v0.2.10
