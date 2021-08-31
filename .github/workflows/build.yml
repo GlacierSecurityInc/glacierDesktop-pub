@@ -253,7 +253,7 @@ jobs:
       - name: Upload release artifact to Google Drive
         if: github.ref != 'refs/heads/main'
         uses: codetheweb/upload-to-drive@v1.3.0
-        id: gdrive
+        id: gdriverelease
         with:
           target: ./${{ steps.artifactName.outputs.RELEASE_DIRECTORY }}/*
           credentials: ${{ secrets.GDRIVE_CREDENTIALS }}
