@@ -127,7 +127,6 @@ jobs:
         id: changelog_reader
         uses: mindsers/changelog-reader-action@v2
         with:
-          validation_depth: 10
           path: ./CHANGELOG.md
           version: ${{ steps.changelogHeader.outputs.version }}
 
@@ -185,7 +184,6 @@ jobs:
 
       - name: Create draft release (if untagged commit)
         uses: softprops/action-gh-release@v1
-        # if: github.ref == 'refs/heads/main'
         with:
           draft: true
           name: 'v${{ steps.package-version.outputs.version }}'
@@ -210,7 +208,7 @@ jobs:
         if: github.ref != 'refs/heads/main'
         uses: dev-drprasad/delete-tag-and-release@v0.2.0
         with:
-          tag_name: ${{ steps.buildNum.outputs.build_number }}
+          tag_name: 'build-number-${{ steps.buildNum.outputs.build_number }}'
         env:
           GITHUB_TOKEN: ${{ github.token }}
 
