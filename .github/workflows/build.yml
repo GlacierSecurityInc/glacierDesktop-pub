@@ -106,40 +106,24 @@ jobs:
         with:
           token: ${{secrets.github_token}}
 
-      - name: Compute artifact name for non-release
-        if: github.ref == 'refs/heads/main'
+      - name: Compute artifact name
         id: artifactName
         run: |
           echo "::set-output name=NAME::$(echo 'GlacierDesktop ${{ steps.package-version.outputs.version }} bld_${{ steps.buildNum.outputs.build_number }} main_${{ steps.glacierDesktopSHA.outputs.SHA_SHORT }} master_${{ steps.converseCheckout.outputs.SHA_SHORT }}' | tr '/' '-')"
           echo "::set-output name=DIRECTORY::$(echo 'GlacierDesktop_${{ steps.package-version.outputs.version }}_bld_${{ steps.buildNum.outputs.build_number }}' | tr '/' '-')"
+          echo "::set-output name=RELEASE_NAME::$(echo 'GlacierDesktop ${{ steps.package-version.outputs.version }} Release' | tr '/' '-')"
+          echo "::set-output name=RELEASE_DIRECTORY::$(echo 'GlacierDesktop_${{ steps.package-version.outputs.version }}_Release' | tr '/' '-')"
       - name: Get changelog version
         id: changelogHeader
         run: |
-          echo "::set-output name=version::Unreleased"
+          if [ $REF == "refs/heads/main" ]; then
+              echo "::set-output name=version::Unreleased"
+            else
+              echo "::set-output name=version::$VERSION"
+            fi
         env:
           REF: ${{ github.ref }}
           VERSION: ${{ steps.package-version.outputs.version }}
-
-      - name: Compute artifact name for release
-        if: github.ref != 'refs/heads/main'
-        id: artifactName
-        run: |
-          echo "::set-output name=NAME::$(echo 'GlacierDesktop ${{ steps.package-version.outputs.version }} Release' | tr '/' '-')"
-          echo "::set-output name=DIRECTORY::$(echo 'GlacierDesktop_${{ steps.package-version.outputs.version }}_Release' | tr '/' '-')"
-      - name: Get changelog version
-        id: changelogHeader
-        run: |
-          echo "::set-output name=version::$VERSION"
-        env:
-          REF: ${{ github.ref }}
-          VERSION: ${{ steps.package-version.outputs.version }}
-
-      - name: Get Changelog Entry
-        id: changelog_reader
-        uses: mindsers/changelog-reader-action@v2
-        with:
-          path: ./CHANGELOG.md
-          version: ${{ steps.changelogHeader.outputs.version }}
 
       - name: Build metadata (draft release version)
         if: github.ref == 'refs/heads/main'
@@ -175,7 +159,8 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Move artifacts
+      - name: Move artifacts for non-release
+        if: github.ref == 'refs/heads/main'
         run: |
           mkdir ${{ steps.artifactName.outputs.DIRECTORY }}
           mv dist/*.exe ${{ steps.artifactName.outputs.DIRECTORY }}/
@@ -186,6 +171,18 @@ jobs:
           name: ${{ steps.artifactName.outputs.NAME }}
           path: ./${{ steps.artifactName.outputs.DIRECTORY }}/*
 
+      - name: Move artifacts for release
+        if: github.ref != 'refs/heads/main'
+        run: |
+          mkdir ${{ steps.artifactName.outputs.RELEASE_DIRECTORY }}
+          mv dist/*.exe ${{ steps.artifactName.outputs.RELEASE_DIRECTORY }}/
+          mv dist/*.dmg ${{ steps.artifactName.outputs.RELEASE_DIRECTORY }}/
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: ${{ steps.artifactName.outputs.RELEASE_NAME }}
+          path: ./${{ steps.artifactName.outputs.RELEASE_DIRECTORY }}/*
+
       # TODO: ideally this would be made obsolete by the next action.
       # See: https://github.com/softprops/action-gh-release/issues/103
       - name: Delete current draft release, if exists
@@ -194,6 +191,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Create draft release (if untagged commit)
+        if: github.ref == 'refs/heads/main'
         uses: softprops/action-gh-release@v1
         with:
           draft: true
@@ -201,6 +199,18 @@ jobs:
           body: ${{ steps.changelog_reader.outputs.changes }}
           tag_name: 'v${{ steps.package-version.outputs.version }}'
           files: ./${{ steps.artifactName.outputs.DIRECTORY }}/*
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Create draft release (if tagged commit)
+        if: github.ref != 'refs/heads/main'
+        uses: softprops/action-gh-release@v1
+        with:
+          draft: true
+          name: 'v${{ steps.package-version.outputs.version }}'
+          body: ${{ steps.changelog_reader.outputs.changes }}
+          tag_name: 'v${{ steps.package-version.outputs.version }}'
+          files: ./${{ steps.artifactName.outputs.RELEASE_DIRECTORY }}/*
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -213,7 +223,7 @@ jobs:
           body: ${{ steps.changelog_reader.outputs.changes }}
           tag_name: 'v${{ steps.package-version.outputs.version }}'
           token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
-          files: ./${{ steps.artifactName.outputs.DIRECTORY }}/*
+          files: ./${{ steps.artifactName.outputs.RELEASE_DIRECTORY }}/*
 
       - name: Delete current build number tag if tagged commit
         if: github.ref != 'refs/heads/main'
@@ -231,6 +241,7 @@ jobs:
       #    tag: "build-number-0"
 
       - name: Upload artifact to Google Drive
+        if: github.ref == 'refs/heads/main'
         uses: codetheweb/upload-to-drive@v1.3.0
         id: gdrive
         with:
@@ -238,3 +249,13 @@ jobs:
           credentials: ${{ secrets.GDRIVE_CREDENTIALS }}
           folder: ${{ secrets.GDRIVE_FOLDER }}
           name: ${{ steps.artifactName.outputs.NAME }}.zip
+
+      - name: Upload release artifact to Google Drive
+        if: github.ref != 'refs/heads/main'
+        uses: codetheweb/upload-to-drive@v1.3.0
+        id: gdrive
+        with:
+          target: ./${{ steps.artifactName.outputs.RELEASE_DIRECTORY }}/*
+          credentials: ${{ secrets.GDRIVE_CREDENTIALS }}
+          folder: ${{ secrets.GDRIVE_FOLDER }}
+          name: ${{ steps.artifactName.outputs.RELEASE_NAME }}.zip
