@@ -4,6 +4,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+
 ## [Unreleased]
 
 ### Added
@@ -11,6 +12,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 ### Fixed
+
+## [0.2.10] - 2021-08-30
+
+### Added
+
+### Changed
+
+### Fixed
+- Fixed broken build file
 
 ## [0.2.9] - 2021-08-30
 
@@ -117,7 +127,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - Fix error handling for version check
 
-[Unreleased]: https://github.com/GlacierSecurityInc/glacierDesktop/compare/v0.2.9...HEAD
+[Unreleased]: https://github.com/GlacierSecurityInc/glacierDesktop/compare/v0.2.10...HEAD
+[0.2.10]: https://github.com/GlacierSecurityInc/glacierDesktop/releases/tag/v0.2.10
 [0.2.9]: https://github.com/GlacierSecurityInc/glacierDesktop/releases/tag/v0.2.9
 [0.2.8]: https://github.com/GlacierSecurityInc/glacierDesktop/releases/tag/v0.2.8
 [0.2.7]: https://github.com/GlacierSecurityInc/glacierDesktop/releases/tag/v0.2.7
