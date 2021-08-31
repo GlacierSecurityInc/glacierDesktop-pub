@@ -67,9 +67,9 @@ When building, the automation needs to resolve two different branches to figure 
 
 (These steps should be performed on this repo, glacierDesktop. Our Converse.js fork is not currently versioned beyond what's provided by upstream.)
 
-1. Figure out what version this release should use. It can be any number that's not currently listed on [the releases page](https://github.com/GlacierSecurityInc/glacierDesktop/releases), but you should follow [SemVer](https://semver.org/spec/v2.0.0.html). This version number (**without** the `v` prefix) will be referred to as `$VERSION` in the following steps.
+1. Figure out what version this release should use. It can be any number that's not currently listed on [the releases page](https://github.com/GlacierSecurityInc/glacierDesktop/releases), but you should follow [SemVer](https://semver.org/spec/v2.0.0.html). This version number (**without** the `v` prefix) will be referred to as `$VERSION` in the following steps. This **may** have already been done in step 8 of the previous build. If so, no need to change it again.
 
-2. Update `version` in `package.json` to `$VERSION` (don't commit yet).
+2. Update `version` in `package.json` to `$VERSION` if needed (see comment on step 1). Example: `"version": "0.2.14"`.
 
 3. Update `CHANGELOG.md` with `$VERSION`:
     1. Change `## [Unreleased]` -> `## [$VERSION] - year-month-day`
@@ -89,15 +89,15 @@ When building, the automation needs to resolve two different branches to figure 
       - Change the `[Unreleased]: ...` link to be based off of the new version: `[Unreleased]: https://github.com/GlacierSecurityInc/glacierDesktop/compare/v$OLD_VERSION...HEAD` -> `[Unreleased]: https://github.com/GlacierSecurityInc/glacierDesktop/compare/v$VERSION...HEAD`
     4. See [this commit](https://github.com/GlacierSecurityInc/glacierDesktop/commit/56988a4a91cb3284c5ee74778692dc591601974d#diff-06572a96a58dc510037d5efa622f9bec8519bc1beab13c9f251e97e657a9d4ed) for an example of what should be changed.
 
-4. Commit your changes from steps 2 & 3, the commit message should be something like `v$VERSION Release`.
+4. Commit your changes from steps 2 & 3, the commit message should be something like `v$VERSION Release`. Example: `git commit -m "v0.2.14 Release"`
 
-5. After committing, tag your commit: `git tag v$VERSION` (**add** the `v` prefix).
+5. After committing, tag your commit: `git tag v$VERSION` (**add** the `v` prefix). Example: `git tag v0.2.14`
 
 6. Push your commit and current tag: `git push origin v$VERSION && git push -u origin main`. Note: We intentionally push the tag first so that it runs the release build workflow (and then avoids the duplicate build on main).
 
 7. A new release will appear on [the releases page](https://github.com/GlacierSecurityInc/glacierDesktop/releases) after the build workflow finishes.
 
-8. To prepare for the next release and enable draft builds, update `version` in `package.json` once again. You can always change this later before the next version is published to better follow [SemVer](https://semver.org/spec/v2.0.0.html) depending on what changes, so just think of it as a placeholder for now. For example, if you just published `v0.2.4` you could change the version field to `0.2.5`.
+8. To prepare for the next release and enable draft builds, update `version` in `package.json` once again. You can always change this later before the next version is published to better follow [SemVer](https://semver.org/spec/v2.0.0.html) depending on what changes, so just think of it as a placeholder for now. For example, if you just published `v0.2.14` you could change the version field to `0.2.15`.
 
 ### Actions
 
