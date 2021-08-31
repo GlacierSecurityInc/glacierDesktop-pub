@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 ### Fixed
+- Fix occasional notarization hang
 
 ## [0.2.12] - 2021-08-31
 
