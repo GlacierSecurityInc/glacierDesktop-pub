@@ -106,7 +106,8 @@ jobs:
         with:
           token: ${{secrets.github_token}}
 
-      - name: Compute artifact name
+      - name: Compute artifact name for non-release
+        if: github.ref == 'refs/heads/main'
         id: artifactName
         run: |
           echo "::set-output name=NAME::$(echo 'GlacierDesktop ${{ steps.package-version.outputs.version }} bld_${{ steps.buildNum.outputs.build_number }} main_${{ steps.glacierDesktopSHA.outputs.SHA_SHORT }} master_${{ steps.converseCheckout.outputs.SHA_SHORT }}' | tr '/' '-')"
@@ -114,11 +115,21 @@ jobs:
       - name: Get changelog version
         id: changelogHeader
         run: |
-          if [ $REF == "refs/heads/main" ]; then
-              echo "::set-output name=version::Unreleased"
-            else
-              echo "::set-output name=version::$VERSION"
-            fi
+          echo "::set-output name=version::Unreleased"
+        env:
+          REF: ${{ github.ref }}
+          VERSION: ${{ steps.package-version.outputs.version }}
+
+      - name: Compute artifact name for release
+        if: github.ref != 'refs/heads/main'
+        id: artifactName
+        run: |
+          echo "::set-output name=NAME::$(echo 'GlacierDesktop ${{ steps.package-version.outputs.version }} Release' | tr '/' '-')"
+          echo "::set-output name=DIRECTORY::$(echo 'GlacierDesktop_${{ steps.package-version.outputs.version }}_Release' | tr '/' '-')"
+      - name: Get changelog version
+        id: changelogHeader
+        run: |
+          echo "::set-output name=version::$VERSION"
         env:
           REF: ${{ github.ref }}
           VERSION: ${{ steps.package-version.outputs.version }}
