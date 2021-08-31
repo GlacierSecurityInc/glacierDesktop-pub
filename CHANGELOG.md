@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 ### Changed
-- revised and fixed artifact naming
+- revised artifact naming for releases
 
 ### Fixed
 
