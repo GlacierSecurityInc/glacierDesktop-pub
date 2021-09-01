@@ -12,6 +12,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+## [0.2.16] - 2021-09-01
+
+### Added
+
+### Changed
+- just build testing, remove later
+
+### Fixed
+
 ## [0.2.15] - 2021-09-01
 
 ### Added
@@ -30,15 +39,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-## [0.2.13] - 2021-08-31
-
-### Added
-
-### Changed
-
-### Fixed
-- Fix attempt for occasional notarization hang
-
 ## [0.2.12] - 2021-08-31
 
 ### Added
@@ -47,24 +47,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 - Correctly deletes build number tag if tagged commit
-
-## [0.2.11] - 2021-08-31
-
-### Added
-
-### Changed
-
-### Fixed
 - Prevent multiple builds on tag
-
-## [0.2.10] - 2021-08-30
-
-### Added
-
-### Changed
-
-### Fixed
-- Fixed broken build file
 
 ## [0.2.9] - 2021-08-30
 
@@ -170,7 +153,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - Fix error handling for version check
 
-[Unreleased]: https://github.com/GlacierSecurityInc/glacierDesktop/compare/v0.2.15...HEAD
+[Unreleased]: https://github.com/GlacierSecurityInc/glacierDesktop/compare/v0.2.16...HEAD
+[0.2.16]: https://github.com/GlacierSecurityInc/glacierDesktop/releases/tag/v0.2.16
 [0.2.15]: https://github.com/GlacierSecurityInc/glacierDesktop/releases/tag/v0.2.15
 [0.2.14]: https://github.com/GlacierSecurityInc/glacierDesktop/releases/tag/v0.2.14
 [0.2.13]: https://github.com/GlacierSecurityInc/glacierDesktop/releases/tag/v0.2.13
