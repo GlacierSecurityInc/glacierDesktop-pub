@@ -74,7 +74,7 @@ angApp.factory('DesktopService', (
             omemo_default: true,
             password: password,
             play_sounds: false,
-            priority: 50,
+            priority: 0,
             view_mode: 'fullscreen',
             whitelisted_plugins: ['converseDesktop'],
             allow_contact_removal: false,
