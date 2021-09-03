@@ -145,7 +145,7 @@ jobs:
         env:
           CLOSES: ${{ fromJSON(steps.parsedPR.outputs.parsed).actions.close[0].issue }}
           VERSION: ${{ steps.package-version.outputs.version }}
-          BUILD_NUMBER: ${{ steps.buildNum.outputs.build_number }}
+          BUILD_NUM: ${{ steps.buildNum.outputs.build_number }}
           GLACIER_BRANCH: ${{ steps.glacierBranch.outputs.branch }}
           CONVERSE_BRANCH: ${{ steps.converseBranch.outputs.branch }}
           GLACIER_SHA: ${{ steps.glacierDesktopSHA.outputs.SHA_SHORT }}
