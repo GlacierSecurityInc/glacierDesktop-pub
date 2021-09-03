@@ -46,6 +46,7 @@ jobs:
         id: glacierDesktopSHA
         run: |
           echo "::set-output name=SHA_SHORT::$(git rev-parse --short HEAD)"
+
       - name: Checkout submodule using a PAT
         id: converseCheckout
         run: |
@@ -56,6 +57,7 @@ jobs:
           git submodule update --init --recursive --remote
           cd libs/vendor/converse.js
           echo "::set-output name=SHA_SHORT::$(git rev-parse --short HEAD)"
+
       - name: Setup Node
         uses: actions/setup-node@v2
         with:
@@ -74,6 +76,7 @@ jobs:
           key: ${{ runner.os }}-electron-cache-${{ hashFiles(format('{0}{1}', github.workspace, '/package-lock.json')) }}
           restore-keys: |
             ${{ runner.os }}-electron-cache-
+
       - name: Cache Electron-Builder
         uses: actions/cache@v1
         with:
@@ -81,6 +84,7 @@ jobs:
           key: ${{ runner.os }}-electron-builder-cache-${{ hashFiles(format('{0}{1}', github.workspace, '/package-lock.json')) }}
           restore-keys: |
             ${{ runner.os }}-electron-builder-cache-
+
       - name: Codesign on macOS
         if: runner.os == 'macOS'
         env:
@@ -93,6 +97,7 @@ jobs:
           security unlock-keychain -p $MACOS_KEYCHAIN_PASSWORD build.keychain
           security import certificate.p12 -k build.keychain -P "" -T /usr/bin/codesign
           security set-key-partition-list -S apple-tool:,apple: -s -k $MACOS_KEYCHAIN_PASSWORD build.keychain
+
       - name: Install dependencies
         run: yarn install --frozen-lockfile
 
@@ -113,6 +118,7 @@ jobs:
           echo "::set-output name=DIRECTORY::$(echo 'GlacierDesktop_${{ steps.package-version.outputs.version }}_bld_${{ steps.buildNum.outputs.build_number }}' | tr '/' '-')"
           echo "::set-output name=RELEASE_NAME::$(echo 'GlacierDesktop ${{ steps.package-version.outputs.version }} Release' | tr '/' '-')"
           echo "::set-output name=RELEASE_DIRECTORY::$(echo 'GlacierDesktop_${{ steps.package-version.outputs.version }}_Release' | tr '/' '-')"
+
       - name: Get changelog version
         id: changelogHeader
         run: |
@@ -125,18 +131,18 @@ jobs:
           REF: ${{ github.ref }}
           VERSION: ${{ steps.package-version.outputs.version }}
 
-      - name: Build metadata (draft release version)
+      - name: Build metadata (non-release)
         if: github.ref == 'refs/heads/main'
         run: yarn build:metadata
         env:
+          VERSION: ${{ steps.package-version.outputs.version }}
+          BUILD_NUM: ${{ steps.buildNum.outputs.build_number }}
           GLACIER_BRANCH: main
           CONVERSE_BRANCH: master
           GLACIER_SHA: ${{ steps.glacierDesktopSHA.outputs.SHA_SHORT }}
           CONVERSE_SHA: ${{ steps.converseCheckout.outputs.SHA_SHORT }}
-          VERSION: ${{ steps.package-version.outputs.version }}
-          BUILD_NUM: ${{ steps.buildNum.outputs.build_number }}
 
-      - name: Build metadata (release version)
+      - name: Build metadata (release)
         if: github.ref != 'refs/heads/main'
         run: yarn build:metadata
         env:
@@ -145,7 +151,13 @@ jobs:
       - name: Build app
         run: yarn build
 
-      - name: Package and notarize app
+      - name: Package app without notarization (non-release)
+        if: github.ref == 'refs/heads/main'
+        run: yarn electron-builder -w --mac dmg -p never
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Package and notarize app (release)
         if: github.ref != 'refs/heads/main'
         run: yarn electron-builder -w --mac dmg -p never
         env:
@@ -153,31 +165,37 @@ jobs:
           APPLE_ID: ${{ secrets.APPLE_ID }}
           APPLE_ID_PASSWORD: ${{ secrets.APPLE_ID_PASSWORD }}
 
-      - name: Package app without notarization
+      - name: Rename artifacts (non-release)
         if: github.ref == 'refs/heads/main'
-        run: yarn electron-builder -w --mac dmg -p never
+        run: |
+          mv dist/*.dmg "dist/$NAME.dmg"
+          mv dist/*.exe "dist/$NAME.exe"
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NAME: ${{ steps.artifactName.outputs.NAME }}
 
-      - name: Move artifacts for non-release
+      - name: Move artifacts (non-release)
         if: github.ref == 'refs/heads/main'
         run: |
           mkdir ${{ steps.artifactName.outputs.DIRECTORY }}
           mv dist/*.exe ${{ steps.artifactName.outputs.DIRECTORY }}/
           mv dist/*.dmg ${{ steps.artifactName.outputs.DIRECTORY }}/
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v2
-        with:
-          name: ${{ steps.artifactName.outputs.NAME }}
-          path: ./${{ steps.artifactName.outputs.DIRECTORY }}/*
 
-      - name: Move artifacts for release
+      - name: Move artifacts (release)
         if: github.ref != 'refs/heads/main'
         run: |
           mkdir ${{ steps.artifactName.outputs.RELEASE_DIRECTORY }}
           mv dist/*.exe ${{ steps.artifactName.outputs.RELEASE_DIRECTORY }}/
           mv dist/*.dmg ${{ steps.artifactName.outputs.RELEASE_DIRECTORY }}/
-      - name: Upload artifacts
+
+      - name: Upload artifacts (non-release)
+        if: github.ref == 'refs/heads/main'
+        uses: actions/upload-artifact@v2
+        with:
+          name: ${{ steps.artifactName.outputs.NAME }}
+          path: ./${{ steps.artifactName.outputs.DIRECTORY }}/*
+
+      - name: Upload artifacts (release)
+        if: github.ref != 'refs/heads/main'
         uses: actions/upload-artifact@v2
         with:
           name: ${{ steps.artifactName.outputs.RELEASE_NAME }}
@@ -190,7 +208,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Create draft release (if untagged commit)
+      - name: Create draft release if untagged commit (non-release)
         if: github.ref == 'refs/heads/main'
         uses: softprops/action-gh-release@v1
         with:
@@ -202,7 +220,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Create draft release (if tagged commit)
+      - name: Create draft release if tagged commit (release)
         if: github.ref != 'refs/heads/main'
         uses: softprops/action-gh-release@v1
         with:
@@ -214,7 +232,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Create release (if tagged commit)
+      - name: Create release if tagged commit (release)
         uses: softprops/action-gh-release@v1
         if: github.ref != 'refs/heads/main'
         with:
@@ -225,7 +243,7 @@ jobs:
           token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
           files: ./${{ steps.artifactName.outputs.RELEASE_DIRECTORY }}/*
 
-      - name: Delete current build number tag if tagged commit
+      - name: Delete current build number tag if tagged commit (release)
         if: github.ref != 'refs/heads/main'
         uses: dev-drprasad/delete-tag-and-release@v0.2.0
         with:
@@ -233,14 +251,14 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }}
 
-      #- name: Reset build number to 1 if tagged commit
+      #- name: Reset build number to 1 if tagged commit (release)
       #  if: github.ref != 'refs/heads/main'
       #  uses: tvdias/github-tagger@v0.0.1
       #  with:
       #    repo-token: "${{ github.token }}"
       #    tag: "build-number-0"
 
-      - name: Upload artifact to Google Drive
+      - name: Upload artifact to Google Drive (non-release)
         if: github.ref == 'refs/heads/main'
         uses: codetheweb/upload-to-drive@v1.3.0
         id: gdrive
@@ -250,7 +268,7 @@ jobs:
           folder: ${{ secrets.GDRIVE_FOLDER }}
           name: ${{ steps.artifactName.outputs.NAME }}.zip
 
-      - name: Upload release artifact to Google Drive
+      - name: Upload artifact to Google Drive (release)
         if: github.ref != 'refs/heads/main'
         uses: codetheweb/upload-to-drive@v1.3.0
         id: gdriverelease

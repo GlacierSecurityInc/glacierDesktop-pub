@@ -25,7 +25,7 @@ jobs:
         with:
           body: ${{ github.event.client_payload.pull_request.body }}
 
-      - name: Comment with build status
+      - name: Comment in issue ticket with build status
         uses: peter-evans/create-or-update-comment@v1.4.5
         id: createdComment
         with:
@@ -33,6 +33,7 @@ jobs:
           body: |
             ⚙️ building artifact...
             [Inspect workflow run](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})
+
       - name: Get branch of GlacierDesktop to build
         id: glacierBranch
         run: |
@@ -76,6 +77,7 @@ jobs:
         id: glacierDesktopSHA
         run: |
           echo "::set-output name=SHA_SHORT::$(git rev-parse --short HEAD)"
+
       - name: Checkout Converse.js
         id: converseCheckout
         run: |
@@ -86,6 +88,7 @@ jobs:
           git submodule update --init --recursive --remote
           cd libs/vendor/converse.js && git checkout ${{ steps.converseBranch.outputs.branch }}
           echo "::set-output name=SHA_SHORT::$(git rev-parse --short HEAD)"
+
       - name: Get app version
         id: package-version
         uses: Saionaro/extract-package-version@v1.0.6
@@ -101,6 +104,7 @@ jobs:
         run: |
           echo "::set-output name=NAME::$(echo 'GlacierDesktop ${{ steps.package-version.outputs.version }} bld_${{ steps.buildNum.outputs.build_number }} tkt_${{ fromJSON(steps.parsedPR.outputs.parsed).actions.close[0].issue }} ${{ steps.glacierBranch.outputs.branch }}_${{ steps.glacierDesktopSHA.outputs.SHA_SHORT }} ${{ steps.converseBranch.outputs.branch }}_${{ steps.converseCheckout.outputs.SHA_SHORT }}' | tr '/' '-')"
           echo "::set-output name=DIRECTORY::$(echo 'GlacierDesktop_${{ steps.package-version.outputs.version }}_bld_${{ steps.buildNum.outputs.build_number }}_tkt_${{ fromJSON(steps.parsedPR.outputs.parsed).actions.close[0].issue }}' | tr '/' '-')"
+
       - name: Setup Node
         uses: actions/setup-node@v2
         with:
@@ -119,6 +123,7 @@ jobs:
           key: ${{ runner.os }}-electron-cache-${{ hashFiles(format('{0}{1}', github.workspace, '/package-lock.json')) }}
           restore-keys: |
             ${{ runner.os }}-electron-cache-
+
       - name: Codesign on macOS
         if: runner.os == 'macOS'
         env:
@@ -131,6 +136,7 @@ jobs:
           security unlock-keychain -p $MACOS_KEYCHAIN_PASSWORD build.keychain
           security import certificate.p12 -k build.keychain -P "" -T /usr/bin/codesign
           security set-key-partition-list -S apple-tool:,apple: -s -k $MACOS_KEYCHAIN_PASSWORD build.keychain
+
       - name: Install dependencies
         run: yarn install --frozen-lockfile
 
@@ -138,12 +144,12 @@ jobs:
         run: yarn build:metadata
         env:
           CLOSES: ${{ fromJSON(steps.parsedPR.outputs.parsed).actions.close[0].issue }}
+          VERSION: ${{ steps.package-version.outputs.version }}
+          BUILD_NUMBER: ${{ steps.buildNum.outputs.build_number }}
           GLACIER_BRANCH: ${{ steps.glacierBranch.outputs.branch }}
           CONVERSE_BRANCH: ${{ steps.converseBranch.outputs.branch }}
           GLACIER_SHA: ${{ steps.glacierDesktopSHA.outputs.SHA_SHORT }}
           CONVERSE_SHA: ${{ steps.converseCheckout.outputs.SHA_SHORT }}
-          VERSION: ${{ steps.package-version.outputs.version }}
-          BUILD_NUMBER: ${{ steps.buildNum.outputs.build_number }}
 
       - name: Build app
         run: yarn build
@@ -165,6 +171,7 @@ jobs:
           mkdir ${{ steps.artifactName.outputs.DIRECTORY }}
           mv dist/*.exe ${{ steps.artifactName.outputs.DIRECTORY }}/
           mv dist/*.dmg ${{ steps.artifactName.outputs.DIRECTORY }}/
+
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
         with:
@@ -180,7 +187,7 @@ jobs:
           folder: ${{ secrets.GDRIVE_FOLDER }}
           name: ${{ steps.artifactName.outputs.NAME }}.zip
 
-      - name: Comment with link to artifact
+      - name: Comment in issue ticket with link to artifact
         uses: peter-evans/create-or-update-comment@v1.4.5
         with:
           issue-number: ${{ fromJSON(steps.parsedPR.outputs.parsed).actions.close[0].issue }}
@@ -190,7 +197,8 @@ jobs:
             🚀 artifact ready for testing: ${{ steps.artifactName.outputs.NAME }}
             [Download artifact](${{ steps.gdrive.outputs.fileLink }})
             [Inspect workflow run](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})
-      - name: Add reaction
+
+      - name: Add reaction to build comment in PR ticket
         uses: peter-evans/create-or-update-comment@v1.4.5
         with:
           token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
@@ -198,7 +206,7 @@ jobs:
           comment-id: ${{ github.event.client_payload.github.payload.comment.id }}
           reaction-type: hooray
 
-      - name: Update build status comment to failed
+      - name: Update build status comment if failed to build
         if: ${{ failure() }}
         uses: peter-evans/create-or-update-comment@v1.4.5
         with:
