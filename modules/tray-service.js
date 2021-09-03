@@ -42,11 +42,13 @@ trayService.initTray = (window) => {
 trayService.showEnvelope = () => {
     let iconPath = getTrayServiceIcon('envelope')
     tray.setImage(iconPath)
+    tray.setToolTip('Glacier Desktop - New message(s) arrived')
 }
 
 trayService.hideEnvelope = () => {
     let iconPath = getTrayServiceIcon()
     tray.setImage(iconPath)
+    tray.setToolTip('Glacier Desktop')
 }
 
 module.exports = trayService
