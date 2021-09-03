@@ -9,6 +9,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 ### Changed
+
+### Fixed
+
+## [0.2.18] - 2021-09-03
+
+### Added
+
+### Changed
 - Updated small app icons 
 - Updated tooltip associated with small app icons
 
@@ -165,7 +173,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - Fix error handling for version check
 
-[Unreleased]: https://github.com/GlacierSecurityInc/glacierDesktop/compare/v0.2.17...HEAD
+[Unreleased]: https://github.com/GlacierSecurityInc/glacierDesktop/compare/v0.2.18...HEAD
+[0.2.18]: https://github.com/GlacierSecurityInc/glacierDesktop/releases/tag/v0.2.18
 [0.2.17]: https://github.com/GlacierSecurityInc/glacierDesktop/releases/tag/v0.2.17
 [0.2.16]: https://github.com/GlacierSecurityInc/glacierDesktop/releases/tag/v0.2.16
 [0.2.15]: https://github.com/GlacierSecurityInc/glacierDesktop/releases/tag/v0.2.15

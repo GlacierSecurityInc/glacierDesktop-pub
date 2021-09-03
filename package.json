@@ -1,8 +1,8 @@
 {
   "name": "glacier-desktop",
   "private": true,
-  "version": "0.2.17",
-  "description": "Desktop Jabber/XMPP client based on Converse.js and Electron",
+  "version": "0.2.18",
+  "description": "Secure communication solution for your team",
   "engineStrict": true,
   "main": "main.js",
   "scripts": {
@@ -26,8 +26,9 @@
     "Electron",
     "OMEMO"
   ],
-  "author": "Nick Denry <nick@denry.ru>",
+  "author": "Glacier Security",
   "contributors": [
+    "Nick Denry <nick@denry.ru>",
     "Chance Snow <chance@snow.llc>"
   ],
   "license": "UNLICENSED",
