@@ -55,17 +55,38 @@ cd libs/vendor/converse.js
 make devserver  # This will start a local server, print a URL, & automatically reload in the browser when code changes
 ```
 
-### Contributing 
+### Contributing Changes via PR
 
-When you're ready for others to test your changes, [open a PR](https://github.com/GlacierSecurityInc/glacierDesktop/compare). Make sure you follow the template: **every PR should be associated with exactly one issue / ticket**. Automations assume this. If it's absolutely necessary to open a PR that closes multiple tickets, automations will still run correctly but artifact names will only mention one ticket and the automation will only comment in one ticket.
+When you're ready for others to test your changes, [open a PR](https://github.com/GlacierSecurityInc/glacierDesktop/compare). 
 
-If your changes are to both glacierDesktop and our Converse.js fork, make sure you link to your Converse.js PR in your glacierDesktop PR by pasting a link to it in the comments for the PR.
+Glacier uses automation to generate our builds, so you need to fill in the PR in a very specific manner in order for our automated build process to work properly.  Be sure to follow these rules in your PR:
 
-Inside your PR, you can comment `/build` when you're ready for QA to test your changes. This will trigger a workflow that'll automatically build an artifact and drop a link to it in the associated ticket.
+1. **Every PR should only be associated with exactly one issue ticket**. Automations assume this. If it's absolutely necessary to open a PR that closes multiple tickets, automations will still run correctly but artifact names will only mention one ticket and the automation will only comment within one ticket.
 
-When building, the automation needs to resolve two different branches to figure out what code to build: the branch on glacierDesktop and the branch on our Converse.js fork. It will always use the PR branch as one of the branches. The other branch defaults to `main` / `master`, but you can specify otherwise manually if necessary (i.e. when your changes are to both glacierDesktop and the Converse.js fork):
-- When commenting inside a glacierDesktop PR, you can specify the branch in Converse.js like so: `/build my-converse-branch`.
-- When commenting inside a Converse.js PR, you can specify the branch in glacierDesktop like so: `/build my-glacierDesktop-branch`.
+2. Be sure to name your PR with a name that describes what is being addressed or fixed.
+
+3. Now, in the body of the PR, follow the following format:
+    Line 1: Associate the PR to the issue ticket it is addressing. Either type `Closes #[put issue ticket number here]` or `Partly closes #[put issue ticket number here]`, depending if the PR fully closes an issue ticket, or only partly addresses the issue.
+    Line 2: If you made changes to both glacierDesktop and the Converse.js fork, link to your Converse.js PR here. type `Requires [paste link to the converse.js PR ticket here]`. If you only made changes to the branch your PR is using, then do not include this line, and line 3 becomes line 2, and so on.
+    Line 3: Put a checkbox with `I updated CHANGELOG.md` after it.
+    Line 4: Type `## Changed:`
+    Line 5+: Starting with line 5 (or 4 if line 2 is not needed), enter all relevant information about what was fixed or changed by the PR code, and any screenshots as necessary.
+
+4. If a developer is concerned about the code involved in their PR, they can ask another developer to review the PR. To do this, click on the “Reviewers” link on the right side of the PR ticket and select another developer who will review your code before it is approved for merging. Please note, if using this option, be sure to select a developer and not a tester for the review.
+
+### Building your Code
+
+When building, the automation needs to resolve two different branches to figure out what code to build: the branch on `glacierDesktop` and the branch on our `Converse.js fork`. It will always use the PR branch as one of the branches. The other branch defaults to `main` / `master`, but you can specify a different branch manually if necessary (i.e. your changes are to both branches). 
+
+When you are ready for QA to test your changes, you have three specific options for building your code:
+
+```bash
+- If you only made changes to the glacierDesktop repository, then inside your glacierDesktop PR you should enter `/build` in the comment box.
+- If you only made changes to the Converse.js repository, then inside your Converse.js PR you should enter `/build` in the comment box.
+- If you made changes to both repositories, then inside your glacierDesktop PR you should enter `/build my-converse-branch` in the comment box (where my-converse-branch is the name of the Converse.js branch you modified).
+```
+
+Assuming the build was successful, it will trigger a workflow that will automatically build the appropriate artifacts, place a link to the artifacts in the associated issue ticket, place a copy of the artifacts in Glacier’s Google Drive folder, and notify our team that a build is ready for testing.
 
 ### Releasing
 
@@ -107,12 +128,12 @@ To generate a release version of the app, do the following:
 
 9. IMPORTANT! After you have updated `version` in `package.json`, then you MUST immediately add, commit, and push the `package.json` file to the **main branch** of glacierDesktop in order to make sure that the automation will work properly for subsequent builds. If this step is not completed, the automated build process will not work properly.
 
-### Actions
+### Automation via Actions
 
 All automations are handled by [GitHub Actions](https://docs.github.com/en/actions/learn-github-actions). They are stored in `.github/workflows`. A few tips / notes:
 
-- Actions will use the latest version of its specification **within the current context**. For example, say you create a new branch called `patch/new-fix`, commit, and push a change to `.github/workflows/build.yml`. In this scenario, `build.yml` specifies that the action should run on every push. When it runs for your push, it'll use your updated specification since the context is from within your branch.
-- Alternatively, say `.github/workflows/build.yml` runs on every push, but only when the push is to `main`. In this scenario, the action will not execute for `patch/new-fix` (since it only runs on pushes to `main`) and when triggered by future pushes to `main` **will not** use your updated version until you merge your changes into `main`.
+- Actions will use the latest version of its specification **within the current context**. For example, say you create a new branch called `patch/new-fix`, commit, and push a change to `.github/workflows/build.yml`. If `build.yml` specifies that the action should run on every push, then when you push changes to your branch, it will use your updated specification since the context is from within your branch.
+- Alternatively, if `.github/workflows/build.yml` only runs on every push to the `main` branch, then the action will not execute for a push to `patch/new-fix` (since it only runs on pushes to `main`). In this case, when triggered by future pushes to `main`, it **will not** use your updated version until you merge the changes in `patch/new-fix` into `main`.
 - Use Linux (`ubuntu-latest`) [runners](https://docs.github.com/en/actions/using-github-hosted-runners/about-github-hosted-runners) whenever possible, as they're far cheaper than macOS & Windows.
 
 ## License
