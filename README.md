@@ -80,11 +80,11 @@ When building, the automation needs to resolve two different branches to figure 
 
 When you are ready for QA to test your changes, you have three specific options for building your code:
 
-```bash
 - If you only made changes to the glacierDesktop repository, then inside your glacierDesktop PR you should enter `/build` in the comment box.
+
 - If you only made changes to the Converse.js repository, then inside your Converse.js PR you should enter `/build` in the comment box.
+
 - If you made changes to both repositories, then inside your glacierDesktop PR you should enter `/build my-converse-branch` in the comment box (where my-converse-branch is the name of the Converse.js branch you modified).
-```
 
 Assuming the build was successful, it will trigger a workflow that will automatically build the appropriate artifacts, place a link to the artifacts in the associated issue ticket, place a copy of the artifacts in Glacier’s Google Drive folder, and notify our team that a build is ready for testing.
 
