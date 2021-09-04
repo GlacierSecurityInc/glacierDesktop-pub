@@ -16,56 +16,62 @@ Draft releases are [here](https://github.com/GlacierSecurityInc/glacierDesktop/r
 
 VS Code is easiest to get started with. We use [Yarn](https://classic.yarnpkg.com/lang/en/) instead of NPM.
 
+To prepare your environment for development:
 ```bash
 git clone https://github.com/GlacierSecurityInc/glacierDesktop.git --recurse-submodules
 cd glacierDesktop
 yarn install
-yarn build
-yarn start # start a dev environment
-
-yarn dist # build a macOS distributable
 ```
 
-A few notes:
-- You can make modifications to our [Converse.js fork](https://github.com/GlacierSecurityInc/converse.js) directly in the submodule folder (`libs/vendor/converse.js`). It acts like a normal Git repository, meaning that you can create a branch with your changes as normal, push them to our fork, and then make a PR.
+To build your code from the current branches of glacierDesktop and the converse.js submodule:
+```bash
+yarn build  # builds your code 
+yarn start  # starts your build in a dev environment for use and testing
+yarn dist   # builds a macOS distributable (dmg file) for installation
+```
 
-To update the submodule (equivalent to doing `git pull` inside the submodule folder):
+### Working with our Converse.js Fork
 
+You can make modifications to our [Converse.js fork](https://github.com/GlacierSecurityInc/converse.js) fork directly in the submodule folder (`libs/vendor/converse.js`). It acts like a normal Git repository, meaning that you can create a branch with your changes as normal, push them to our fork, and then make a PR.
+
+To update the submodule from the main project directory (equivalent to doing `git pull` inside the submodule folder), run the following command:
 ```bash
 git submodule update --recursive --remote
 ```
 
-- As of 07/14/2021, Converse.js's build script doesn't seem to always pick up on changes. This means that if you're making changes to Converse, the full process is:
+As of 07/14/2021, The Converse.js build script does not always pick up on changes within the submodule. So, in order to ensure that all changes are present in each build, if you are making changes to the Converse.js submodule, then do the following to build your code:
 
 ```bash
 # Make changes
-rm -rf libs/vendor/converse.js/dist
-yarn build
-yarn start # includes your changes
+rm -rf libs/vendor/converse.js/dist  # clears previous build info
+yarn build  # builds your code and includes your changes to Converse.js
+yarn start  # starts your build in a dev environment for use and testing
 ```
 
-- If you're making non-Glacier specific changes that can be tested with a regular XMPP client (theming), then it's much faster to start a dev server:
+If you are making changes to the app that are not specific to Glacier, and that can be tested with a regular XMPP client (theming), then it's much faster to start a dev server instead of doing a full build and start.  To do this:
 
 ```bash
 cd libs/vendor/converse.js
-make devserver # will start a local server, print a URL, & automatically reload in the browser when code changes
+make devserver  # This will start a local server, print a URL, & automatically reload in the browser when code changes
 ```
 
-### Contributing
+### Contributing 
 
 When you're ready for others to test your changes, [open a PR](https://github.com/GlacierSecurityInc/glacierDesktop/compare). Make sure you follow the template: **every PR should be associated with exactly one issue / ticket**. Automations assume this. If it's absolutely necessary to open a PR that closes multiple tickets, automations will still run correctly but artifact names will only mention one ticket and the automation will only comment in one ticket.
 
-If your changes are to both glacierDesktop and our Converse.js fork, make sure you link to your Converse.js PR in your glacierDesktop PR by pasting a link to it somewhere in the PR body.
+If your changes are to both glacierDesktop and our Converse.js fork, make sure you link to your Converse.js PR in your glacierDesktop PR by pasting a link to it in the comments for the PR.
 
 Inside your PR, you can comment `/build` when you're ready for QA to test your changes. This will trigger a workflow that'll automatically build an artifact and drop a link to it in the associated ticket.
 
-When building, the automation needs to resolve two different branches to figure out what code to build: the branch on glacierDesktop and the branch on our Converse.js fork. It will always use the PR branch as one of the branches. The other branch defaults to `main` / `master`, but you can specify it manually if necessary (i.e. your changes are to both glacierDesktop and the Converse.js fork):
+When building, the automation needs to resolve two different branches to figure out what code to build: the branch on glacierDesktop and the branch on our Converse.js fork. It will always use the PR branch as one of the branches. The other branch defaults to `main` / `master`, but you can specify otherwise manually if necessary (i.e. when your changes are to both glacierDesktop and the Converse.js fork):
 - When commenting inside a glacierDesktop PR, you can specify the branch in Converse.js like so: `/build my-converse-branch`.
 - When commenting inside a Converse.js PR, you can specify the branch in glacierDesktop like so: `/build my-glacierDesktop-branch`.
 
 ### Releasing
 
 (These steps should be performed on this repo, glacierDesktop. Our Converse.js fork is not currently versioned beyond what's provided by upstream.)
+
+To generate a release version of the app, do the following:
 
 1. Figure out what version this release should use. It can be any number that's not currently listed on [the releases page](https://github.com/GlacierSecurityInc/glacierDesktop/releases), but you should follow [SemVer](https://semver.org/spec/v2.0.0.html). This version number (**without** the `v` prefix) will be referred to as `$VERSION` in the following steps. This **may** have already been done in step 8 of the previous build. If so, no need to change it again.
 
@@ -89,15 +95,17 @@ When building, the automation needs to resolve two different branches to figure 
       - Change the `[Unreleased]: ...` link to be based off of the new version: `[Unreleased]: https://github.com/GlacierSecurityInc/glacierDesktop/compare/v$OLD_VERSION...HEAD` -> `[Unreleased]: https://github.com/GlacierSecurityInc/glacierDesktop/compare/v$VERSION...HEAD`
     4. See [this commit](https://github.com/GlacierSecurityInc/glacierDesktop/commit/56988a4a91cb3284c5ee74778692dc591601974d#diff-06572a96a58dc510037d5efa622f9bec8519bc1beab13c9f251e97e657a9d4ed) for an example of what should be changed.
 
-4. Commit your changes from steps 2 & 3, the commit message should be something like `v$VERSION Release`. Example: `git commit -m "v0.2.14 Release"`
+4. Add, commit, and push your changes from steps 2 & 3 to the main branch of glacierDesktop. The commit message should be something like `v$VERSION Release`. Example: `git commit -m "v0.2.14 Release"`
 
 5. After committing, tag your commit: `git tag v$VERSION` (**add** the `v` prefix). Example: `git tag v0.2.14`
 
-6. Push your commit and current tag: `git push origin v$VERSION && git push -u origin main`. Note: We intentionally push the tag first so that it runs the release build workflow (and then avoids the duplicate build on main).
+6. Push your commit and current tag to the main branch of glacierDesktop: `git push origin v$VERSION && git push -u origin main`.  Note: We intentionally push the tag first so that it runs the release build workflow (and then avoids the duplicate build on main).
 
 7. A new release will appear on [the releases page](https://github.com/GlacierSecurityInc/glacierDesktop/releases) after the build workflow finishes.
 
 8. To prepare for the next release and enable draft builds, update `version` in `package.json` once again. You can always change this later before the next version is published to better follow [SemVer](https://semver.org/spec/v2.0.0.html) depending on what changes, so just think of it as a placeholder for now. For example, if you just published `v0.2.14` you could change the version field to `0.2.15`.
+
+9. IMPORTANT! After you have updated `version` in `package.json`, then you MUST immediately add, commit, and push the `package.json` file to the **main branch** of glacierDesktop in order to make sure that the automation will work properly for subsequent builds. If this step is not completed, the automated build process will not work properly.
 
 ### Actions
 
