@@ -66,11 +66,11 @@ Glacier uses automation to generate our builds, so you need to fill in the PR in
 2. Be sure to name your PR with a name that describes what is being addressed or fixed.
 
 3. Now, in the body of the PR, follow the following format:
-    Line 1: Associate the PR to the issue ticket it is addressing. Either type `Closes #[put issue ticket number here]` or `Partly closes #[put issue ticket number here]`, depending if the PR fully closes an issue ticket, or only partly addresses the issue.
-    Line 2: If you made changes to both glacierDesktop and the Converse.js fork, link to your Converse.js PR here. type `Requires [paste link to the converse.js PR ticket here]`. If you only made changes to the branch your PR is using, then do not include this line, and line 3 becomes line 2, and so on.
-    Line 3: Put a checkbox with `I updated CHANGELOG.md` after it.
-    Line 4: Type `## Changed:`
-    Line 5+: Starting with line 5 (or 4 if line 2 is not needed), enter all relevant information about what was fixed or changed by the PR code, and any screenshots as necessary.
+    1. On Line 1: Associate the PR to the issue ticket it is addressing. Either type `Closes #[put issue ticket number here]` or `Partly closes #[put issue ticket number here]`, depending if the PR fully closes an issue ticket, or only partly addresses the issue.
+    2. On Line 2: If you made changes to both glacierDesktop and the Converse.js fork, link to your Converse.js PR here. type `Requires [paste link to the converse.js PR ticket here]`. If you only made changes to the branch your PR is using, then do not include this line, and line 3 becomes line 2, and so on.
+    3. On Line 3: Put a checkbox with `I updated CHANGELOG.md` after it.
+    4. On Line 4: Type `## Changed:`
+    5. On Line 5+: Starting with line 5 (or 4 if line 2 is not needed), enter all relevant information about what was fixed or changed by the PR code, and any screenshots as necessary.
 
 4. If a developer is concerned about the code involved in their PR, they can ask another developer to review the PR. To do this, click on the “Reviewers” link on the right side of the PR ticket and select another developer who will review your code before it is approved for merging. Please note, if using this option, be sure to select a developer and not a tester for the review.
 
