@@ -17,7 +17,7 @@ let getTrayServiceIcon = (iconName = 'icon') => {
         iconImage = iconName+'Template'
     }
     else if (process.platform === 'win32') {
-        iconImage = iconName+'-16x16'
+        iconImage = iconName+'-48x48'
     }
     else {
         iconImage = iconName+'-48x48'
