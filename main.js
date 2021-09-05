@@ -3,9 +3,6 @@ const { app, BrowserWindow, ipcMain, shell } = require('electron')
 const appConfig = require('electron-settings');
 const { autoUpdater } = require('electron-updater');
 
-autoUpdater.logger = require("electron-log")
-autoUpdater.logger.transports.file.level = "info"
-
 autoUpdater.on('update-available', () => {
     mainWindow.webContents.send('update_available');
 });
