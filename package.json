@@ -2,7 +2,7 @@
   "name": "glacier-desktop",
   "private": true,
   "version": "0.2.22",
-  "description": "Desktop Jabber/XMPP client based on Converse.js and Electron",
+  "description": "Secure communication solution for your team",
   "engineStrict": true,
   "main": "main.js",
   "scripts": {
