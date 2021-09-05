@@ -9,11 +9,37 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 ### Changed
-- Updated small Windows icons
 
 ### Fixed
 
-## [0.2.18] - 2021-09-03
+## [0.2.21] - 2021-09-05
+
+### Added
+
+### Changed
+- Updated package.json and Changelog to test auto-update functionality with release
+
+### Fixed
+
+## [0.2.20] - 2021-09-04
+
+### Added
+
+### Changed
+- Another update for auto-update
+
+### Fixed
+
+## [0.2.19] - 2021-09-04
+
+### Added
+
+### Changed
+- Update for auto-update 
+
+### Fixed
+
+# [0.2.18] - 2021-09-03
 
 ### Added
 
@@ -174,7 +200,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - Fix error handling for version check
 
-[Unreleased]: https://github.com/GlacierSecurityInc/glacierDesktop/compare/v0.2.18...HEAD
+[Unreleased]: https://github.com/GlacierSecurityInc/glacierDesktop/compare/v0.2.21...HEAD
+[0.2.21]: https://github.com/GlacierSecurityInc/glacierDesktop/releases/tag/v0.2.21
+[0.2.20]: https://github.com/GlacierSecurityInc/glacierDesktop/releases/tag/v0.2.20
+[0.2.19]: https://github.com/GlacierSecurityInc/glacierDesktop/releases/tag/v0.2.19
 [0.2.18]: https://github.com/GlacierSecurityInc/glacierDesktop/releases/tag/v0.2.18
 [0.2.17]: https://github.com/GlacierSecurityInc/glacierDesktop/releases/tag/v0.2.17
 [0.2.16]: https://github.com/GlacierSecurityInc/glacierDesktop/releases/tag/v0.2.16
