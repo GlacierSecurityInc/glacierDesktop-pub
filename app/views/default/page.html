@@ -8,17 +8,6 @@
             <p ng-if="appInfo.metadata.BUILD_NUMBER">
                 <span>Build {{appInfo.metadata.BUILD_NUMBER}}</span>
              </p>
-            <span class="chimeverse-branding__update">
-                <span class="update__checking" ng-show="checkingForUpdate == 'inProgress'">checking for update...</span>
-                <span class="update__error" ng-show="checkingForUpdate == 'checkErr'">
-                    &gt;_&lt; check for update failed <a href="#" ng-click="checkRetry($event)">retry</a>
-                </span>
-                <span class="update__latest" ng-show="checkingForUpdate == 'latest'">latest version</span>
-                <a class="update__available" href="{{appInfo.APP_RELEASES_URL}}" target="_blank"
-                    ng-show="checkingForUpdate == 'updateAvailable'">
-                    Update available
-                </a>
-            </span>
         </div>
     </div>
     <div class="conversejs-adoption">
