@@ -7,10 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
-
+- Auto update
 ### Changed
-- Updated small Windows icons
-
+- Default page
 ### Fixed
 
 ## [0.2.18] - 2021-09-03
