@@ -79,6 +79,10 @@ angApp.controller('AppController', function ($scope, $timeout, DesktopService, S
       restartButton.classList.remove('hidden');
       notification.classList.remove('hidden');
     });
+    ipcRenderer.on('update_not_available', () => {
+        message.innerText = 'There are no updates available.';
+        notification.classList.remove('hidden');
+    });
     $scope.closeNotification = () => {
         notification.classList.add('hidden');
     }

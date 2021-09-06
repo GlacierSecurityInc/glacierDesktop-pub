@@ -1,14 +1,7 @@
 // Modules to control application life and create native browser window
 const { app, BrowserWindow, ipcMain, shell } = require('electron')
 const appConfig = require('electron-settings');
-const { autoUpdater } = require('electron-updater');
-
-autoUpdater.on('update-available', () => {
-    mainWindow.webContents.send('update_available');
-});
-autoUpdater.on('update-downloaded', () => {
-    mainWindow.webContents.send('update_downloaded');
-});
+const { updateService } = require('./modules/update-service');
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -122,7 +115,7 @@ async function createWindow () {
     })
 
     ipcMain.on('app-restart-and-install', () => {
-        autoUpdater.quitAndInstall();
+        updateService.restartAndInstall();
     })
 
     // Emitted when the window is closed.
@@ -140,7 +133,7 @@ async function createWindow () {
     })
 
     mainWindow.once('ready-to-show', () => {
-        autoUpdater.checkForUpdatesAndNotify();
+        updateService.checkForUpdates();
     });
 
     return mainWindow
