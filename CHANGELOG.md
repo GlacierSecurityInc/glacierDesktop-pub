@@ -12,6 +12,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+## [0.2.24] - 2021-09-07
+
+### Added
+
+### Changed
+- Updated Changelog to generate yet another release to test auto-update functionality
+
+### Fixed
+
 ## [0.2.23] - 2021-09-07
 
 ### Added
@@ -218,7 +227,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - Fix error handling for version check
 
-[Unreleased]: https://github.com/GlacierSecurityInc/glacierDesktop/compare/v0.2.23...HEAD
+[Unreleased]: https://github.com/GlacierSecurityInc/glacierDesktop/compare/v0.2.24...HEAD
+[0.2.24]: https://github.com/GlacierSecurityInc/glacierDesktop/releases/tag/v0.2.24
 [0.2.23]: https://github.com/GlacierSecurityInc/glacierDesktop/releases/tag/v0.2.23
 [0.2.22]: https://github.com/GlacierSecurityInc/glacierDesktop/releases/tag/v0.2.22
 [0.2.21]: https://github.com/GlacierSecurityInc/glacierDesktop/releases/tag/v0.2.21
