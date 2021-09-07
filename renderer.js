@@ -79,6 +79,11 @@ angApp.controller('AppController', function ($scope, $timeout, DesktopService, S
       restartButton.classList.remove('hidden');
       notification.classList.remove('hidden');
     });
+    ipcRenderer.on('update_failed', (_, errorMessage) => {
+        message.innerText = 'Failed to fetch updates.';
+        console.log('Auto update error: ' + errorMessage);
+        notification.classList.remove('hidden');
+    });
     ipcRenderer.on('update_not_available', () => {
         message.innerText = 'There are no updates available.';
         notification.classList.remove('hidden');

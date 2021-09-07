@@ -12,7 +12,10 @@ autoUpdater.on('update-downloaded', () => {
     let activeWindow = BrowserWindow.getAllWindows()[0]
     activeWindow.webContents.send('update_downloaded');
 });
-
+autoUpdater.on('error', (error) => {
+    let activeWindow = BrowserWindow.getAllWindows()[0];
+    activeWindow.webContents.send('update_failed', error.message);
+})
 updateService.checkForUpdates = (notifyNotAvailable = false) => {
     let activeWindow = BrowserWindow.getAllWindows()[0]
     if(notifyNotAvailable) {
