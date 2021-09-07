@@ -1,9 +1,9 @@
 name: Mirror to public repo
 
 on:
-  # push:
-  #   tags:
-  #     - v*
+  push:
+    tags:
+      - v*
   delete:
     tags:
       - v*
