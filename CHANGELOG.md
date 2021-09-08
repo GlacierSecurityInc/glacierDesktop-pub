@@ -1,6 +1,6 @@
 # Changelog
 All notable changes to this project will be documented in this file.
-
+ 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
@@ -10,7 +10,61 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Auto update functionality for app
 
 ### Changed
-- Removed unused code from Default page
+- Fixed Changelog entries
+
+### Fixed
+
+## [0.2.27] - 2021-09-08
+
+### Added
+
+### Changed
+- Re-re-releasing for automation
+
+### Fixed
+
+## [0.2.26] - 2021-09-08
+
+### Added
+
+### Changed
+- Re-releasing for automation
+
+### Fixed
+
+## [0.2.25] - 2021-09-08
+
+### Added
+- Artifact name to build config for auto update
+
+### Changed
+
+### Fixed
+
+## [0.2.24] - 2021-09-07
+
+### Added
+
+### Changed
+- Updated Changelog to generate yet another release to test auto-update functionality
+
+### Fixed
+
+## [0.2.23] - 2021-09-07
+
+### Added
+
+### Changed
+- Updated Changelog to generate another release to test auto-update functionality
+
+### Fixed
+
+## [0.2.22] - 2021-09-07
+
+### Added
+
+### Changed
+- Updated Changelog to generate release to test auto-update functionality
 
 ### Fixed
 
@@ -228,7 +282,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - Fix error handling for version check
 
-[Unreleased]: https://github.com/GlacierSecurityInc/glacierDesktop/compare/v0.2.21...HEAD
+[Unreleased]: https://github.com/GlacierSecurityInc/glacierDesktop/compare/v0.2.27...HEAD
+[0.2.27]: https://github.com/GlacierSecurityInc/glacierDesktop/releases/tag/v0.2.27
+[0.2.26]: https://github.com/GlacierSecurityInc/glacierDesktop/releases/tag/v0.2.26
+[0.2.25]: https://github.com/GlacierSecurityInc/glacierDesktop/releases/tag/v0.2.25
+[0.2.24]: https://github.com/GlacierSecurityInc/glacierDesktop/releases/tag/v0.2.24
+[0.2.23]: https://github.com/GlacierSecurityInc/glacierDesktop/releases/tag/v0.2.23
+[0.2.22]: https://github.com/GlacierSecurityInc/glacierDesktop/releases/tag/v0.2.22
 [0.2.21]: https://github.com/GlacierSecurityInc/glacierDesktop/releases/tag/v0.2.21
 [0.2.20]: https://github.com/GlacierSecurityInc/glacierDesktop/releases/tag/v0.2.20
 [0.2.19]: https://github.com/GlacierSecurityInc/glacierDesktop/releases/tag/v0.2.19

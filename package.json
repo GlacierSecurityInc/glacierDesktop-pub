@@ -1,7 +1,7 @@
 {
   "name": "glacier-desktop",
   "private": true,
-  "version": "0.2.22",
+  "version": "0.2.28",
   "description": "Secure communication solution for your team",
   "engineStrict": true,
   "main": "main.js",
@@ -73,7 +73,8 @@
       "icon": "resources/images/logo.icns",
       "identity": "Glacier Security, Inc. (5MXM7J8H38)",
       "hardenedRuntime": true,
-      "entitlements": "entitlements.plist"
+      "entitlements": "entitlements.plist",
+      "artifactName": "Glacier-Desktop-${version}.${ext}"
     },
     "dmg": {
       "title": "${productName}",
@@ -101,7 +102,8 @@
     },
     "win": {
       "target": "nsis",
-      "icon": "resources/images/logo.ico"
+      "icon": "resources/images/logo.ico",
+      "artifactName": "Glacier-Desktop-Setup-${version}.${ext}"
     },
     "publish": {
       "repo": "glacierDesktop-pub",

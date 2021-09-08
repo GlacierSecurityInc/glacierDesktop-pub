@@ -116,11 +116,11 @@ To generate a release version of the app, do the following:
       - Change the `[Unreleased]: ...` link to be based off of the new version: `[Unreleased]: https://github.com/GlacierSecurityInc/glacierDesktop/compare/v$OLD_VERSION...HEAD` -> `[Unreleased]: https://github.com/GlacierSecurityInc/glacierDesktop/compare/v$VERSION...HEAD`
     4. See [this commit](https://github.com/GlacierSecurityInc/glacierDesktop/commit/56988a4a91cb3284c5ee74778692dc591601974d#diff-06572a96a58dc510037d5efa622f9bec8519bc1beab13c9f251e97e657a9d4ed) for an example of what should be changed.
 
-4. Add, commit, and push your changes from steps 2 & 3 to the main branch of glacierDesktop. The commit message should be something like `v$VERSION Release`. Example: `git commit -m "v0.2.14 Release"`
+4. Add and commit your changes from steps 2 & 3 to the main branch of glacierDesktop. The commit message should be something like `v$VERSION Release`. Example: `git commit -m "v0.2.14 Release"` Do not push yet.
 
 5. After committing, tag your commit: `git tag v$VERSION` (**add** the `v` prefix). Example: `git tag v0.2.14`
 
-6. Push your commit and current tag to the main branch of glacierDesktop: `git push origin v$VERSION && git push -u origin main`.  Note: We intentionally push the tag first so that it runs the release build workflow (and then avoids the duplicate build on main).
+6. Now you can push your commit and current tag to the main branch of glacierDesktop: `git push origin v$VERSION && git push -u origin main`.  Note: We intentionally push the tag first so that it runs the release build workflow (and then avoids the duplicate build on main).
 
 7. A new release will appear on [the releases page](https://github.com/GlacierSecurityInc/glacierDesktop/releases) after the build workflow finishes.
 
