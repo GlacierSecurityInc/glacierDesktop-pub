@@ -63,6 +63,39 @@ angApp.controller('AppController', function ($scope, $timeout, DesktopService, S
         document.dispatchEvent(event)
     })
 
+    // Auto update events
+    const notification = document.getElementById('notification');
+    const message = document.getElementById('message');
+    const restartButton = document.getElementById('restart-button');
+
+    ipcRenderer.on('update_available', () => {
+      ipcRenderer.removeAllListeners('update_available');
+      message.innerText = 'A new update is available. Downloading now...';
+      notification.classList.remove('hidden');
+    });
+    ipcRenderer.on('update_downloaded', () => {
+      ipcRenderer.removeAllListeners('update_downloaded');
+      message.innerText = 'Update Downloaded. It will be installed on restart. Restart now?';
+      restartButton.classList.remove('hidden');
+      notification.classList.remove('hidden');
+    });
+    ipcRenderer.on('update_failed', (_, errorMessage) => {
+        message.innerText = 'Failed to fetch updates.';
+        console.log('Auto update error: ' + errorMessage);
+        notification.classList.remove('hidden');
+    });
+    ipcRenderer.on('update_not_available', () => {
+        message.innerText = 'There are no updates available.';
+        notification.classList.remove('hidden');
+    });
+    $scope.closeNotification = () => {
+        notification.classList.add('hidden');
+    }
+    $scope.restartAppAndInstall = () => {
+        notification.classList.add('hidden');
+        ipcRenderer.send('app-restart-and-install');
+    }
+
     AppStateService.set(AppStateService.APP_STATE_DEFAULT)
 
     $scope.$on('app:state:changed', (event, data) => {

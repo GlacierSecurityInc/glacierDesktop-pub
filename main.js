@@ -1,6 +1,7 @@
 // Modules to control application life and create native browser window
 const { app, BrowserWindow, ipcMain, shell } = require('electron')
 const appConfig = require('electron-settings');
+const { updateService } = require('./modules/update-service');
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -113,6 +114,10 @@ async function createWindow () {
         app.exit()
     })
 
+    ipcMain.on('app-restart-and-install', () => {
+        updateService.restartAndInstall();
+    })
+
     // Emitted when the window is closed.
     mainWindow.on('closed', function () {
         // Dereference the window object, usually you would store windows
@@ -126,6 +131,10 @@ async function createWindow () {
         e.preventDefault()
         shell.openExternal(url)
     })
+
+    mainWindow.once('ready-to-show', () => {
+        updateService.checkForUpdates();
+    });
 
     return mainWindow
 }

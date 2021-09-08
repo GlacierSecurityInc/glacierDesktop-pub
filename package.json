@@ -17,7 +17,10 @@
     "dist:win64": "electron-builder --win --x64",
     "dist:linux64deb": "electron-builder --linux --x64"
   },
-  "repository": "https://github.com/conversejs/converse-desktop",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/GlacierSecurityInc/glacierDesktop-pub"
+  },
   "keywords": [
     "Jabber",
     "XMPP",
@@ -44,6 +47,7 @@
     "angular": "^1.7.9",
     "aws-amplify": "^4.2.1",
     "electron-settings": "^4.0.2",
+    "electron-updater": "^4.3.9",
     "github-buttons": "^2.8.0",
     "keytar": "^7.7.0",
     "open-iconic": "^1.1.1",
@@ -67,7 +71,6 @@
     "mac": {
       "category": "public.app-category.social-networking",
       "icon": "resources/images/logo.icns",
-      "target": "pkg",
       "identity": "Glacier Security, Inc. (5MXM7J8H38)",
       "hardenedRuntime": true,
       "entitlements": "entitlements.plist",
@@ -103,7 +106,7 @@
       "artifactName": "Glacier-Desktop-Setup-${version}.${ext}"
     },
     "publish": {
-      "repo": "glacierDesktop",
+      "repo": "glacierDesktop-pub",
       "owner": "GlacierSecurityInc",
       "provider": "github"
     }

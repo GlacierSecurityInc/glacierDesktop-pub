@@ -3,6 +3,7 @@
  */
 
 const { app, Menu, BrowserWindow, dialog} = require('electron')
+const { updateService } = require('./update-service')
 
 let menuService = {}
 
@@ -36,6 +37,17 @@ menuService.createMenu = () => {
             //         activeWindow.webContents.send('preferences-event')
             //     }
             // },
+            {
+                type: 'separator',
+            },
+            {
+                label: 'Check for Updates',
+                click: () => { 
+                    let activeWindow = BrowserWindow.getAllWindows()[0]
+                    activeWindow.show()
+                    updateService.checkForUpdates(true);
+                }
+            },
             {
                 type: 'separator',
             },

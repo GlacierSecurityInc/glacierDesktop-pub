@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- Auto update functionality for app
 
 ### Changed
 - Fixed Changelog entries 
@@ -96,6 +97,32 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 # [0.2.18] - 2021-09-03
 
+### Added
+
+### Changed
+- Updated package.json and Changelog to test auto-update functionality with release
+
+### Fixed
+
+## [0.2.20] - 2021-09-04
+
+### Added
+
+### Changed
+- Another update for auto-update
+
+### Fixed
+
+## [0.2.19] - 2021-09-04
+
+### Added
+
+### Changed
+- Update for auto-update 
+
+### Fixed
+
+# [0.2.18] - 2021-09-03
 ### Added
 
 ### Changed

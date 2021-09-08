@@ -33,6 +33,15 @@
         <div ng-show="state == 'settings'">
             <ng-include src="'./app/views/settings/page.html'"></ng-include>
         </div>
+        <div id="notification" class="hidden">
+            <p id="message"></p>
+            <button id="close-button" ng-click="closeNotification()">
+                Close
+            </button>
+            <button id="restart-button" ng-click="restartAppAndInstall()" class="hidden">
+                Restart
+            </button>
+        </div>
     </div>
     <script src="./node_modules/spinners-angular/elements/polyfills-es5.js"></script>
     <script src="./node_modules/spinners-angular/elements/runtime-es5.js"></script>
