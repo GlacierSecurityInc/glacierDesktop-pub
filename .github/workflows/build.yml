@@ -40,9 +40,10 @@ jobs:
       ELECTRON_BUILDER_CACHE: ${{ github.workspace }}/.cache/electron-builder
 
     steps:
-      - uses: actions/checkout@v1
+      - name: Checkout Code
+        uses: actions/checkout@v1
 
-      - name: Get short SHA of GlacierDesktop
+      - name: Get short SHA of glacierDesktop
         id: glacierDesktopSHA
         run: |
           echo "::set-output name=SHA_SHORT::$(git rev-parse --short HEAD)"
@@ -85,7 +86,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-electron-builder-cache-
 
-      - name: Codesign on macOS
+      - name: Code Sign on macOS
         if: runner.os == 'macOS'
         env:
           MACOS_CERTIFICATE: ${{ secrets.MACOS_CERTIFICATE }}
@@ -148,7 +149,7 @@ jobs:
         env:
           VERSION: ${{ steps.package-version.outputs.version }}
 
-      - name: Build app
+      - name: Build Glacier Desktop app
         run: yarn build
 
       - name: Package app without notarization (non-release)
@@ -185,7 +186,6 @@ jobs:
         run: |
           mkdir ${{ steps.artifactName.outputs.RELEASE_DIRECTORY }}
           mv dist/*.exe ${{ steps.artifactName.outputs.RELEASE_DIRECTORY }}/
-          mv dist/*.dmg ${{ steps.artifactName.outputs.RELEASE_DIRECTORY }}/
           mv dist/latest*.yml ${{ steps.artifactName.outputs.RELEASE_DIRECTORY }}/
           mv dist/*.zip ${{ steps.artifactName.outputs.RELEASE_DIRECTORY }}/
 
