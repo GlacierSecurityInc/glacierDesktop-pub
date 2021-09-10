@@ -12,6 +12,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+## [0.2.30] - 2021-09-08
+
+### Added
+
+### Changed
+- Updated version number
+- Updated scripts for auto update
+
+### Fixed
+
 ## [0.2.29] - 2021-09-08
 
 ### Added
@@ -299,7 +309,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - Fix error handling for version check
 
-[Unreleased]: https://github.com/GlacierSecurityInc/glacierDesktop/compare/v0.2.29...HEAD
+[Unreleased]: https://github.com/GlacierSecurityInc/glacierDesktop/compare/v0.2.30...HEAD
+[0.2.30]: https://github.com/GlacierSecurityInc/glacierDesktop/releases/tag/v0.2.30
 [0.2.29]: https://github.com/GlacierSecurityInc/glacierDesktop/releases/tag/v0.2.29
 [0.2.28]: https://github.com/GlacierSecurityInc/glacierDesktop/releases/tag/v0.2.28
 [0.2.27]: https://github.com/GlacierSecurityInc/glacierDesktop/releases/tag/v0.2.27
