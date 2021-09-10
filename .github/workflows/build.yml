@@ -280,21 +280,21 @@ jobs:
           folder: ${{ secrets.GDRIVE_FOLDER }}
           name: ${{ steps.artifactName.outputs.RELEASE_NAME }}.zip
 
-  # put_on_public_repo:
-  #   # Only put on public repository if release build successfully completes
-  #   needs: build
-  #   # if: github.ref != 'refs/heads/main'  # might put this line here instead of in each step
-  #   runs-on: ubuntu-latest
-  #   env:
-  #     REF: ${{ github.ref }}
-  #   steps:
-  #     - name: Checkout Code (release-only)
-  #       if: github.ref != 'refs/heads/main'
-  #       uses: actions/checkout@v1
+  put_on_public_repo:
+    # Only put on public repository if release build successfully completes
+    needs: build
+    # if: github.ref != 'refs/heads/main'  # might put this line here instead of in each step
+    runs-on: ubuntu-latest
+    env:
+      REF: ${{ github.ref }}
+    steps:
+      - name: Checkout Code (release-only)
+        if: github.ref != 'refs/heads/main'
+        uses: actions/checkout@v1
 
-  #     - name: Post to Public Repo (release-only)
-  #       if: github.ref != 'refs/heads/main'
-  #       run: |
-  #         git remote add mirror "https://futurealecks:${{ secrets.PERSONAL_ACCESS_TOKEN }}@github.com/GlacierSecurityInc/glacierDesktop-pub.git"
-  #         git push --force --prune mirror "refs/remotes/origin/main:refs/heads/main"
-  #         git push --force --prune mirror "refs/tags/v*:refs/tags/v*"
+      - name: Post to Public Repo (release-only)
+        if: github.ref != 'refs/heads/main'
+        run: |
+          git remote add mirror "https://futurealecks:${{ secrets.PERSONAL_ACCESS_TOKEN }}@github.com/GlacierSecurityInc/glacierDesktop-pub.git"
+          git push --force --prune mirror "refs/remotes/origin/main:refs/heads/main"
+          git push --force --prune mirror "refs/tags/v*:refs/tags/v*"
