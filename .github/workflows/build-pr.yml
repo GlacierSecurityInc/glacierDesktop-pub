@@ -1,4 +1,4 @@
-name: Build artifact from PR
+name: Build Artifact from PR
 on:
   repository_dispatch:
     types: [build-command]
@@ -15,7 +15,7 @@ on:
 concurrency: ci-${{ github.ref }}
 
 jobs:
-  build-pr:
+  build_from_pr:
     timeout-minutes: 30
     runs-on: macos-latest
     steps:
