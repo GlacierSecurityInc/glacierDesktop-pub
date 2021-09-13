@@ -50,15 +50,16 @@ a {
 
 #notification {
     position: fixed;
-    top: 20px;
+    top: 10px;
     left: 40%;
     width: 200px;
     padding: 20px;
+    border-color: #d1d2d3;
     border-radius: 5px;
     z-index: 1042;
     color: #ccc;
-    background-color: var(--controlbox-pane-background-color);
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    background-color: #353639;
+    box-shadow: 0 4px 8px 0 rgb(0, 0, 0, 0.2);
 }
 
 .hidden {
