@@ -185,6 +185,7 @@ jobs:
         if: github.ref != 'refs/heads/main'
         run: |
           mkdir ${{ steps.artifactName.outputs.RELEASE_DIRECTORY }}
+          mv dist/*.dmg ${{ steps.artifactName.outputs.RELEASE_DIRECTORY }}/
           mv dist/*.exe ${{ steps.artifactName.outputs.RELEASE_DIRECTORY }}/
           mv dist/latest*.yml ${{ steps.artifactName.outputs.RELEASE_DIRECTORY }}/
           mv dist/*.zip ${{ steps.artifactName.outputs.RELEASE_DIRECTORY }}/
