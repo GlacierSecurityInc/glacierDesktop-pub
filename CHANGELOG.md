@@ -12,6 +12,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+## [0.2.33] - 2021-09-13
+
+### Added
+- Dark scroll bars & border line
+- Improvements for auto-update
+
+### Changed
+- Updated version number
+
+### Fixed
+
 ## [0.2.32] - 2021-09-10
 
 ### Added
@@ -327,7 +338,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - Fix error handling for version check
 
-[Unreleased]: https://github.com/GlacierSecurityInc/glacierDesktop/compare/v0.2.32...HEAD
+[Unreleased]: https://github.com/GlacierSecurityInc/glacierDesktop/compare/v0.2.33...HEAD
+[0.2.33]: https://github.com/GlacierSecurityInc/glacierDesktop/releases/tag/v0.2.33
 [0.2.32]: https://github.com/GlacierSecurityInc/glacierDesktop/releases/tag/v0.2.32
 [0.2.31]: https://github.com/GlacierSecurityInc/glacierDesktop/releases/tag/v0.2.31
 [0.2.30]: https://github.com/GlacierSecurityInc/glacierDesktop/releases/tag/v0.2.30
