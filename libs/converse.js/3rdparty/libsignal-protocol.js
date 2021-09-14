@@ -36189,7 +36189,9 @@ SessionCipher.prototype = {
                         });
                     }.bind(this));
                 }.bind(this));
-            }.bind(this));
+            }.bind(this)).catch(function () {
+              console.warn("decryptWhisperMessage - could not decryptWithSessionList");
+            });
         }.bind(this));
       }.bind(this));
   },
@@ -36226,7 +36228,9 @@ SessionCipher.prototype = {
                       }.bind(this)).then(function() {
                           return plaintext;
                       });
-                  }.bind(this));
+                  }.bind(this)).catch(function () {
+                    console.warn('decryptPreKeyWhisperMessage could not doDecryptWhisperMessage');
+                  });
               }.bind(this));
           }.bind(this));
       }.bind(this));
@@ -36239,6 +36243,7 @@ SessionCipher.prototype = {
     if ((version & 0xF) > 3 || (version >> 4) < 3) {  // min version > 3 or max version < 3
         throw new Error("Incompatible version number on WhisperMessage");
     }
+
     var messageProto = messageBytes.slice(1, messageBytes.byteLength- 8);
     var mac = messageBytes.slice(messageBytes.byteLength - 8, messageBytes.byteLength);
 
