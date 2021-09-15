@@ -40,7 +40,7 @@ jobs:
       ELECTRON_BUILDER_CACHE: ${{ github.workspace }}/.cache/electron-builder
 
     steps:
-      - name: Checkout Code
+      - name: Checkout glacierDesktop code
         uses: actions/checkout@v1
 
       - name: Get short SHA of glacierDesktop
@@ -48,7 +48,7 @@ jobs:
         run: |
           echo "::set-output name=SHA_SHORT::$(git rev-parse --short HEAD)"
 
-      - name: Checkout submodule using a PAT
+      - name: Checkout Converse.js submodule code
         id: converseCheckout
         run: |
           git config --file .gitmodules --get-regexp url | while read url; do
