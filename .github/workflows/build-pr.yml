@@ -137,8 +137,8 @@ jobs:
       - name: Compute artifact name
         id: artifactName
         run: |
-          echo "::set-output name=NAME::$(echo 'GlacierDesktop ${{ steps.package-version.outputs.version }} bld_${{ steps.buildNum.outputs.build_number }} tkt_${{ fromJSON(steps.parsedPR.outputs.parsed).actions.close[0].issue }} ${{ steps.glacierBranch.outputs.branch }}_${{ steps.glacierDesktopSHA.outputs.SHA_SHORT }} ${{ steps.converseBranch.outputs.branch }}_${{ steps.converseCheckout.outputs.SHA_SHORT }}' | tr '/' '-')"
-          echo "::set-output name=DIRECTORY::$(echo 'GlacierDesktop_${{ steps.package-version.outputs.version }}_bld_${{ steps.buildNum.outputs.build_number }}_tkt_${{ fromJSON(steps.parsedPR.outputs.parsed).actions.close[0].issue }}' | tr '/' '-')"
+          echo "::set-output name=NAME::$(echo 'GlacierDesktopBeta ${{ steps.package-version.outputs.version }} bld_${{ steps.buildNum.outputs.build_number }} tkt_${{ fromJSON(steps.parsedPR.outputs.parsed).actions.close[0].issue }} ${{ steps.glacierBranch.outputs.branch }}_${{ steps.glacierDesktopSHA.outputs.SHA_SHORT }} ${{ steps.converseBranch.outputs.branch }}_${{ steps.converseCheckout.outputs.SHA_SHORT }}' | tr '/' '-')"
+          echo "::set-output name=DIRECTORY::$(echo 'GlacierDesktopBeta_${{ steps.package-version.outputs.version }}_bld_${{ steps.buildNum.outputs.build_number }}_tkt_${{ fromJSON(steps.parsedPR.outputs.parsed).actions.close[0].issue }}' | tr '/' '-')"
 
       - name: Build metadata
         run: yarn build:metadata

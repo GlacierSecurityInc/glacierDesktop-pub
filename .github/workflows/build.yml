@@ -115,10 +115,10 @@ jobs:
       - name: Compute artifact name
         id: artifactName
         run: |
-          echo "::set-output name=NAME::$(echo 'GlacierDesktop ${{ steps.package-version.outputs.version }} bld_${{ steps.buildNum.outputs.build_number }} main_${{ steps.glacierDesktopSHA.outputs.SHA_SHORT }} master_${{ steps.converseCheckout.outputs.SHA_SHORT }}' | tr '/' '-')"
-          echo "::set-output name=DIRECTORY::$(echo 'GlacierDesktop_${{ steps.package-version.outputs.version }}_bld_${{ steps.buildNum.outputs.build_number }}' | tr '/' '-')"
-          echo "::set-output name=RELEASE_NAME::$(echo 'GlacierDesktop ${{ steps.package-version.outputs.version }} Release' | tr '/' '-')"
-          echo "::set-output name=RELEASE_DIRECTORY::$(echo 'GlacierDesktop_${{ steps.package-version.outputs.version }}_Release' | tr '/' '-')"
+          echo "::set-output name=NAME::$(echo 'GlacierDesktopBeta ${{ steps.package-version.outputs.version }} bld_${{ steps.buildNum.outputs.build_number }} main_${{ steps.glacierDesktopSHA.outputs.SHA_SHORT }} master_${{ steps.converseCheckout.outputs.SHA_SHORT }}' | tr '/' '-')"
+          echo "::set-output name=DIRECTORY::$(echo 'GlacierDesktopBeta_${{ steps.package-version.outputs.version }}_bld_${{ steps.buildNum.outputs.build_number }}' | tr '/' '-')"
+          echo "::set-output name=RELEASE_NAME::$(echo 'GlacierDesktopBeta ${{ steps.package-version.outputs.version }} Release' | tr '/' '-')"
+          echo "::set-output name=RELEASE_DIRECTORY::$(echo 'GlacierDesktopBeta_${{ steps.package-version.outputs.version }}_Release' | tr '/' '-')"
 
       - name: Get changelog version
         id: changelogHeader

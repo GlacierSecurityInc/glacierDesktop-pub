@@ -74,7 +74,7 @@
       "identity": "Glacier Security, Inc. (5MXM7J8H38)",
       "hardenedRuntime": true,
       "entitlements": "entitlements.plist",
-      "artifactName": "Glacier-Desktop-${version}.${ext}"
+      "artifactName": "Glacier-Desktop-Beta-${version}.${ext}"
     },
     "dmg": {
       "title": "${productName}",
@@ -103,7 +103,7 @@
     "win": {
       "target": "nsis",
       "icon": "resources/images/logo.ico",
-      "artifactName": "Glacier-Desktop-Setup-${version}.${ext}"
+      "artifactName": "Glacier-Desktop-Beta-Setup-${version}.${ext}"
     },
     "publish": {
       "repo": "glacierDesktop-pub",
