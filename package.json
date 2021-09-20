@@ -66,7 +66,7 @@
       "libs/converse.js/**/*"
     ],
     "appId": "chat.glacier.desktop",
-    "productName": "Glacier Desktop Beta",
+    "productName": "Glacier Desktop",
     "afterSign": "electron-builder-notarize",
     "mac": {
       "category": "public.app-category.social-networking",
@@ -77,7 +77,7 @@
       "artifactName": "Glacier-Desktop-Beta-${version}.${ext}"
     },
     "dmg": {
-      "title": "${productName}",
+      "title": "${productName} Beta",
       "contents": [
         {
           "x": 160,
@@ -92,6 +92,11 @@
       ],
       "sign": false
     },
+    "win": {
+      "target": "nsis",
+      "icon": "resources/images/logo.ico",
+      "artifactName": "Glacier-Desktop-Beta-Setup-${version}.${ext}"
+    },
     "linux": {
       "artifactName": "glacier_desktop-${version}_${arch}.${ext}",
       "icon": "resources/images/logo@2x.png",
@@ -99,11 +104,6 @@
         "deb",
         "tar.gz"
       ]
-    },
-    "win": {
-      "target": "nsis",
-      "icon": "resources/images/logo.ico",
-      "artifactName": "Glacier-Desktop-Beta-Setup-${version}.${ext}"
     },
     "publish": {
       "repo": "glacierDesktop-pub",
