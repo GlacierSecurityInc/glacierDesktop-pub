@@ -92,11 +92,6 @@
       ],
       "sign": false
     },
-    "win": {
-      "target": "nsis",
-      "icon": "resources/images/logo.ico",
-      "artifactName": "Glacier-Desktop-Beta-Setup-${version}.${ext}"
-    },
     "linux": {
       "artifactName": "glacier_desktop-${version}_${arch}.${ext}",
       "icon": "resources/images/logo@2x.png",
@@ -104,6 +99,11 @@
         "deb",
         "tar.gz"
       ]
+    },
+    "win": {
+      "target": "nsis",
+      "icon": "resources/images/logo.ico",
+      "artifactName": "Glacier-Desktop-Beta-Setup-${version}.${ext}"
     },
     "publish": {
       "repo": "glacierDesktop-pub",
