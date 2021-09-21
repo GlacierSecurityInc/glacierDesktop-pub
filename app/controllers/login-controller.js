@@ -2,6 +2,7 @@ let angApp = require(__dirname+'/../init')
 
 angApp.controller('LoginController', function($scope, AppInfo, DesktopService, CognitoService, CredentialsService, AppStateService) {
 
+    $scope.appInfo = AppInfo
     $scope.help = {}
     $scope.loggingIn = false
     $scope.error = null

@@ -77,7 +77,7 @@
       "artifactName": "Glacier-Desktop-Beta-${version}.${ext}"
     },
     "dmg": {
-      "title": "${productName}",
+      "title": "${productName} Beta",
       "contents": [
         {
           "x": 160,
