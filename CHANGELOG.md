@@ -12,6 +12,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+## [0.2.35] - 2021-09-21
+
+### Added
+- Added upstream Converse code
+
+### Changed
+- Changed App name displayed to include Beta
+
+### Fixed
+- Added fix for Unhandled promise error
+
 ## [0.2.34] - 2021-09-13
 
 ### Added
@@ -348,7 +359,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - Fix error handling for version check
 
-[Unreleased]: https://github.com/GlacierSecurityInc/glacierDesktop/compare/v0.2.34...HEAD
+[Unreleased]: https://github.com/GlacierSecurityInc/glacierDesktop/compare/v0.2.35...HEAD
+[0.2.35]: https://github.com/GlacierSecurityInc/glacierDesktop/releases/tag/v0.2.35
 [0.2.34]: https://github.com/GlacierSecurityInc/glacierDesktop/releases/tag/v0.2.34
 [0.2.33]: https://github.com/GlacierSecurityInc/glacierDesktop/releases/tag/v0.2.33
 [0.2.32]: https://github.com/GlacierSecurityInc/glacierDesktop/releases/tag/v0.2.32
