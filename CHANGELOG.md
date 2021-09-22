@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 ### Changed
+- Updated to v0.3.1
+- Reverted code to before Converse upstream merge
 
 ### Fixed
 
