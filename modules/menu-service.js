@@ -14,7 +14,7 @@ menuService.createMenu = () => {
     const isMac = process.platform === 'darwin'
 
     const about = {
-        label: 'About Glacier Desktop',
+        label: 'About Glacier Desktop Beta',
         click: () => {
             // @see https://github.com/electron/electron/issues/16558#issuecomment-484460276
             // let activeWindow = BrowserWindow.getFocusedWindow()
@@ -25,7 +25,7 @@ menuService.createMenu = () => {
     }
 
     const application = {
-        label: 'Glacier Desktop',
+        label: 'Glacier Desktop Beta',
         submenu: [
             ... isMac ? [about] : [],
             // {

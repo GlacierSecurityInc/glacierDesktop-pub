@@ -1,7 +1,7 @@
 {
   "name": "glacier-desktop",
   "private": true,
-  "version": "0.2.36",
+  "version": "0.3.2",
   "description": "Secure communication solution for your team",
   "engineStrict": true,
   "main": "main.js",
@@ -78,7 +78,7 @@
       "artifactName": "Glacier-Desktop-Beta-${version}.${ext}"
     },
     "dmg": {
-      "title": "${productName}",
+      "title": "${productName} Beta",
       "contents": [
         {
           "x": 160,

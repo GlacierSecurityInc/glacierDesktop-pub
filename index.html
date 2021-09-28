@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Glacier Desktop</title>
+    <title>Glacier Desktop Beta</title>
     <link rel="stylesheet" type="text/css" media="screen" href="node_modules/open-iconic/font/css/open-iconic.css">
     <link rel="stylesheet" type="text/css" media="screen" href="libs/vendor/converse.js/dist/converse.min.css">
     <link rel="stylesheet" type="text/css" href="resources/css/app.css">
@@ -53,14 +53,14 @@
         window.nodeRequire = require
         delete window.require
     </script>
-    <!-- Place libsignal at libs dir as it's no more distributed with converse.js -->
+    <!-- Place libsignal at libs dir as it's no more distributed with converse.js  -->
     <script src="libs/converse.js/3rdparty/libsignal-protocol.js"></script>
     <script>
         window.require = window.nodeRequire
         delete window.nodeRequire
     </script>
     <script>
-        // You can also require other files to run in this process
+        // You can also require other files to run in this process 
         require('./libs/vendor/converse.js/dist/emojis.js')
         require('./libs/vendor/converse.js/dist/converse.js')
         require('./renderer.js')

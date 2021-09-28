@@ -261,25 +261,27 @@ jobs:
       #    repo-token: "${{ github.token }}"
       #    tag: "build-number-0"
 
-      - name: Upload artifact to Google Drive (non-release)
-        if: github.ref == 'refs/heads/main'
-        uses: codetheweb/upload-to-drive@v1.3.0
-        id: gdrive
-        with:
-          target: ./${{ steps.artifactName.outputs.DIRECTORY }}/*
-          credentials: ${{ secrets.GDRIVE_CREDENTIALS }}
-          folder: ${{ secrets.GDRIVE_FOLDER }}
-          name: ${{ steps.artifactName.outputs.NAME }}.zip
+      # COMMENTED OUT UPLOAD TO GOOGLE UNTIL WE FIX THE DISK QUOTA PROBLEM
+      # - name: Upload artifact to Google Drive (non-release)
+      #   if: github.ref == 'refs/heads/main'
+      #   uses: codetheweb/upload-to-drive@v1.3.0
+      #   id: gdrive
+      #   with:
+      #     target: ./${{ steps.artifactName.outputs.DIRECTORY }}/*
+      #     credentials: ${{ secrets.GDRIVE_CREDENTIALS }}
+      #     folder: ${{ secrets.GDRIVE_FOLDER }}
+      #     name: ${{ steps.artifactName.outputs.NAME }}.zip
 
-      - name: Upload artifact to Google Drive (release)
-        if: github.ref != 'refs/heads/main'
-        uses: codetheweb/upload-to-drive@v1.3.0
-        id: gdriverelease
-        with:
-          target: ./${{ steps.artifactName.outputs.RELEASE_DIRECTORY }}/*
-          credentials: ${{ secrets.GDRIVE_CREDENTIALS }}
-          folder: ${{ secrets.GDRIVE_FOLDER }}
-          name: ${{ steps.artifactName.outputs.RELEASE_NAME }}.zip
+      # COMMENTED OUT UPLOAD TO GOOGLE UNTIL WE FIX THE DISK QUOTA PROBLEM
+      # - name: Upload artifact to Google Drive (release)
+      #   if: github.ref != 'refs/heads/main'
+      #   uses: codetheweb/upload-to-drive@v1.3.0
+      #   id: gdriverelease
+      #   with:
+      #     target: ./${{ steps.artifactName.outputs.RELEASE_DIRECTORY }}/*
+      #     credentials: ${{ secrets.GDRIVE_CREDENTIALS }}
+      #     folder: ${{ secrets.GDRIVE_FOLDER }}
+      #     name: ${{ steps.artifactName.outputs.RELEASE_NAME }}.zip
 
   put_on_public_repo:
     # Only put on public repository if release build successfully completes
