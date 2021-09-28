@@ -1,7 +1,7 @@
 {
   "name": "glacier-desktop",
   "private": true,
-  "version": "0.2.35",
+  "version": "0.2.36",
   "description": "Secure communication solution for your team",
   "engineStrict": true,
   "main": "main.js",
@@ -21,7 +21,7 @@
     "type": "git",
     "url": "https://github.com/GlacierSecurityInc/glacierDesktop-pub"
   },
-  "keywords": [
+    "keywords": [
     "Jabber",
     "XMPP",
     "Client",
@@ -46,6 +46,7 @@
     "@fortawesome/fontawesome-free": "^5.15.3",
     "angular": "^1.7.9",
     "aws-amplify": "^4.2.1",
+    "client-compress": "^2.2.2",
     "electron-settings": "^4.0.2",
     "electron-updater": "^4.3.9",
     "github-buttons": "^2.8.0",
