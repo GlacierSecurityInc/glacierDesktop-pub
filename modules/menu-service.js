@@ -57,7 +57,8 @@ menuService.createMenu = () => {
                 click: () => {
                     let options  = {
                         buttons: ["OK","Cancel"],
-                        message: "Are you sure you want to log out?"
+                        message: "Are you sure you want to log out?",
+                        title: "Glacier Desktop"
                        }
                     const result = dialog.showMessageBox(options).then((data) => {
                         let activeWindow = BrowserWindow.getAllWindows()[0]
@@ -78,7 +79,8 @@ menuService.createMenu = () => {
                 click: () => {
                     let options  = {
                         buttons: ["OK","Cancel"],
-                        message: "Are you sure you want to quit?"
+                        message: "Are you sure you want to quit?",
+                        title: "Glacier Desktop"
                        }
 
                     const result = dialog.showMessageBox(options).then((data) => {

@@ -8,11 +8,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-
 ### Changed
 - Merge with upstream 8.0.1 of converse
 - Updated to v0.3.2
 - Small misc other tweaks
+- Remove .exe from window headers in Windows 
 
 ### Fixed
 - Fixed an encryption syncing issue
