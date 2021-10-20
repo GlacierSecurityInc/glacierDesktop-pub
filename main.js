@@ -1,5 +1,5 @@
 // Modules to control application life and create native browser window
-const { app, BrowserWindow, ipcMain, shell } = require('electron')
+const { app, BrowserWindow, ipcMain, shell, webFrame } = require('electron')
 const appConfig = require('electron-settings');
 const { updateService } = require('./modules/update-service');
 
@@ -59,11 +59,17 @@ async function createWindow () {
     // and load the index.html of the app.
     mainWindow.loadFile('index.html')
 
+    const webContents = mainWindow.webContents;
+    webContents.on("did-finish-load", () => {
+        webContents.setZoomFactor(.8);
+    });
+
     // Init tray
     trayService.initTray(mainWindow)
 
     // Init menu
     menuService.createMenu()
+
 
     // Open the DevTools.
     // mainWindow.webContents.openDevTools()
@@ -78,6 +84,11 @@ async function createWindow () {
             }
         })
     }
+
+    // webFrame.on('zoom', async (e) => {
+    //     let zoomLevel = webFrame.getZoomFactor()
+    //     await appConfig.set('windowZoom', zoomLevel)
+    // })
 
     // Save window size
     mainWindow.on('resize', async (e) => {
