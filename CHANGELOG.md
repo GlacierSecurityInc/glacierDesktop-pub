@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Updated to v0.3.2
 - Small misc other tweaks
 - Remove .exe from window headers in Windows 
+- Updated Electron from 13.1.9 to 13.3.0
 
 ### Fixed
 - Fixed an encryption syncing issue
