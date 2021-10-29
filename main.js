@@ -61,7 +61,7 @@ async function createWindow () {
 
     const webContents = mainWindow.webContents;
     webContents.on("did-finish-load", () => {
-        webContents.setZoomFactor(.8);
+        webContents.setZoomFactor(.9);
     });
 
     // Init tray
