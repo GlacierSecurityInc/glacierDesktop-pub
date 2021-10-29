@@ -5,14 +5,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
-- Added connectivity bar to notify user when they're not connected
+
 ### Added
+- Added connectivity bar to notify user when they're not connected
 
 ### Changed
 - Merge with upstream 8.0.1 of converse
 - Updated to v0.3.2
 - Small misc other tweaks
 - Remove .exe from window headers in Windows 
+- Updated Electron from 13.1.9 to 13.3.0
 
 ### Fixed
 - Fixed an encryption syncing issue

@@ -76,21 +76,21 @@
             loadJs("./node_modules/github-buttons/dist/buttons.min.js")
         }, 500)
     </script>
-        <div class="connection-status-banner" id="connection-status-banner">
-            <footer>
-                <p>No internet connection. Please check your network settings.</p>
-            </footer>
-        </div>
-        <script>
-            // This code displays and hides the banner based on the online/offline state.
-            function updateOnlineStatus () {
-                document.getElementById('connection-status-banner').style.display = navigator.onLine ? 'none' : 'block'
-            }
-    
-            window.addEventListener('online', updateOnlineStatus)
-            window.addEventListener('offline', updateOnlineStatus)
-    
-            updateOnlineStatus()
-        </script>
+    <div class="connection-status-banner" id="connection-status-banner">
+        <footer>
+            <p>No internet connection. Please check your network settings.</p>
+        </footer>
+    </div>
+    <script>
+        // This code displays and hides the banner based on the online/offline state.
+        function updateOnlineStatus () {
+            document.getElementById('connection-status-banner').style.display = navigator.onLine ? 'none' : 'block'
+        }
+
+        window.addEventListener('online', updateOnlineStatus)
+        window.addEventListener('offline', updateOnlineStatus)
+
+        updateOnlineStatus()
+    </script>
 </body>
 </html>
