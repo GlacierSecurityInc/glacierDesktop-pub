@@ -13,7 +13,7 @@ on:
 concurrency: ci-${{ github.ref }}
 
 jobs:
-  pre_build:
+  pre_build_skips:
     # continue-on-error: true # Uncomment once integration is finished
     runs-on: ubuntu-latest
     # Map a step output to a job output
@@ -27,8 +27,8 @@ jobs:
           concurrent_skipping: 'same_content_newer'
 
   build:
-    needs: pre_build
-    if: ${{ needs.pre_build.outputs.should_skip != 'true' }}
+    needs: pre_build_skips
+    if: ${{ needs.pre_build_skips.outputs.should_skip != 'true' }}
     timeout-minutes: 30
     strategy:
       matrix:
@@ -283,7 +283,7 @@ jobs:
       #     folder: ${{ secrets.GDRIVE_FOLDER }}
       #     name: ${{ steps.artifactName.outputs.RELEASE_NAME }}.zip
 
-  put_on_public_repo:
+  mirror_if_release:
     # Only put on public repository if release build successfully completes
     needs: build
     # if: github.ref != 'refs/heads/main'  # might put this line here instead of in each step
