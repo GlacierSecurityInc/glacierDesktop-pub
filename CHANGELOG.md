@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- Added connectivity bar to notify user when they're not connected
 
 ### Changed
 - Merge with upstream 8.0.1 of converse
