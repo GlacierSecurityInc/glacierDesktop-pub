@@ -283,17 +283,16 @@ jobs:
       #     folder: ${{ secrets.GDRIVE_FOLDER }}
       #     name: ${{ steps.artifactName.outputs.RELEASE_NAME }}.zip
 
-  # mirror_if_release:
-  #   # Only put on public repository if release build successfully completes
-  #   needs: build
-  #   # if: github.ref != 'refs/heads/main'  # might put this line here instead of in each step
-  #   runs-on: ubuntu-latest
-  #   env:
-  #     REF: ${{ github.ref }}
-  #   steps:
-  #     - name: Checkout Code (release-only)
-  #       if: github.ref != 'refs/heads/main'
-  #       uses: actions/checkout@v1
+  mirror_if_release:
+    # Only put on public repository if release build successfully completes
+    needs: build
+    runs-on: ubuntu-latest
+    env:
+      REF: ${{ github.ref }}
+    steps:
+      - name: Checkout Code (release-only)
+        if: github.ref != 'refs/heads/main'
+        uses: actions/checkout@v1
 
   #     - name: Post to Public Repo (release-only)
   #       if: github.ref != 'refs/heads/main'
