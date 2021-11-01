@@ -7,17 +7,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+
+### Changed
+
+### Fixed
+
+## [0.3.2] - 2021-11-01
+
+### Added
 - Added connectivity bar to notify user when they're not connected
 
 ### Changed
-- Merge with upstream 8.0.1 of converse
-- Updated to v0.3.2
-- Small misc other tweaks
-- Remove .exe from window headers in Windows 
+- Merged with upstream 8.0.1 of converse
+- Updated to v0.3.1, then v0.3.2, then v0.3.3
+- Removed .exe from window headers in Windows 
 - Updated Electron from 13.1.9 to 13.3.0
+- Made several UI modifications
+- Small misc other tweaks
 
 ### Fixed
 - Fixed an encryption syncing issue
+- Added lots of naming and decryption updates to address and fix decryption issues
 
 ## [0.3.0] - 2021-09-21
 
@@ -375,7 +385,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - Fix error handling for version check
 
-[Unreleased]: https://github.com/GlacierSecurityInc/glacierDesktop/compare/v0.3.0...HEAD
+[Unreleased]: https://github.com/GlacierSecurityInc/glacierDesktop/compare/v0.3.2...HEAD
+[0.3.2]: https://github.com/GlacierSecurityInc/glacierDesktop/releases/tag/v0.3.2
 [0.3.0]: https://github.com/GlacierSecurityInc/glacierDesktop/releases/tag/v0.3.0
 [0.2.35]: https://github.com/GlacierSecurityInc/glacierDesktop/releases/tag/v0.2.35
 [0.2.34]: https://github.com/GlacierSecurityInc/glacierDesktop/releases/tag/v0.2.34
