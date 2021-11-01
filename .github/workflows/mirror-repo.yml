@@ -1,22 +1,22 @@
 name: Mirror to public repo
 
-# on:
-#   # push:
-#   #   tags:
-#   #     - v*
-#   delete:
-#     tags:
-#       - v*
+on:
+  # push:
+  #   tags:
+  #     - v*
+  delete:
+    tags:
+      - vgsdf*    # was v*
 
-# jobs:
-#   to_public:
-#     runs-on: ubuntu-latest
-#     steps:
-#       - name: Checkout
-#         uses: actions/checkout@v1
+jobs:
+  to_public:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
 
-#       - name: Mirror
-#         run: |
-#           git remote add mirror "https://futurealecks:${{ secrets.PERSONAL_ACCESS_TOKEN }}@github.com/GlacierSecurityInc/glacierDesktop-pub.git"
-#           git push --force --prune mirror "refs/remotes/origin/main:refs/heads/main"
-#           git push --force --prune mirror "refs/tags/v*:refs/tags/v*"
+      - name: Mirror
+        run: |
+          git remote add mirror "https://futurealecks:${{ secrets.PERSONAL_ACCESS_TOKEN }}@github.com/GlacierSecurityInc/glacierDesktop-pub.git"
+          git push --force --prune mirror "refs/remotes/origin/main:refs/heads/main"
+          git push --force --prune mirror "refs/tags/v*:refs/tags/v*"
