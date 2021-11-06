@@ -93,7 +93,6 @@ async function createWindow () {
 
     // Implement context-menu
     mainWindow.webContents.on('context-menu', (event, params) => {
-        console.log("context-menu:", params)
         const menu = new Menu()
 
         // Define menu items
