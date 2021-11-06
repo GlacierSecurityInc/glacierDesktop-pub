@@ -3,6 +3,10 @@
 // All of the Node.js APIs are available in this process.
 
 const { Amplify } = require('aws-amplify')
+const remote = require('electron').remote
+const Menu = remote.Menu;
+const MenuItem = remote.MenuItem;
+
 Amplify.configure({
     Auth: {
         // REQUIRED - Amazon Cognito Region
@@ -19,6 +23,56 @@ Amplify.configure({
         }]
     }
 })
+
+let rightClickPosition = null
+
+const menu = new Menu()
+
+// Define menu items
+const cutMenuItem = new MenuItem({
+    label: 'Cut',
+    accelerator: 'CmdOrCtrl+X',
+    role: 'cut',
+});
+const copyMenuItem = new MenuItem({
+    label: 'Copy',
+    accelerator: 'CmdOrCtrl+C',
+    role: 'copy',
+});
+const pasteMenuItem = new MenuItem({
+    label: 'Paste',
+    accelerator: 'CmdOrCtrl+V',
+    role: 'paste',
+})
+const undoMenuItem = new MenuItem({
+    label: 'Undo',
+    accelerator: 'CmdOrCtrl+Z',
+    role: 'undo',
+})
+const redoMenuItem = new MenuItem({
+    label: 'Redo',
+    accelerator: 'Shift+CmdOrCtrl+Z',
+    role: 'redo',
+})
+const selectAllMenuItem = new MenuItem({
+    label: 'Select All',
+    accelerator: 'CmdOrCtrl+A',
+    role: 'selectAll',
+})
+
+// Append menu items to right click menu
+menu.append(cutMenuItem)
+menu.append(copyMenuItem)
+menu.append(pasteMenuItem)
+menu.append(undoMenuItem)
+menu.append(redoMenuItem)
+menu.append(selectAllMenuItem)
+
+window.addEventListener('contextmenu', (e) => {
+  e.preventDefault()
+  rightClickPosition = {x: e.x, y: e.y}
+  menu.popup(remote.getCurrentWindow())
+}, false)
 
 const angApp = require('./app/init')
 
