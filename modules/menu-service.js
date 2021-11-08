@@ -74,6 +74,14 @@ menuService.createMenu = () => {
                 type: 'separator',
             },
             {
+                label: 'Hide',
+                accelerator: 'CmdOrCtrl+H',
+                click: () => {
+                    let activeWindow = BrowserWindow.getAllWindows()[0]
+                    activeWindow.hide()
+                },
+            },
+            {
                 label: 'Quit',
                 accelerator: 'CmdOrCtrl+Q',
                 click: () => {
