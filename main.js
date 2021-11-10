@@ -31,8 +31,7 @@ async function createWindow () {
         webPreferences: {
             nodeIntegration: true,
             contextIsolation: false,
-            enableRemoteModule: true,
-            spellcheck: true
+            enableRemoteModule: true
         }
     }
 
@@ -95,6 +94,29 @@ async function createWindow () {
     mainWindow.webContents.on('context-menu', (event, params) => {
         const menu = new Menu()
 
+        // Make seperator MenuItem
+        const seperator = new MenuItem({
+            type: "separator"
+        })
+
+        // Add each spelling suggestion
+        for (const suggestion of params.dictionarySuggestions) {
+                menu.append(new MenuItem({
+                    label: suggestion,
+                    click: () => mainWindow.webContents.replaceMisspelling(suggestion)
+                }))
+            }
+            // Allow users to add the misspelled word to the dictionary
+            if (params.misspelledWord) {
+                menu.append(seperator)
+                menu.append(
+                    new MenuItem({
+                    label: 'Add to dictionary',
+                    click: () => mainWindow.webContents.session.addWordToSpellCheckerDictionary(params.misspelledWord)
+                    })
+                )
+            }
+
         // Define menu items
         const cutMenuItem = new MenuItem({
             label: 'Cut',
@@ -127,6 +149,8 @@ async function createWindow () {
             role: 'selectAll',
         })
 
+        // Add seperator before rest of menu items
+        menu.append(seperator)
         // Append menu items to right click menu
         menu.append(cutMenuItem)
         menu.append(copyMenuItem)
@@ -134,24 +158,6 @@ async function createWindow () {
         menu.append(undoMenuItem)
         menu.append(redoMenuItem)
         menu.append(selectAllMenuItem)
-      
-        // Add each spelling suggestion
-        for (const suggestion of params.dictionarySuggestions) {
-          menu.append(new MenuItem({
-            label: suggestion,
-            click: () => mainWindow.webContents.replaceMisspelling(suggestion)
-          }))
-        }
-      
-        // Allow users to add the misspelled word to the dictionary
-        if (params.misspelledWord) {
-          menu.append(
-            new MenuItem({
-              label: 'Add to dictionary',
-              click: () => mainWindow.webContents.session.addWordToSpellCheckerDictionary(params.misspelledWord)
-            })
-          )
-        }
       
         menu.popup()
       })
