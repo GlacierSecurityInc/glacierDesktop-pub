@@ -1,5 +1,5 @@
 // Modules to control application life and create native browser window
-const { app, BrowserWindow, ipcMain, shell, webFrame } = require('electron')
+const { app, BrowserWindow, ipcMain, shell, webFrame, Menu, MenuItem } = require('electron')
 const appConfig = require('electron-settings');
 const { updateService } = require('./modules/update-service');
 
@@ -89,6 +89,78 @@ async function createWindow () {
     //     let zoomLevel = webFrame.getZoomFactor()
     //     await appConfig.set('windowZoom', zoomLevel)
     // })
+
+    // Implement context-menu
+    mainWindow.webContents.on('context-menu', (event, params) => {
+        const menu = new Menu()
+
+        // Make seperator MenuItem
+        const seperator = new MenuItem({
+            type: "separator"
+        })
+
+        // Add each spelling suggestion
+        for (const suggestion of params.dictionarySuggestions) {
+                menu.append(new MenuItem({
+                    label: suggestion,
+                    click: () => mainWindow.webContents.replaceMisspelling(suggestion)
+                }))
+            }
+            // Allow users to add the misspelled word to the dictionary
+            if (params.misspelledWord) {
+                menu.append(seperator)
+                menu.append(
+                    new MenuItem({
+                    label: 'Add to dictionary',
+                    click: () => mainWindow.webContents.session.addWordToSpellCheckerDictionary(params.misspelledWord)
+                    })
+                )
+            }
+
+        // Define menu items
+        const cutMenuItem = new MenuItem({
+            label: 'Cut',
+            accelerator: 'CmdOrCtrl+X',
+            role: 'cut',
+        });
+        const copyMenuItem = new MenuItem({
+            label: 'Copy',
+            accelerator: 'CmdOrCtrl+C',
+            role: 'copy',
+        });
+        const pasteMenuItem = new MenuItem({
+            label: 'Paste',
+            accelerator: 'CmdOrCtrl+V',
+            role: 'paste',
+        })
+        const undoMenuItem = new MenuItem({
+            label: 'Undo',
+            accelerator: 'CmdOrCtrl+Z',
+            role: 'undo',
+        })
+        const redoMenuItem = new MenuItem({
+            label: 'Redo',
+            accelerator: 'Shift+CmdOrCtrl+Z',
+            role: 'redo',
+        })
+        const selectAllMenuItem = new MenuItem({
+            label: 'Select All',
+            accelerator: 'CmdOrCtrl+A',
+            role: 'selectAll',
+        })
+
+        // Add seperator before rest of menu items
+        menu.append(seperator)
+        // Append menu items to right click menu
+        menu.append(cutMenuItem)
+        menu.append(copyMenuItem)
+        menu.append(pasteMenuItem)
+        menu.append(undoMenuItem)
+        menu.append(redoMenuItem)
+        menu.append(selectAllMenuItem)
+      
+        menu.popup()
+      })
 
     // Save window size
     mainWindow.on('resize', async (e) => {

@@ -3,6 +3,7 @@
 // All of the Node.js APIs are available in this process.
 
 const { Amplify } = require('aws-amplify')
+
 Amplify.configure({
     Auth: {
         // REQUIRED - Amazon Cognito Region
