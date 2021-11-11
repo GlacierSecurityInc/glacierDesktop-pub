@@ -24,6 +24,15 @@ menuService.createMenu = () => {
         }
     }
 
+    const hide = {
+        label: 'Hide',
+        accelerator: 'CmdOrCtrl+H',
+        click: () => {
+            let activeWindow = BrowserWindow.getAllWindows()[0]
+            activeWindow.hide()
+        },
+    }
+
     const application = {
         label: 'Glacier Desktop Beta',
         submenu: [
@@ -51,6 +60,7 @@ menuService.createMenu = () => {
             {
                 type: 'separator',
             },
+             ... isMac ? [hide] : [],
             {
                 label: 'Logout',
                 accelerator: 'CmdOrCtrl+D',
@@ -69,17 +79,6 @@ menuService.createMenu = () => {
                         }
                     })
                 }
-            },
-            {
-                type: 'separator',
-            },
-            {
-                label: 'Hide',
-                accelerator: 'CmdOrCtrl+H',
-                click: () => {
-                    let activeWindow = BrowserWindow.getAllWindows()[0]
-                    activeWindow.hide()
-                },
             },
             {
                 label: 'Quit',

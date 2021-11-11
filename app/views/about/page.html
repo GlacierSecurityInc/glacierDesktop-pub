@@ -2,12 +2,19 @@
     <div class="about-card-dark">
         <div class="about-card__content">
             <div class="about-card__description">
-                <h2 class="about__title">About {{appInfo.APP_NAME}} Beta
-                    <div class="about__description_version">
-                        <b>v{{appInfo.metadata.VERSION}}</b>
-                    </div>
-                </h2>
 
+                <div class="about__title">
+                    <div class="about-title-inline">
+                        <div class="inlineLeft">
+                            <span class="about__title-title">About {{appInfo.APP_NAME}} Beta&nbsp;</span>
+                            <span style="font-size:16px"><b>v{{appInfo.metadata.VERSION}}</b></span>
+                        </div>
+                        <div class="inlineRight">
+                            <span><button class="about__x-close-button" ng-click="closeAbout()">
+                                <span aria-hidden="true"><strong>x</strong></span></button></span>
+                        </div>
+                    </div>
+                </div>
                 <div class="about__description">
                     <div class="about__description_writeup">
                         <p>Glacier provides the highest level of security for your team’s text, voice, and video calls.</p>
@@ -16,19 +23,17 @@
                             Website: www.glacier.chat<br>
                             Contact: support@glacier.chat</p>
 
-                        <p>This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, starting with either version 3 of the License, or (at your option) any later version. </p>
+                        <p>This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, starting with either version 3 of the License, or (at your option) any later version. You can find the GNU General Public License here: https://www.gnu.org/licenses </p>
 
                         <p>This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. </p>
 
-                        <p>You should have received a copy of the GNU General Public License along with this program. If not, see https://www.gnu.org/licenses </p>
-
-                        <p>Download the full source code at https://github.com/GlacierSecurityInc </p>
-
-                        <p>Libraries:<br>
-                        https://github.com/angular/angular <br>
-                        https://github.com/conversejs/converse.js - Converse {{appInfo.metadata.CONVERSE_VERSION}}<br>
-                        https://github.com/electron/electron - Electron {{appInfo.metadata.ELECTRON_VERSION }}<br>
+                        <p>Libraries used by Glacier Desktop include:<br>
+                            &emsp;&ensp;- https://github.com/angular/angular <br>
+                            &emsp;&ensp;- https://github.com/electron/electron<br>
+                            &emsp;&ensp;- https://github.com/conversejs/converse.js<br>
                         </p>
+
+                        <p>Download the full source code at https://github.com/GlacierSecurityInc/glacierDesktop-pub </p>
                     </div>
                     <div class="debug_info">
                         <p ng-if="appInfo.metadata.BUILD_NUMBER">

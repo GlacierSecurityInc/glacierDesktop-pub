@@ -21,7 +21,7 @@
     "type": "git",
     "url": "https://github.com/GlacierSecurityInc/glacierDesktop-pub"
   },
-    "keywords": [
+  "keywords": [
     "Jabber",
     "XMPP",
     "Client",
@@ -49,6 +49,7 @@
     "client-compress": "^2.2.2",
     "electron-settings": "^4.0.2",
     "electron-updater": "^4.3.9",
+    "font-awesome": "^4.7.0",
     "github-buttons": "^2.8.0",
     "keytar": "^7.7.0",
     "open-iconic": "^1.1.1",
