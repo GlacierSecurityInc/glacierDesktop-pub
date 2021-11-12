@@ -19,7 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Adjusted leave vs close group functionality
 - Removed links in notifications and replaced with icons and descriptors
 - Updated menu order
-- Updated UI for About Glacier, My Profile, Group Detail, and Contact Detail screens
+- Updated UI for About Glacier, My Profile, My Status, Group Detail, & Contact Detail screens
 
 ### Fixed
 - Fixed issue with sometimes being unable to open conversations or view groups at startup
