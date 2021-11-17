@@ -7,10 +7,28 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- Added Cmd-H in Mac to hide app
+- Added right-click menu functionality
+- Added spell-checking suggestions and dictionary
 
 ### Changed
+- Automatically set nickname when joining a room
+- Muted timeout message when fetching archived messages 
+- Updated Group Participants header 
+- Updated Group Details body fonts 
+- Adjusted leave vs close group functionality
+- Removed links in notifications and replaced with icons and descriptors
+- Updated menu order
+- Updated UI for About Glacier, My Profile, My Status, Group Detail, and Contact Detail screens
 
 ### Fixed
+- Fixed issue with sometimes being unable to open conversations or view groups at startup
+- Stopped querying p2 for disco info
+- Fixed various issues with naming and decryption
+- Fixed blank screen issue on reopening or timeout of app 
+- Fixed popup window header sizes 
+- Fixed roster syncing issues
+- Fixed the 'Hide' menu so that it only appears on macOS
 
 ## [0.3.2] - 2021-11-01
 

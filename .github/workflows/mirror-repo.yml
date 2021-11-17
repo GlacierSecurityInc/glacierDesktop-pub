@@ -6,7 +6,7 @@ on:
   #     - v*
   delete:
     tags:
-      - vgsdf*    # was v*
+      - v*
 
 jobs:
   to_public:
