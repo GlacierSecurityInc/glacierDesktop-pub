@@ -204,7 +204,7 @@ jobs:
           name: ${{ steps.artifactName.outputs.RELEASE_NAME }}
           path: ./${{ steps.artifactName.outputs.RELEASE_DIRECTORY }}/*
 
-      # TODO: ideally this would be made obsolete by the next action.
+      # TODO: This may be obsolete due to action-gh-release@v1
       # See: https://github.com/softprops/action-gh-release/issues/103
       - name: Delete current draft release, if exists
         uses: hugo19941994/delete-draft-releases@v0.1.0
@@ -236,14 +236,14 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Create release if tagged commit (release)
-        uses: softprops/action-gh-release@v1
         if: github.ref != 'refs/heads/main'
+        uses: softprops/action-gh-release@v1
         with:
           repository: GlacierSecurityInc/glacierDesktop-pub
+          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
           name: 'v${{ steps.package-version.outputs.version }}'
           body: ${{ steps.changelog_reader.outputs.changes }}
           tag_name: 'v${{ steps.package-version.outputs.version }}'
-          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
           files: ./${{ steps.artifactName.outputs.RELEASE_DIRECTORY }}/*
 
       - name: Delete current build number tag if tagged commit (release)
@@ -254,6 +254,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }}
 
+      # COMMENTED OUT - UNNECESSARY - GET BUILD NUM STARTS AT 1 IF NONE
       #- name: Reset build number to 1 if tagged commit (release)
       #  if: github.ref != 'refs/heads/main'
       #  uses: tvdias/github-tagger@v0.0.1
@@ -261,7 +262,7 @@ jobs:
       #    repo-token: "${{ github.token }}"
       #    tag: "build-number-0"
 
-      # COMMENTED OUT UPLOAD TO GOOGLE UNTIL WE FIX THE DISK QUOTA PROBLEM
+      # COMMENTED OUT UPLOAD TO GOOGLE DRIVE UNTIL WE FIX THE DISK QUOTA PROBLEM
       # - name: Upload artifact to Google Drive (non-release)
       #   if: github.ref == 'refs/heads/main'
       #   uses: codetheweb/upload-to-drive@v1.3.0
@@ -272,7 +273,7 @@ jobs:
       #     folder: ${{ secrets.GDRIVE_FOLDER }}
       #     name: ${{ steps.artifactName.outputs.NAME }}.zip
 
-      # COMMENTED OUT UPLOAD TO GOOGLE UNTIL WE FIX THE DISK QUOTA PROBLEM
+      # COMMENTED OUT UPLOAD TO GOOGLE DRIVE UNTIL WE FIX THE DISK QUOTA PROBLEM
       # - name: Upload artifact to Google Drive (release)
       #   if: github.ref != 'refs/heads/main'
       #   uses: codetheweb/upload-to-drive@v1.3.0
@@ -294,9 +295,9 @@ jobs:
         if: github.ref != 'refs/heads/main'
         uses: actions/checkout@v1
 
-  #     - name: Post to Public Repo (release-only)
-  #       if: github.ref != 'refs/heads/main'
-  #       run: |
-  #         git remote add mirror "https://futurealecks:${{ secrets.PERSONAL_ACCESS_TOKEN }}@github.com/GlacierSecurityInc/glacierDesktop-pub.git"
-  #         git push --force --prune mirror "refs/remotes/origin/main:refs/heads/main"
-  #         git push --force --prune mirror "refs/tags/v*:refs/tags/v*"
+      - name: Post to Public Repo (release-only)
+        if: github.ref != 'refs/heads/main'
+        run: |
+          git remote add mirror "https://futurealecks:${{ secrets.PERSONAL_ACCESS_TOKEN }}@github.com/GlacierSecurityInc/glacierDesktop-pub.git"
+          git push --force --prune mirror "refs/remotes/origin/main:refs/heads/main"
+          git push --force --prune mirror "refs/tags/v*:refs/tags/v*"
