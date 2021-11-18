@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+
+### Changed
+
+### Fixed
+
+## [0.3.3] - 2021-11-18
+
+### Added
 - Added Cmd-H in Mac to hide app
 - Added right-click menu functionality
 - Added spell-checking suggestions and dictionary 
@@ -29,6 +37,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Fixed popup window header sizes 
 - Fixed roster syncing issues
 - Fixed the 'Hide' menu so that it only appears on macOS
+- Fixed the updating of display/nickname on entering new/closed room
+- Fixed missing media attachment button
+- Now tries to set other room occupant nicknames at open if needed
 
 ## [0.3.2] - 2021-11-01
 
@@ -403,7 +414,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - Fix error handling for version check
 
-[Unreleased]: https://github.com/GlacierSecurityInc/glacierDesktop/compare/v0.3.2...HEAD
+[Unreleased]: https://github.com/GlacierSecurityInc/glacierDesktop/compare/v0.3.3...HEAD
+[0.3.3]: https://github.com/GlacierSecurityInc/glacierDesktop/releases/tag/v0.3.3
 [0.3.2]: https://github.com/GlacierSecurityInc/glacierDesktop/releases/tag/v0.3.2
 [0.3.0]: https://github.com/GlacierSecurityInc/glacierDesktop/releases/tag/v0.3.0
 [0.2.35]: https://github.com/GlacierSecurityInc/glacierDesktop/releases/tag/v0.2.35
