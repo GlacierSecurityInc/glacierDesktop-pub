@@ -16,7 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 - Added Cmd-H in Mac to hide app 
-- Added right-click menu functionality
+- Added right-click menu functionality 
 - Added spell-checking suggestions and dictionary 
 
 ### Changed
