@@ -12,6 +12,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+## [0.4] - 2021-11-19
+
+### Added
+- Added location and video messages to messaging notficcations
+
+### Changed
+- Updated version for Release
+
+### Fixed
+
 ## [0.3.5] - 2021-11-19
 
 ### Added
@@ -432,7 +442,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - Fix error handling for version check
 
-[Unreleased]: https://github.com/GlacierSecurityInc/glacierDesktop/compare/v0.3.5...HEAD
+[Unreleased]: https://github.com/GlacierSecurityInc/glacierDesktop/compare/v0.4...HEAD
+[0.4]: https://github.com/GlacierSecurityInc/glacierDesktop/releases/tag/v0.4
 [0.3.5]: https://github.com/GlacierSecurityInc/glacierDesktop/releases/tag/v0.3.5
 [0.3.4]: https://github.com/GlacierSecurityInc/glacierDesktop/releases/tag/v0.3.4
 [0.3.3]: https://github.com/GlacierSecurityInc/glacierDesktop/releases/tag/v0.3.3
