@@ -1,7 +1,7 @@
 {
   "name": "glacier-desktop",
   "private": true,
-  "version": "0.4.1",
+  "version": "0.4.2",
   "description": "Secure communication solution for your team",
   "engineStrict": true,
   "main": "main.js",
