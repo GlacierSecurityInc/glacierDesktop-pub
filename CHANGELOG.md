@@ -12,6 +12,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+## [0.4.1] - 2021-11-29
+
+### Added
+
+### Changed
+
+### Fixed
+- Fixed some decryption issues in group chats
+
 ## [0.4.0] - 2021-11-19
 
 ### Added
@@ -442,7 +451,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - Fix error handling for version check
 
-[Unreleased]: https://github.com/GlacierSecurityInc/glacierDesktop/compare/v0.4.0...HEAD
+[Unreleased]: https://github.com/GlacierSecurityInc/glacierDesktop/compare/v0.4.1...HEAD
+[0.4.1]: https://github.com/GlacierSecurityInc/glacierDesktop/releases/tag/v0.4.1
 [0.4.0]: https://github.com/GlacierSecurityInc/glacierDesktop/releases/tag/v0.4.0
 [0.3.5]: https://github.com/GlacierSecurityInc/glacierDesktop/releases/tag/v0.3.5
 [0.3.4]: https://github.com/GlacierSecurityInc/glacierDesktop/releases/tag/v0.3.4
