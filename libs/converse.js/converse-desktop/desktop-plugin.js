@@ -1,3 +1,5 @@
+const remote = require('electron').remote
+
 let desktopPlugin = {}
 
 desktopPlugin.register = (login) => {
@@ -68,11 +70,9 @@ desktopPlugin.register = (login) => {
                         let sender = data.stanza.attributes.from.nodeValue
                         let senderJid = Strophe.getBareJidFromJid(sender)
                         let loginJid = Strophe.getBareJidFromJid(login)
-                        console.log("data:", data)
-                        console.log("api:", _converse.api)
-                        console.log("Strophe:", Strophe)
-                        if (senderJid !== loginJid && data.attrs.from_real_jid !== loginJid) {
-                            console.log(senderJid.split('@')[0])
+
+                        if ((senderJid !== loginJid) && (data.attrs.from_real_jid !== loginJid) && ((data.chatbox.attributes.hidden) || (!remote.getCurrentWindow().isFocused()))) {
+
                             let event = new CustomEvent('conversejs-unread', {detail: senderJid})
                             document.dispatchEvent(event)
                         }
