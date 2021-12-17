@@ -60,8 +60,8 @@ async function createWindow () {
     mainWindow.loadFile('index.html')
 
     const webContents = mainWindow.webContents;
-    webContents.on("did-finish-load", () => {
-        webContents.setZoomFactor(.9);
+    webContents.on("did-finish-load", async () => {
+        webContents.setZoomFactor(await appConfig.get("windowZoom"))
     });
 
     // Init tray
@@ -85,10 +85,10 @@ async function createWindow () {
         })
     }
 
-    // webFrame.on('zoom', async (e) => {
-    //     let zoomLevel = webFrame.getZoomFactor()
-    //     await appConfig.set('windowZoom', zoomLevel)
-    // })
+    mainWindow.webContents.on('zoom', async (e) => {
+        let zoomLevel = mainWindow.webContents.getZoomFactor()
+        await appConfig.set('windowZoom', zoomLevel)
+    })
 
     // Implement context-menu
     mainWindow.webContents.on('context-menu', (event, params) => {
