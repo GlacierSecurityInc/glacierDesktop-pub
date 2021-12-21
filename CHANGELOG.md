@@ -7,12 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- Showing status dot in header of 1:1 chats
 
 ### Changed
 - Now hiding Groups title if not a member of any groups 
 - Auto-focuses in text box when you enter a chat 
+- Updated some minor UI things
+- Improved handling of attached media
 
 ### Fixed
+- View not resetting on reload, now remembers view settings
+- Addressed certain errors and issues with notifications
+- Fixed file download links
+- Stopped chat toolbar from disappearing
 
 ## [0.4.1] - 2021-11-29
 
