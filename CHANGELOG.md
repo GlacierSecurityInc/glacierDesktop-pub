@@ -12,7 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - Now hiding Groups title if not a member of any groups 
 - Auto-focuses in text box when you enter a chat 
-- Updated some minor UI things
+- Updated some minor UI things 
 - Improved handling of attached media
 
 ### Fixed
