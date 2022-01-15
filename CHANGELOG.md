@@ -7,13 +7,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+
+### Changed
+
+### Fixed
+
+## [0.4.2] - 2022-01-07
+
+### Added
 - Showing status dot in header of 1:1 chats
+- Added notifications specific for location and videos
+- Added message indicating expired media attachments
 
 ### Changed
 - Now hiding Groups title if not a member of any groups 
 - Auto-focuses in text box when you enter a chat 
 - Updated some minor UI things 
 - Improved handling of attached media
+- Updated UI and filenames when saving attached images
+- Updated new message notification chime
+- Compresses new avatar image before uploading
 
 ### Fixed
 - View not resetting on reload, now remembers view settings
@@ -460,7 +473,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - Fix error handling for version check
 
-[Unreleased]: https://github.com/GlacierSecurityInc/glacierDesktop/compare/v0.4.1...HEAD
+[Unreleased]: https://github.com/GlacierSecurityInc/glacierDesktop/compare/v0.4.2...HEAD
+[0.4.2]: https://github.com/GlacierSecurityInc/glacierDesktop/releases/tag/v0.4.2
 [0.4.1]: https://github.com/GlacierSecurityInc/glacierDesktop/releases/tag/v0.4.1
 [0.4.0]: https://github.com/GlacierSecurityInc/glacierDesktop/releases/tag/v0.4.0
 [0.3.5]: https://github.com/GlacierSecurityInc/glacierDesktop/releases/tag/v0.3.5
