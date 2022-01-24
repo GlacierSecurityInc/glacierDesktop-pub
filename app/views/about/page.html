@@ -1,84 +1,82 @@
 <div class="page-about" ng-controller="AboutController">
-    <div class="about-card-dark">
-        <div class="about-card__content">
-            <div class="about-card__description">
-                <div class="about__title">
-                    <div class="about-title-inline">
-                        <div class="inlineLeft">
-                            <span class="about__title-title">About {{appInfo.APP_NAME}} Beta&nbsp;</span>
-                            <span style="font-size:16px"><b>v{{appInfo.metadata.VERSION}}</b></span>
-                        </div>
-                        <div class="inlineRight">
-                            <span><button class="about__x-close-button" ng-click="closeAbout()">
-                                <span aria-hidden="true"><strong>x</strong></span></button></span>
-                        </div>
+    <div class="about-card__content">
+        <div class="about-card__description">
+            <div class="about__title">
+                <div class="about-title-inline">
+                    <div class="inlineLeft">
+                        <span class="about__title-title">About {{appInfo.APP_NAME}} Beta&nbsp;</span>
+                        <span style="font-size:16px"><b>v{{appInfo.metadata.VERSION}}</b></span>
                     </div>
-                </div>
-                <div class="about__description">
-                    <div class="about__description_writeup">
-                        <p>Glacier provides the highest level of security for your team’s text, voice, and video calls.</p>
-
-                        <p>Copyright 2017-2021, Glacier Security Inc<br>
-                            Website: www.glacier.chat<br>
-                            Contact: support@glacier.chat</p>
-
-                        <p>This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, starting with either version 3 of the License, or (at your option) any later version. You can find the GNU General Public License here: https://www.gnu.org/licenses </p>
-
-                        <p>This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. </p>
-
-                        <p>Libraries used by Glacier Desktop include:<br>
-                            &emsp;&ensp;- https://github.com/angular/angular <br>
-                            &emsp;&ensp;- https://github.com/electron/electron<br>
-                            &emsp;&ensp;- https://github.com/conversejs/converse.js<br>
-                        </p>
-
-                        <p>Download the full source code at https://github.com/GlacierSecurityInc/glacierDesktop-pub </p>
-                    </div>
-                    <div class="debug_info">
-                        <p ng-if="appInfo.metadata.BUILD_NUMBER">
-                            <span>DEVELOPMENT INFO</span>
-                        </p>
-                        <p ng-if="appInfo.metadata.BUILD_NUMBER">
-                           <span>Build:</span>
-                           {{appInfo.metadata.BUILD_NUMBER}}
-                        </p>
-                        <p ng-if="appInfo.metadata.CLOSES">
-                            <span>Ticket:</span>
-                            <a href="https://github.com/GlacierSecurityInc/glacierDesktop/issues/{{appInfo.metadata.CLOSES}}" target="_blank">
-                                #{{appInfo.metadata.CLOSES}}
-                            </a>
-                        </p>
-                        <p ng-if="appInfo.metadata.GLACIER_BRANCH">
-                            <span>glacierDesktop branch:</span>
-                            <a href="https://github.com/GlacierSecurityInc/glacierDesktop/tree/{{appInfo.metadata.GLACIER_BRANCH}}" target="_blank">
-                                {{appInfo.metadata.GLACIER_BRANCH}}
-                            </a>
-                        </p>
-                        <p ng-if="appInfo.metadata.GLACIER_SHA">
-                            <span>glacierDesktop SHA:</span>
-                            <a href="https://github.com/GlacierSecurityInc/glacierDesktop/tree/{{appInfo.metadata.GLACIER_SHA}}" target="_blank">
-                                {{appInfo.metadata.GLACIER_SHA}}
-                            </a>
-                        </p>
-                        <p ng-if="appInfo.metadata.CONVERSE_BRANCH">
-                            <span>Converse.js branch:</span>
-                            <a href="https://github.com/GlacierSecurityInc/converse.js/tree/{{appInfo.metadata.CONVERSE_BRANCH}}" target="_blank">
-                                {{appInfo.metadata.CONVERSE_BRANCH}}
-                            </a>
-                        </p>
-                        <p ng-if="appInfo.metadata.CONVERSE_SHA">
-                            <span>Converse.js SHA:</span>
-                            <a href="https://github.com/GlacierSecurityInc/converse.js/tree/{{appInfo.metadata.CONVERSE_SHA}}" target="_blank">
-                                {{appInfo.metadata.CONVERSE_SHA}}
-                            </a>
-                        </p>
+                    <div class="inlineRight">
+                        <span><button class="about__x-close-button" ng-click="closeAbout()">
+                            <span aria-hidden="true"><strong>x</strong></span></button></span>
                     </div>
                 </div>
             </div>
-        </div>
+            <div class="about__description">
+                <div class="about__description_writeup">
+                    <p>Glacier provides the highest level of security for your team’s text, voice, and video calls.</p>
 
-        <div class="about__action">
-            <button class="about__close-button" ng-click="closeAbout()">Close</button>
+                    <p>Copyright 2017-2021, Glacier Security Inc<br>
+                        Website: www.glacier.chat<br>
+                        Contact: support@glacier.chat</p>
+
+                    <p>This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, starting with either version 3 of the License, or (at your option) any later version. You can find the GNU General Public License here: https://www.gnu.org/licenses </p>
+
+                    <p>This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. </p>
+
+                    <p>Libraries used by Glacier Desktop include:<br>
+                        &emsp;&ensp;- https://github.com/angular/angular <br>
+                        &emsp;&ensp;- https://github.com/electron/electron<br>
+                        &emsp;&ensp;- https://github.com/conversejs/converse.js<br>
+                    </p>
+
+                    <p>Download the full source code at https://github.com/GlacierSecurityInc/glacierDesktop-pub </p>
+                </div>
+                <div class="debug_info">
+                    <p ng-if="appInfo.metadata.BUILD_NUMBER">
+                        <span>DEVELOPMENT INFO</span>
+                    </p>
+                    <p ng-if="appInfo.metadata.BUILD_NUMBER">
+                        <span>Build:</span>
+                        {{appInfo.metadata.BUILD_NUMBER}}
+                    </p>
+                    <p ng-if="appInfo.metadata.CLOSES">
+                        <span>Ticket:</span>
+                        <a href="https://github.com/GlacierSecurityInc/glacierDesktop/issues/{{appInfo.metadata.CLOSES}}" target="_blank">
+                            #{{appInfo.metadata.CLOSES}}
+                        </a>
+                    </p>
+                    <p ng-if="appInfo.metadata.GLACIER_BRANCH">
+                        <span>glacierDesktop branch:</span>
+                        <a href="https://github.com/GlacierSecurityInc/glacierDesktop/tree/{{appInfo.metadata.GLACIER_BRANCH}}" target="_blank">
+                            {{appInfo.metadata.GLACIER_BRANCH}}
+                        </a>
+                    </p>
+                    <p ng-if="appInfo.metadata.GLACIER_SHA">
+                        <span>glacierDesktop SHA:</span>
+                        <a href="https://github.com/GlacierSecurityInc/glacierDesktop/tree/{{appInfo.metadata.GLACIER_SHA}}" target="_blank">
+                            {{appInfo.metadata.GLACIER_SHA}}
+                        </a>
+                    </p>
+                    <p ng-if="appInfo.metadata.CONVERSE_BRANCH">
+                        <span>Converse.js branch:</span>
+                        <a href="https://github.com/GlacierSecurityInc/converse.js/tree/{{appInfo.metadata.CONVERSE_BRANCH}}" target="_blank">
+                            {{appInfo.metadata.CONVERSE_BRANCH}}
+                        </a>
+                    </p>
+                    <p ng-if="appInfo.metadata.CONVERSE_SHA">
+                        <span>Converse.js SHA:</span>
+                        <a href="https://github.com/GlacierSecurityInc/converse.js/tree/{{appInfo.metadata.CONVERSE_SHA}}" target="_blank">
+                            {{appInfo.metadata.CONVERSE_SHA}}
+                        </a>
+                    </p>
+                </div>
+            </div>
         </div>
+    </div>
+
+    <div class="about__action">
+        <button class="about__close-button" ng-click="closeAbout()">Close</button>
     </div>
 </div>
