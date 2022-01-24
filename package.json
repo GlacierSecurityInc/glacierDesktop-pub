@@ -36,7 +36,7 @@
   ],
   "license": "UNLICENSED",
   "devDependencies": {
-    "electron": "^13.3.0",
+    "electron": "^13.6.1",
     "electron-builder": "^22.11.7",
     "electron-builder-notarize": "^1.2.0",
     "electron-packager": "^15.3.0",
