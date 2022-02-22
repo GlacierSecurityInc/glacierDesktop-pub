@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
  
 ### Added
-
+ 
 ### Changed
 - Reduced loglevel from 'debug' to 'info' until needed
 - Changed MAM archive and paging sizes to reduce lag and memory usage
