@@ -7,10 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
  
 ### Added
- 
+
 ### Changed
+- Reduced loglevel from 'debug' to 'info' until needed
+- Changed MAM archive and paging sizes to reduce lag and memory usage
  
 ### Fixed
+- Fixed issues with group headers in side pane
+- Fixed some message sync and delivery issues
 
 ## [0.4.2] - 2022-01-07
 
