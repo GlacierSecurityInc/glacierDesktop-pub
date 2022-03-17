@@ -12,12 +12,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
  
+## [0.4.4] - 2022-03-17
+        
+### Added
+- Added missing headers to Changelog.md
+
+### Changed
+- Updated log level for production version
+
+### Fixed
+ 
 ## [0.4.3] - 2022-03-15
  
 ### Added
  
 ### Changed
-- Reduced loglevel from 'debug' to 'info' until needed
+- Reduced loglevel until logging is needed
 - Changed MAM archive and paging sizes to reduce lag and memory usage
  
 ### Fixed
@@ -485,7 +495,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - Fix error handling for version check
 
-[Unreleased]: https://github.com/GlacierSecurityInc/glacierDesktop/compare/v0.4.2...HEAD
+[Unreleased]: https://github.com/GlacierSecurityInc/glacierDesktop/compare/v0.4.4...HEAD
+[0.4.4]: https://github.com/GlacierSecurityInc/glacierDesktop/releases/tag/v0.4.4
+[0.4.3]: https://github.com/GlacierSecurityInc/glacierDesktop/releases/tag/v0.4.3
 [0.4.2]: https://github.com/GlacierSecurityInc/glacierDesktop/releases/tag/v0.4.2
 [0.4.1]: https://github.com/GlacierSecurityInc/glacierDesktop/releases/tag/v0.4.1
 [0.4.0]: https://github.com/GlacierSecurityInc/glacierDesktop/releases/tag/v0.4.0
