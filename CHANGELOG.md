@@ -12,6 +12,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
  
+## [0.4.5] - 2022-03-22
+        
+### Added
+
+### Changed
+
+### Fixed
+- Fixed some small UI issues
+- Fixed issue with display of fingerprints
+ 
 ## [0.4.4] - 2022-03-17
         
 ### Added
@@ -495,7 +505,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - Fix error handling for version check
 
-[Unreleased]: https://github.com/GlacierSecurityInc/glacierDesktop/compare/v0.4.4...HEAD
+[Unreleased]: https://github.com/GlacierSecurityInc/glacierDesktop/compare/v0.4.5...HEAD
+[0.4.5]: https://github.com/GlacierSecurityInc/glacierDesktop/releases/tag/v0.4.5
 [0.4.4]: https://github.com/GlacierSecurityInc/glacierDesktop/releases/tag/v0.4.4
 [0.4.3]: https://github.com/GlacierSecurityInc/glacierDesktop/releases/tag/v0.4.3
 [0.4.2]: https://github.com/GlacierSecurityInc/glacierDesktop/releases/tag/v0.4.2
